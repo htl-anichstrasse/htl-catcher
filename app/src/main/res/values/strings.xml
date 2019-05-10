@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HTL Collector</string>
+    <string name="htl_catcher">HTL Collector</string>
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="start_game">Spiel starten</string>
+    <string name="photo_first">Bitte zuerst ein Foto machen!!</string>
+    <string name="photo_and_start">Mach\' Dein Foto und Starte!\nmit offenem und geschlossenem Mund</string>
+</resources>
