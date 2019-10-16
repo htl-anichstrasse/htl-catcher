@@ -27,16 +27,17 @@ public class GameView extends View {
   @Getter
   private int speed = 0;
 
+  private final int MAX_LOGO_AMOUNT = 10;
+
   private List<ViewPoint> logosCaught = new ArrayList<>();
   private String meBmPath;
   private Bitmap meBm = null;
   private String meBmPath2;
   private Bitmap meBm2 = null;
   private final Bitmap htlLogo;
-  private Paint p = new Paint();
+  private Paint paint = new Paint();
   private ViewPoint cursorPoint;
   private List<ViewPoint> logos;
-  private int noLogos = 10;
 
   long start = new Date().getTime();
   boolean open = false;
@@ -58,7 +59,7 @@ public class GameView extends View {
     int cx = this.getWidth() / 2;
     int cy = this.getHeight() / 2;
     this.cursorPoint = new ViewPoint(cx, cy);
-    for (int i = 0; i < this.noLogos; i++) {
+    for (int i = 0; i < this.MAX_LOGO_AMOUNT; i++) {
       int rndX = this.getWidth();
       int rndY = NumberUtils.rnd(this.getHeight());
       this.logos.add(new ViewPoint(rndX, rndY));
@@ -99,8 +100,8 @@ public class GameView extends View {
 
     canvas.drawColor(Color.BLACK);
 
-    //p.setColor(Color.RED);
-    //canvas.drawCircle(cx, cy, 30, p);
+    //paint.setColor(Color.RED);
+    //canvas.drawCircle(cx, cy, 30, paint);
     cursorPoint.x = cursorPoint.x % this.getWidth();
     cursorPoint.y = cursorPoint.y % this.getHeight();
 
@@ -118,14 +119,14 @@ public class GameView extends View {
     }
 
     if (open) {
-      canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, p);
+      canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
     } else {
-      canvas.drawBitmap(meBm2, cursorPoint.x, cursorPoint.y, p);
+      canvas.drawBitmap(meBm2, cursorPoint.x, cursorPoint.y, paint);
     }
 
     for (int i = 0; i < logos.size(); i++) {
       logos.set(i, new ViewPoint(logos.get(i).x - speed, logos.get(i).y));
-      canvas.drawBitmap(htlLogo, logos.get(i).x, logos.get(i).y, p);
+      canvas.drawBitmap(htlLogo, logos.get(i).x, logos.get(i).y, paint);
 
     }
 
@@ -136,7 +137,7 @@ public class GameView extends View {
       }
     }
 
-    for (int i = logos.size(); i < noLogos; i++) {
+    for (int i = logos.size(); i < MAX_LOGO_AMOUNT; i++) {
       int rndX = this.getWidth();
       int rndY = NumberUtils.rnd(this.getHeight());
       logos.add(new ViewPoint(rndX, rndY));
