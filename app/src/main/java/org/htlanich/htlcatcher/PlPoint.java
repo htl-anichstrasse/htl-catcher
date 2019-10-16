@@ -2,6 +2,7 @@ package org.htlanich.htlcatcher;
 
 import android.graphics.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by albert on 06.11.17.
@@ -17,8 +18,8 @@ public class PlPoint extends Point {
    * @param radius the radius each point has (including actual point)
    * @return null, if no point intersects, otherwise the intersecting point
    */
-  public ArrayList<PlPoint> intersect(ArrayList<PlPoint> points, double radius) {
-    ArrayList<PlPoint> ps = new ArrayList<>();
+  public List<PlPoint> intersect(List<PlPoint> points, double radius) {
+    List<PlPoint> ps = new ArrayList<>();
     for (PlPoint p : points) {
       if (intersect(p, radius)) {
         ps.add(p);

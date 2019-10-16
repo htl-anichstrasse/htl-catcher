@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.htlanich.htlcatcher.utils.ImageUtils;
@@ -24,7 +25,7 @@ import org.htlanich.htlcatcher.utils.NumberUtils;
 public class GameView extends View {
 
   private int speed = 0;
-  private ArrayList<PlPoint> logosCatched = new ArrayList<>();
+  private List<PlPoint> logosCatched = new ArrayList<>();
   private String meBmPath = "";
   private Bitmap meBm = null;
   private String meBmPath2 = "";
@@ -34,12 +35,11 @@ public class GameView extends View {
 
   private Paint p = new Paint();
   private PlPoint plP;
-  private ArrayList<PlPoint> logos = new ArrayList<>();
+  private List<PlPoint> logos;
   private int noLogos = 10;
-  private boolean first = true;
 
-  Timer timer = null;
-  TimerTask myTimerTask = null;
+  Timer timer;
+  TimerTask myTimerTask;
 
   long start = new Date().getTime();
   boolean open = false;
@@ -54,12 +54,20 @@ public class GameView extends View {
       @Override
       public void run() {
         speed++;
-
       }
     };
 
     timer.schedule(myTimerTask, 0, 100 * 30);
 
+    logos = new ArrayList<>();
+    int cx = this.getWidth() / 2;
+    int cy = this.getHeight() / 2;
+    plP = new PlPoint(cx, cy);
+    for (int i = 0; i < noLogos; i++) {
+      int rndX = this.getWidth();
+      int rndY = NumberUtils.rnd(this.getHeight());
+      logos.add(new PlPoint(rndX, rndY));
+    }
   }
 
   public int getSpeed() {
@@ -82,18 +90,6 @@ public class GameView extends View {
 
   }
 
-  public void init() {
-    logos = new ArrayList<>();
-    int cx = this.getWidth() / 2;
-    int cy = this.getHeight() / 2;
-    plP = new PlPoint(cx, cy);
-    for (int i = 0; i < noLogos; i++) {
-      int rndX = this.getWidth();
-      int rndY = NumberUtils.rnd(this.getHeight());
-      logos.add(new PlPoint(rndX, rndY));
-    }
-  }
-
   public int getCx() {
     return plP.x;
   }
@@ -109,11 +105,6 @@ public class GameView extends View {
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-
-    if (first) {
-      init();
-      first = false;
-    }
 
     canvas.drawColor(Color.BLACK);
 
@@ -147,7 +138,7 @@ public class GameView extends View {
 
     }
 
-    ArrayList<PlPoint> toDel = new PlPoint(plP.x, plP.y).intersect(logos, 100);
+    List<PlPoint> toDel = new PlPoint(plP.x, plP.y).intersect(logos, 100);
     for (PlPoint td : toDel) {
       if (!logosCatched.contains(td)) {
         logosCatched.add(td);
