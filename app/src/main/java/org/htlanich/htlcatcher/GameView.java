@@ -49,8 +49,7 @@ public class GameView extends View {
     this.htlLogo = ImageUtils.scaleBm(decodedResource, 40, 40);
 
     // Speed timer
-    this.gameTicker = new Timer();
-    this.gameTicker.schedule(new TimerTask() {
+    new Timer().schedule(new TimerTask() {
       @Override
       public void run() {
         speed++;
@@ -59,7 +58,8 @@ public class GameView extends View {
 
     // Redraw timer
     final GameView gameView = this;
-    new Timer().schedule(new TimerTask() {
+    this.gameTicker = new Timer();
+    this.gameTicker.schedule(new TimerTask() {
       @Override
       public void run() {
         gameView.invalidate();
@@ -70,11 +70,6 @@ public class GameView extends View {
     int cx = this.getWidth() / 2;
     int cy = this.getHeight() / 2;
     this.cursorPoint = new ViewPoint(cx, cy);
-    for (int i = 0; i < this.MAX_LOGO_AMOUNT; i++) {
-      int rndX = this.getWidth();
-      int rndY = NumberUtils.rnd(this.getHeight());
-      this.logos.add(new ViewPoint(rndX, rndY));
-    }
   }
 
   public void setMeBm(String meBmPath) {
@@ -102,13 +97,12 @@ public class GameView extends View {
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
+    // Set color
     canvas.drawColor(Color.BLACK);
 
-    //paint.setColor(Color.RED);
-    //canvas.drawCircle(cx, cy, 30, paint);
+    // mirror
     cursorPoint.x = cursorPoint.x % this.getWidth();
     cursorPoint.y = cursorPoint.y % this.getHeight();
-
     if (cursorPoint.x < 0) {
       cursorPoint.x = this.getWidth();
     }
