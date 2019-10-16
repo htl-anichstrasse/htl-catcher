@@ -21,52 +21,45 @@ import org.htlanich.htlcatcher.utils.NumberUtils;
 /**
  * Created by albert on 06.11.17.
  */
-
 public class GameView extends View {
 
   private int speed = 0;
   private List<PlPoint> logosCatched = new ArrayList<>();
-  private String meBmPath = "";
+  private String meBmPath;
   private Bitmap meBm = null;
-  private String meBmPath2 = "";
+  private String meBmPath2;
   private Bitmap meBm2 = null;
-  private int noCollected = 0;
-  private Bitmap htlLogo = null;
+  private final Bitmap htlLogo;
 
   private Paint p = new Paint();
   private PlPoint plP;
   private List<PlPoint> logos;
   private int noLogos = 10;
 
-  Timer timer;
-  TimerTask myTimerTask;
-
   long start = new Date().getTime();
   boolean open = false;
 
-  public GameView(Context context) {
+  public GameView(final Context context) {
     super(context);
-    htlLogo = BitmapFactory.decodeResource(context.getResources(), htllogo_round);
-    htlLogo = ImageUtils.scaleBm(htlLogo, 40, 40);
+    final Bitmap decodedResource = BitmapFactory
+        .decodeResource(context.getResources(), htllogo_round);
+    this.htlLogo = ImageUtils.scaleBm(decodedResource, 40, 40);
 
-    timer = new Timer();
-    myTimerTask = new TimerTask() {
+    new Timer().schedule(new TimerTask() {
       @Override
       public void run() {
         speed++;
       }
-    };
+    }, 0, 100 * 30);
 
-    timer.schedule(myTimerTask, 0, 100 * 30);
-
-    logos = new ArrayList<>();
+    this.logos = new ArrayList<>();
     int cx = this.getWidth() / 2;
     int cy = this.getHeight() / 2;
-    plP = new PlPoint(cx, cy);
-    for (int i = 0; i < noLogos; i++) {
+    this.plP = new PlPoint(cx, cy);
+    for (int i = 0; i < this.noLogos; i++) {
       int rndX = this.getWidth();
       int rndY = NumberUtils.rnd(this.getHeight());
-      logos.add(new PlPoint(rndX, rndY));
+      this.logos.add(new PlPoint(rndX, rndY));
     }
   }
 
