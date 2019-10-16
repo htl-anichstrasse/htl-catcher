@@ -34,7 +34,7 @@ public class GameView extends View {
   private Bitmap meBm2 = null;
   private final Bitmap htlLogo;
   private Paint p = new Paint();
-  private ViewPoint plP;
+  private ViewPoint cursorPoint;
   private List<ViewPoint> logos;
   private int noLogos = 10;
 
@@ -57,7 +57,7 @@ public class GameView extends View {
     this.logos = new ArrayList<>();
     int cx = this.getWidth() / 2;
     int cy = this.getHeight() / 2;
-    this.plP = new ViewPoint(cx, cy);
+    this.cursorPoint = new ViewPoint(cx, cy);
     for (int i = 0; i < this.noLogos; i++) {
       int rndX = this.getWidth();
       int rndY = NumberUtils.rnd(this.getHeight());
@@ -82,15 +82,15 @@ public class GameView extends View {
   }
 
   public int getCx() {
-    return plP.x;
+    return cursorPoint.x;
   }
 
   public int getCy() {
-    return plP.y;
+    return cursorPoint.y;
   }
 
   public void setPlPoint(int x, int y) {
-    plP = new ViewPoint(x, y);
+    this.cursorPoint = new ViewPoint(x, y);
   }
 
   @Override
@@ -101,14 +101,14 @@ public class GameView extends View {
 
     //p.setColor(Color.RED);
     //canvas.drawCircle(cx, cy, 30, p);
-    plP.x = plP.x % this.getWidth();
-    plP.y = plP.y % this.getHeight();
+    cursorPoint.x = cursorPoint.x % this.getWidth();
+    cursorPoint.y = cursorPoint.y % this.getHeight();
 
-    if (plP.x < 0) {
-      plP.x = this.getWidth();
+    if (cursorPoint.x < 0) {
+      cursorPoint.x = this.getWidth();
     }
-    if (plP.y < 0) {
-      plP.y = this.getHeight();
+    if (cursorPoint.y < 0) {
+      cursorPoint.y = this.getHeight();
     }
 
     long now = new Date().getTime();
@@ -118,9 +118,9 @@ public class GameView extends View {
     }
 
     if (open) {
-      canvas.drawBitmap(meBm, plP.x, plP.y, p);
+      canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, p);
     } else {
-      canvas.drawBitmap(meBm2, plP.x, plP.y, p);
+      canvas.drawBitmap(meBm2, cursorPoint.x, cursorPoint.y, p);
     }
 
     for (int i = 0; i < logos.size(); i++) {
@@ -129,7 +129,7 @@ public class GameView extends View {
 
     }
 
-    List<ViewPoint> toDel = new ViewPoint(plP.x, plP.y).intersect(logos, 100);
+    List<ViewPoint> toDel = new ViewPoint(cursorPoint.x, cursorPoint.y).intersect(logos, 100);
     for (ViewPoint td : toDel) {
       if (!logosCatched.contains(td)) {
         logosCatched.add(td);
