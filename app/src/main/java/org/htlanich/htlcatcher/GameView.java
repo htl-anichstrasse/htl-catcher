@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import lombok.Getter;
 import org.htlanich.htlcatcher.utils.ImageUtils;
 import org.htlanich.htlcatcher.utils.NumberUtils;
 
@@ -23,14 +24,15 @@ import org.htlanich.htlcatcher.utils.NumberUtils;
  */
 public class GameView extends View {
 
+  @Getter
   private int speed = 0;
+
   private List<PlPoint> logosCatched = new ArrayList<>();
   private String meBmPath;
   private Bitmap meBm = null;
   private String meBmPath2;
   private Bitmap meBm2 = null;
   private final Bitmap htlLogo;
-
   private Paint p = new Paint();
   private PlPoint plP;
   private List<PlPoint> logos;
@@ -61,10 +63,6 @@ public class GameView extends View {
       int rndY = NumberUtils.rnd(this.getHeight());
       this.logos.add(new PlPoint(rndX, rndY));
     }
-  }
-
-  public int getSpeed() {
-    return speed;
   }
 
   private void message(String msg) {
