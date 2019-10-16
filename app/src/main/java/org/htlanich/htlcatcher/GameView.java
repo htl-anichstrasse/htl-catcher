@@ -27,7 +27,7 @@ public class GameView extends View {
   @Getter
   private int speed = 0;
 
-  private List<ViewPoint> logosCatched = new ArrayList<>();
+  private List<ViewPoint> logosCaught = new ArrayList<>();
   private String meBmPath;
   private Bitmap meBm = null;
   private String meBmPath2;
@@ -129,12 +129,10 @@ public class GameView extends View {
 
     }
 
-    List<ViewPoint> toDel = new ViewPoint(cursorPoint.x, cursorPoint.y).intersect(logos, 100);
-    for (ViewPoint td : toDel) {
-      if (!logosCatched.contains(td)) {
-        logosCatched.add(td);
-        logos.remove(td);
-        //Toast.makeText(getContext(), "Catched:" + logosCatched.size(), Toast.LENGTH_SHORT).show();
+    for (ViewPoint intersectingPoints : cursorPoint.intersect(logos, 100)) {
+      if (!logosCaught.contains(intersectingPoints)) {
+        logosCaught.add(intersectingPoints);
+        logos.remove(intersectingPoints);
       }
     }
 
@@ -146,12 +144,7 @@ public class GameView extends View {
   }
 
   public boolean lost() {
-    for (ViewPoint p : logos) {
-      if (p.x < 0) {
-        return true;
-      }
-    }
-    return false;
+    return logos.stream().anyMatch(logo -> logo.x < 0);
   }
 
 }
