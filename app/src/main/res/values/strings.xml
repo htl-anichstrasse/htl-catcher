@@ -6,4 +6,5 @@
   <string name="photo_first">Bitte zuerst ein Foto machen!!</string>
   <string name="photo_and_start">Mach\' Dein Foto und Starte!\nmit offenem und geschlossenem Mund</string>
   <string name="permission_not_granted">Die App benötigt Zugriff auf die Kamera</string>
+  <string name="game_lost">Du hast verloren</string>
 </resources>

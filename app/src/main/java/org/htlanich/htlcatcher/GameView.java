@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +25,9 @@ public class GameView extends View {
 
   @Getter
   private int speed = 0;
+
+  @Getter
+  private Timer gameTicker;
 
   private final int MAX_LOGO_AMOUNT = 10;
 
@@ -46,12 +48,23 @@ public class GameView extends View {
         .decodeResource(context.getResources(), htllogo_round);
     this.htlLogo = ImageUtils.scaleBm(decodedResource, 40, 40);
 
-    new Timer().schedule(new TimerTask() {
+    // Speed timer
+    this.gameTicker = new Timer();
+    this.gameTicker.schedule(new TimerTask() {
       @Override
       public void run() {
         speed++;
       }
     }, 0, 100 * 30);
+
+    // Redraw timer
+    final GameView gameView = this;
+    new Timer().schedule(new TimerTask() {
+      @Override
+      public void run() {
+        gameView.invalidate();
+      }
+    }, 0, 10);
 
     this.logos = new ArrayList<>();
     int cx = this.getWidth() / 2;
@@ -62,10 +75,6 @@ public class GameView extends View {
       int rndY = NumberUtils.rnd(this.getHeight());
       this.logos.add(new ViewPoint(rndX, rndY));
     }
-  }
-
-  private void message(String msg) {
-    Toast.makeText(GameView.this.getContext(), msg, Toast.LENGTH_SHORT).show();
   }
 
   public void setMeBm(String meBmPath) {
@@ -120,9 +129,8 @@ public class GameView extends View {
     }
 
     for (int i = 0; i < logos.size(); i++) {
-      logos.set(i, new ViewPoint(logos.get(i).x - speed, logos.get(i).y));
+      logos.get(i).x = logos.get(i).x - speed;
       canvas.drawBitmap(htlLogo, logos.get(i).x, logos.get(i).y, paint);
-
     }
 
     for (ViewPoint intersectingPoints : cursorPoint.intersect(logos, 100)) {

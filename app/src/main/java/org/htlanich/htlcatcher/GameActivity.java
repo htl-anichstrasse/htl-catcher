@@ -92,11 +92,10 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       int x = (int) (gameView.getCx() - pitch * 0.1);
       int y = (int) (gameView.getCy() + roll * 0.1);
       gameView.setCursorPoint(x, y);
-      gameView.invalidate();
 
       if (gameView.lost()) {
         on = false;
-        Toast.makeText(this, "lost!!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.game_lost), Toast.LENGTH_LONG).show();
       }
     }
   }
@@ -114,7 +113,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
       if (gameView.lost()) {
         on = false;
-        Toast.makeText(this, "lost!!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.game_lost), Toast.LENGTH_LONG).show();
       }
     }
   }
@@ -127,7 +126,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   @Override
   public boolean onTouch(View view, MotionEvent event) {
     gameView.setCursorPoint((int) event.getX(), (int) event.getY());
-    gameView.invalidate();
     return true;
   }
 }
