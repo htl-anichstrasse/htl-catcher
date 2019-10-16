@@ -21,12 +21,16 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    String bmPath = getIntent().getExtras().getString("player_bm");
-    String bmPath2 = getIntent().getExtras().getString("player_bm2");
-    mv = new GameView(this);
+
+    this.mv = new GameView(this);
+    if (getIntent().getExtras() != null) {
+      String bmPath = getIntent().getExtras().getString("player_bm");
+      String bmPath2 = getIntent().getExtras().getString("player_bm2");
+      this.mv.setMeBmPath(bmPath);
+      this.mv.setMeBmPath2(bmPath2);
+    }
+
     setContentView(mv);
-    mv.setMeBmPath(bmPath);
-    mv.setMeBmPath2(bmPath2);
     mv.setOnTouchListener(this);
     //setContentView(R.layout.activity_game);
   }
