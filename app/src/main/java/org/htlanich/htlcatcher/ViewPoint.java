@@ -9,9 +9,9 @@ import java.util.List;
  *
  * Created by albert on 06.11.17.
  */
-public class PlPoint extends Point {
+public class ViewPoint extends Point {
 
-  PlPoint(int x, int y) {
+  ViewPoint(int x, int y) {
     super(x, y);
   }
 
@@ -23,9 +23,9 @@ public class PlPoint extends Point {
    * @return null, if no point intersects, otherwise the intersecting points
    */
   @SuppressWarnings("SameParameterValue")
-  List<PlPoint> intersect(final List<PlPoint> points, final double radius) {
-    List<PlPoint> returnPoints = new ArrayList<>();
-    for (PlPoint point : points) {
+  List<ViewPoint> intersect(final List<ViewPoint> points, final double radius) {
+    List<ViewPoint> returnPoints = new ArrayList<>();
+    for (ViewPoint point : points) {
       if (intersect(point, radius)) {
         returnPoints.add(point);
       }
@@ -40,7 +40,7 @@ public class PlPoint extends Point {
    * @param radius the radius of the point
    * @return true if this point intersects with the provided point, false otherwise
    */
-  private boolean intersect(PlPoint point, double radius) {
+  private boolean intersect(ViewPoint point, double radius) {
     return
         Math.pow((this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y),
             0.5) < radius;
@@ -48,7 +48,7 @@ public class PlPoint extends Point {
 
   @Override
   public String toString() {
-    return "PlPoint{x=" + x + ", y=" + y + "}";
+    return "ViewPoint{x=" + x + ", y=" + y + "}";
   }
 
 }

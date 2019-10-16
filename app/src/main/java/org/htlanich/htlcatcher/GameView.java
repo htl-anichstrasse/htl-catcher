@@ -27,15 +27,15 @@ public class GameView extends View {
   @Getter
   private int speed = 0;
 
-  private List<PlPoint> logosCatched = new ArrayList<>();
+  private List<ViewPoint> logosCatched = new ArrayList<>();
   private String meBmPath;
   private Bitmap meBm = null;
   private String meBmPath2;
   private Bitmap meBm2 = null;
   private final Bitmap htlLogo;
   private Paint p = new Paint();
-  private PlPoint plP;
-  private List<PlPoint> logos;
+  private ViewPoint plP;
+  private List<ViewPoint> logos;
   private int noLogos = 10;
 
   long start = new Date().getTime();
@@ -57,11 +57,11 @@ public class GameView extends View {
     this.logos = new ArrayList<>();
     int cx = this.getWidth() / 2;
     int cy = this.getHeight() / 2;
-    this.plP = new PlPoint(cx, cy);
+    this.plP = new ViewPoint(cx, cy);
     for (int i = 0; i < this.noLogos; i++) {
       int rndX = this.getWidth();
       int rndY = NumberUtils.rnd(this.getHeight());
-      this.logos.add(new PlPoint(rndX, rndY));
+      this.logos.add(new ViewPoint(rndX, rndY));
     }
   }
 
@@ -90,7 +90,7 @@ public class GameView extends View {
   }
 
   public void setPlPoint(int x, int y) {
-    plP = new PlPoint(x, y);
+    plP = new ViewPoint(x, y);
   }
 
   @Override
@@ -124,13 +124,13 @@ public class GameView extends View {
     }
 
     for (int i = 0; i < logos.size(); i++) {
-      logos.set(i, new PlPoint(logos.get(i).x - speed, logos.get(i).y));
+      logos.set(i, new ViewPoint(logos.get(i).x - speed, logos.get(i).y));
       canvas.drawBitmap(htlLogo, logos.get(i).x, logos.get(i).y, p);
 
     }
 
-    List<PlPoint> toDel = new PlPoint(plP.x, plP.y).intersect(logos, 100);
-    for (PlPoint td : toDel) {
+    List<ViewPoint> toDel = new ViewPoint(plP.x, plP.y).intersect(logos, 100);
+    for (ViewPoint td : toDel) {
       if (!logosCatched.contains(td)) {
         logosCatched.add(td);
         logos.remove(td);
@@ -141,12 +141,12 @@ public class GameView extends View {
     for (int i = logos.size(); i < noLogos; i++) {
       int rndX = this.getWidth();
       int rndY = NumberUtils.rnd(this.getHeight());
-      logos.add(new PlPoint(rndX, rndY));
+      logos.add(new ViewPoint(rndX, rndY));
     }
   }
 
   public boolean lost() {
-    for (PlPoint p : logos) {
+    for (ViewPoint p : logos) {
       if (p.x < 0) {
         return true;
       }
