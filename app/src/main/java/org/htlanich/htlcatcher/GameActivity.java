@@ -27,8 +27,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     this.gameView = new GameView(this);
     this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     if (getIntent().getExtras() != null) {
-      this.gameView.setMeBmPath(getIntent().getExtras().getString("player_bm"));
-      this.gameView.setMeBmPath2(getIntent().getExtras().getString("player_bm2"));
+      this.gameView.setMeBm(getIntent().getExtras().getString("player_bm"));
+      this.gameView.setMeBm2(getIntent().getExtras().getString("player_bm2"));
     }
 
     setContentView(gameView);

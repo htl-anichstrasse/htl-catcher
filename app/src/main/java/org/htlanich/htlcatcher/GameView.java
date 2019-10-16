@@ -30,9 +30,7 @@ public class GameView extends View {
   private final int MAX_LOGO_AMOUNT = 10;
 
   private List<ViewPoint> logosCaught = new ArrayList<>();
-  private String meBmPath;
   private Bitmap meBm = null;
-  private String meBmPath2;
   private Bitmap meBm2 = null;
   private final Bitmap htlLogo;
   private Paint paint = new Paint();
@@ -70,16 +68,13 @@ public class GameView extends View {
     Toast.makeText(GameView.this.getContext(), msg, Toast.LENGTH_SHORT).show();
   }
 
-  public void setMeBmPath(String meBmPath) {
-    this.meBmPath = meBmPath;
+  public void setMeBm(String meBmPath) {
     this.meBm = ImageUtils.readBmFromFile(meBmPath);
 
   }
 
-  public void setMeBmPath2(String meBmPath2) {
-    this.meBmPath2 = meBmPath2;
+  public void setMeBm2(String meBmPath2) {
     this.meBm2 = ImageUtils.readBmFromFile(meBmPath2);
-
   }
 
   public int getCx() {
