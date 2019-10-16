@@ -1,4 +1,3 @@
-# HTLCatcher (still under development)
-Simple Android Game where the player is controlled by moving the smartphone. Simple icons have to be catched
+# HTLCatcher
 
-
+Cool Android HTL logo catcher game made by Greini, Josh, Nicolaus and Hannes
