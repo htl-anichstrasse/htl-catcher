@@ -89,7 +89,7 @@ public class GameView extends View {
     return cursorPoint.y;
   }
 
-  public void setPlPoint(int x, int y) {
+  public void setCursorPoint(int x, int y) {
     this.cursorPoint = new ViewPoint(x, y);
   }
 

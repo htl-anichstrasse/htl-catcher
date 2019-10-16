@@ -1,5 +1,6 @@
 package org.htlanich.htlcatcher;
 
+import android.annotation.SuppressLint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,49 +12,47 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+@SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements SensorEventListener,
     View.OnTouchListener {
 
-  private GameView mv;
-  private SensorManager sm;
+  private GameView gameView;
+  private SensorManager sensorManager;
   private boolean on = true;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    this.mv = new GameView(this);
+    this.gameView = new GameView(this);
+    this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     if (getIntent().getExtras() != null) {
-      String bmPath = getIntent().getExtras().getString("player_bm");
-      String bmPath2 = getIntent().getExtras().getString("player_bm2");
-      this.mv.setMeBmPath(bmPath);
-      this.mv.setMeBmPath2(bmPath2);
+      this.gameView.setMeBmPath(getIntent().getExtras().getString("player_bm"));
+      this.gameView.setMeBmPath2(getIntent().getExtras().getString("player_bm2"));
     }
 
-    setContentView(mv);
-    mv.setOnTouchListener(this);
-    //setContentView(R.layout.activity_game);
+    setContentView(gameView);
+    gameView.setOnTouchListener(this);
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-    //Sensor acc = sm.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-    //sm.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL);
+    //Sensor acc = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+    //sensorManager.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL);
 
-    Sensor accS = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    sm.registerListener(this, accS, SensorManager.SENSOR_DELAY_NORMAL);
+    Sensor accS = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    sensorManager.registerListener(this, accS, SensorManager.SENSOR_DELAY_NORMAL);
 
-    Sensor mfS = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-    sm.registerListener(this, mfS, SensorManager.SENSOR_DELAY_NORMAL);
+    Sensor mfS = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+    sensorManager.registerListener(this, mfS, SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   @Override
   protected void onPause() {
     super.onPause();
-    sm.unregisterListener(this);
+    sensorManager.unregisterListener(this);
   }
 
   float[] gravitation = null;
@@ -90,12 +89,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       float pitch = Math.round(Math.toDegrees(event.values[0]));
       float roll = Math.round(Math.toDegrees(event.values[1]));
 
-      int x = (int) (mv.getCx() - pitch * 0.1);
-      int y = (int) (mv.getCy() + roll * 0.1);
-      mv.setPlPoint(x, y);
-      mv.invalidate();
+      int x = (int) (gameView.getCx() - pitch * 0.1);
+      int y = (int) (gameView.getCy() + roll * 0.1);
+      gameView.setCursorPoint(x, y);
+      gameView.invalidate();
 
-      if (mv.lost()) {
+      if (gameView.lost()) {
         on = false;
         Toast.makeText(this, "lost!!", Toast.LENGTH_LONG).show();
       }
@@ -108,12 +107,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       //TODO just add pitch and roll to gameview, not the point
       float pitch = event.values[2];
       float roll = event.values[1];
-      int x = (int) (mv.getCx() - pitch * (mv.getSpeed() * 10000 + 1));
-      int y = (int) (mv.getCy() - roll * (mv.getSpeed() * 10000 + 1));
-      mv.setPlPoint(x, y);
-      mv.invalidate();
+      int x = (int) (gameView.getCx() - pitch * (gameView.getSpeed() * 10000 + 1));
+      int y = (int) (gameView.getCy() - roll * (gameView.getSpeed() * 10000 + 1));
+      gameView.setCursorPoint(x, y);
+      gameView.invalidate();
 
-      if (mv.lost()) {
+      if (gameView.lost()) {
         on = false;
         Toast.makeText(this, "lost!!", Toast.LENGTH_LONG).show();
       }
@@ -122,14 +121,13 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
   @Override
   public void onAccuracyChanged(Sensor sensor, int i) {
-    //DO NOTHING
+    // dismiss
   }
 
   @Override
   public boolean onTouch(View view, MotionEvent event) {
-
-    mv.setPlPoint((int) event.getX(), (int) event.getY());
-    mv.invalidate();
+    gameView.setCursorPoint((int) event.getX(), (int) event.getY());
+    gameView.invalidate();
     return true;
   }
 }
