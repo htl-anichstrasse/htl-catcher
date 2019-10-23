@@ -39,14 +39,11 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   protected void onResume() {
     super.onResume();
 
-    //Sensor acc = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-    //sensorManager.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL);
-
-    Sensor accS = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    sensorManager.registerListener(this, accS, SensorManager.SENSOR_DELAY_NORMAL);
-
-    Sensor mfS = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-    sensorManager.registerListener(this, mfS, SensorManager.SENSOR_DELAY_NORMAL);
+    // Register sensor listeners for catcher controls
+    sensorManager.registerListener(this,
+        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+    sensorManager.registerListener(this,
+        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   @Override
