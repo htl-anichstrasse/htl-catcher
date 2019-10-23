@@ -18,7 +18,7 @@ import org.htlanich.htlcatcher.util.ViewPoint;
 /**
  * Manages game controls
  *
- * @author Albert Greinöcher
+ * @author Albert Greinöcker
  * @since 06.11.17
  */
 @SuppressLint("ClickableViewAccessibility")
