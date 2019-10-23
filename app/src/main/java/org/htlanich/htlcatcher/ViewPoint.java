@@ -5,12 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a point in the HTLCatcher GameView
+ * Represents a point in the HTL Catcher GameView canvas
  *
- * Created by albert on 06.11.17.
+ * @author Albert Greinöcker
+ * @since 06.11.17
  */
 public class ViewPoint extends Point {
 
+  /**
+   * Creates a new point on the GameView canvas
+   *
+   * @param x the x coordinate of the point
+   * @param y the y coordinate of the point
+   */
   ViewPoint(int x, int y) {
     super(x, y);
   }

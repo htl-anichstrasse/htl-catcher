@@ -2,6 +2,7 @@ package org.htlanich.htlcatcher;
 
 import static org.htlanich.htlcatcher.R.mipmap.htllogo_round;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,37 +11,84 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
+import lombok.Setter;
 import org.htlanich.htlcatcher.utils.ImageUtils;
 import org.htlanich.htlcatcher.utils.NumberUtils;
 
 /**
- * Created by albert on 06.11.17.
+ * Manages the game's display, calculations for rendering take place here
+ *
+ * @author Joshua Winkler
+ * @author Albert Greinöcher
+ * @since 06.11.17
  */
 public class GameView extends View {
 
+  /**
+   * Holds the speed of HTL logos
+   */
   @Getter
   private int speed = 0;
 
+  /**
+   * Ticks the game for redrawing the canvas
+   */
   @Getter
   private Timer gameTicker;
 
-  private final int MAX_LOGO_AMOUNT = 10;
-
+  /**
+   * Contains a list with all caught logos
+   */
   private List<ViewPoint> logosCaught = new ArrayList<>();
-  private Bitmap meBm = null;
-  private Bitmap meBm2 = null;
+
+  /**
+   * Second player icon bitmap
+   */
+  @Setter
+  private Bitmap meBm;
+
+  /**
+   * The first player icon bitmap
+   */
+  @Setter
+  private Bitmap meBm2;
+
+  /**
+   * Contains a bitmap for the HTL logo (these will be spawned at the right side of the screen)
+   */
   private final Bitmap htlLogo;
-  private Paint paint = new Paint();
+
+  /**
+   * Paint instance used for the canvas
+   */
+  private final Paint paint = new Paint();
+
+  /**
+   * Holds the current position of the cursor
+   */
+  @Getter
+  @Setter
   private ViewPoint cursorPoint;
+
+  /**
+   * Logos currently on the canvas
+   */
+  @Getter
   private List<ViewPoint> logos;
 
-  long start = new Date().getTime();
-  boolean open = false;
+  /**
+   * Contains a time value determining when the cursor icon was swapped for the last time
+   */
+  private long iconTimestamp = System.currentTimeMillis();
+
+  /**
+   * Determines the cursor icon to use, true if the first icon should be used, false otherwise
+   */
+  private boolean open = false;
 
   public GameView(final Context context) {
     super(context);
@@ -72,27 +120,6 @@ public class GameView extends View {
     this.cursorPoint = new ViewPoint(cx, cy);
   }
 
-  public void setMeBm(String meBmPath) {
-    this.meBm = ImageUtils.readBmFromFile(meBmPath);
-
-  }
-
-  public void setMeBm2(String meBmPath2) {
-    this.meBm2 = ImageUtils.readBmFromFile(meBmPath2);
-  }
-
-  public int getCx() {
-    return cursorPoint.x;
-  }
-
-  public int getCy() {
-    return cursorPoint.y;
-  }
-
-  public void setCursorPoint(int x, int y) {
-    this.cursorPoint = new ViewPoint(x, y);
-  }
-
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
@@ -100,7 +127,7 @@ public class GameView extends View {
     // Set color
     canvas.drawColor(Color.BLACK);
 
-    // mirror
+    // Mirror icons
     cursorPoint.x = cursorPoint.x % this.getWidth();
     cursorPoint.y = cursorPoint.y % this.getHeight();
     if (cursorPoint.x < 0) {
@@ -110,39 +137,51 @@ public class GameView extends View {
       cursorPoint.y = this.getHeight();
     }
 
-    long now = new Date().getTime();
-    if (now - start > 500) {
-      start = now;
+    // Swap first and second icon every 0.5s
+    long now = System.currentTimeMillis();
+    if (now - iconTimestamp > 500) {
+      iconTimestamp = now;
       open = !open;
     }
-
     if (open) {
       canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
     } else {
       canvas.drawBitmap(meBm2, cursorPoint.x, cursorPoint.y, paint);
     }
 
+    // Move logos on canvas
     for (int i = 0; i < logos.size(); i++) {
       logos.get(i).x = logos.get(i).x - speed;
       canvas.drawBitmap(htlLogo, logos.get(i).x, logos.get(i).y, paint);
     }
 
-    for (ViewPoint intersectingPoints : cursorPoint.intersect(logos, 100)) {
-      if (!logosCaught.contains(intersectingPoints)) {
-        logosCaught.add(intersectingPoints);
-        logos.remove(intersectingPoints);
+    // Check caught logos (intersecting with cursor)
+    for (final ViewPoint intersectingPoint : cursorPoint.intersect(logos, 100)) {
+      if (!logosCaught.contains(intersectingPoint)) {
+        logosCaught.add(intersectingPoint);
+        logos.remove(intersectingPoint);
       }
     }
 
-    for (int i = logos.size(); i < MAX_LOGO_AMOUNT; i++) {
-      int rndX = this.getWidth();
-      int rndY = NumberUtils.rnd(this.getHeight());
-      logos.add(new ViewPoint(rndX, rndY));
+    // Add new logos to screen if max amount of logos has not been reached (max logo amount = 10)
+    for (int i = logos.size(); i < 10; i++) {
+      // TODO: Preallocate memory for new HTL logos
+      logos.add(new ViewPoint(this.getWidth(), NumberUtils.rnd(this.getHeight())));
     }
   }
 
+  /**
+   * Checks if the player has lost the game because a logo has passed the left side of the screen
+   *
+   * @return true if the player has lost, false otherwise
+   */
   public boolean lost() {
-    return logos.stream().anyMatch(logo -> logo.x < 0);
+    for (final ViewPoint logo : logos) {
+      if (logo.x < 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

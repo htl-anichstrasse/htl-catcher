@@ -11,7 +11,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+import org.htlanich.htlcatcher.utils.ImageUtils;
 
+/**
+ * Manages game controls
+ *
+ * @author Albert Greinöcher
+ * @since 06.11.17
+ */
 @SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements SensorEventListener,
     View.OnTouchListener {
@@ -20,6 +27,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   private SensorManager sensorManager;
   private boolean on = true;
 
+  float[] gravitation = null;
+  float[] magnetField = null;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -27,8 +37,10 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     this.gameView = new GameView(this);
     this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     if (getIntent().getExtras() != null) {
-      this.gameView.setMeBm(getIntent().getExtras().getString("player_bm"));
-      this.gameView.setMeBm2(getIntent().getExtras().getString("player_bm2"));
+      this.gameView
+          .setMeBm(ImageUtils.readBmFromFile(getIntent().getExtras().getString("player_bm")));
+      this.gameView
+          .setMeBm2(ImageUtils.readBmFromFile(getIntent().getExtras().getString("player_bm2")));
     }
 
     setContentView(gameView);
@@ -41,20 +53,22 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     // Register sensor listeners for catcher controls
     sensorManager.registerListener(this,
-        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+        SensorManager.SENSOR_DELAY_NORMAL);
     sensorManager.registerListener(this,
-        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+        SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   @Override
   protected void onPause() {
     super.onPause();
+
+    // Don't use sensors in paused app state
     sensorManager.unregisterListener(this);
   }
 
-  float[] gravitation = null;
-  float[] magnetField = null;
-
+  @Override
   public void onSensorChanged(SensorEvent event) {
     if (on) {
       float[] werte = event.values.clone();
@@ -86,27 +100,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       float pitch = Math.round(Math.toDegrees(event.values[0]));
       float roll = Math.round(Math.toDegrees(event.values[1]));
 
-      int x = (int) (gameView.getCx() - pitch * 0.1);
-      int y = (int) (gameView.getCy() + roll * 0.1);
-      gameView.setCursorPoint(x, y);
-
-      if (gameView.lost()) {
-        on = false;
-        Toast.makeText(this, getString(R.string.game_lost), Toast.LENGTH_LONG).show();
-      }
-    }
-  }
-
-  //@Override
-  public void onSensorChanged2(SensorEvent event) {
-    if (on) {
-      //TODO just add pitch and roll to gameview, not the point
-      float pitch = event.values[2];
-      float roll = event.values[1];
-      int x = (int) (gameView.getCx() - pitch * (gameView.getSpeed() * 10000 + 1));
-      int y = (int) (gameView.getCy() - roll * (gameView.getSpeed() * 10000 + 1));
-      gameView.setCursorPoint(x, y);
-      gameView.invalidate();
+      int x = (int) (gameView.getCursorPoint().x - pitch * 0.1);
+      int y = (int) (gameView.getCursorPoint().y + roll * 0.1);
+      gameView.setCursorPoint(new ViewPoint(x, y));
 
       if (gameView.lost()) {
         on = false;
@@ -116,13 +112,13 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   }
 
   @Override
-  public void onAccuracyChanged(Sensor sensor, int i) {
-    // dismiss
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    // might use this for debug purposes, for now, ignore sensor accuarcy changes
   }
 
   @Override
   public boolean onTouch(View view, MotionEvent event) {
-    gameView.setCursorPoint((int) event.getX(), (int) event.getY());
+    gameView.setCursorPoint(new ViewPoint((int) event.getX(), (int) event.getY()));
     return true;
   }
 }
