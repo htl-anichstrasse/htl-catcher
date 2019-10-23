@@ -1,4 +1,4 @@
-package org.htlanich.htlcatcher;
+package org.htlanich.htlcatcher.game;
 
 import android.annotation.SuppressLint;
 import android.hardware.Sensor;
@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+import org.htlanich.htlcatcher.R;
+import org.htlanich.htlcatcher.util.ViewPoint;
 import org.htlanich.htlcatcher.utils.ImageUtils;
 
 /**

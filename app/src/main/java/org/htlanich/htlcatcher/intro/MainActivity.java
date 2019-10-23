@@ -1,4 +1,4 @@
-package org.htlanich.htlcatcher;
+package org.htlanich.htlcatcher.intro;
 
 import android.Manifest.permission;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
+import org.htlanich.htlcatcher.game.GameActivity;
+import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.utils.ImageUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
       Bitmap bm = (Bitmap) extras.get("data");
 
       try {
-        Bitmap meBm = ImageUtils.scaleBm(bm, 200, 200);
+        Bitmap meBm = Bitmap.createScaledBitmap(bm, 200, 200, false);
         ib.setImageBitmap(meBm);
         ImageUtils.saveImage(getFilesDir() + "/PHOTO", "me_disp.png", meBm);
         Bitmap newBm = ImageUtils.getRoundedCroppedBitmap(bm);
-        newBm = ImageUtils.scaleBm(newBm, 100, 150);
+        newBm = Bitmap.createScaledBitmap(newBm, 100, 150, false);
         ImageUtils.saveImage(getFilesDir() + "/PHOTO", "me.png", newBm);
       } catch (IOException e) {
         e.printStackTrace();

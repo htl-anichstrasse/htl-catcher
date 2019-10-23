@@ -1,8 +1,7 @@
-package org.htlanich.htlcatcher;
+package org.htlanich.htlcatcher.game;
 
 import static org.htlanich.htlcatcher.R.mipmap.htllogo_round;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,12 +11,13 @@ import android.graphics.Paint;
 import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
 import lombok.Setter;
+import org.htlanich.htlcatcher.util.ViewPoint;
 import org.htlanich.htlcatcher.utils.ImageUtils;
-import org.htlanich.htlcatcher.utils.NumberUtils;
 
 /**
  * Manages the game's display, calculations for rendering take place here
@@ -68,6 +68,11 @@ public class GameView extends View {
   private final Paint paint = new Paint();
 
   /**
+   * Random generator for game's rendering
+   */
+  private final Random random = new Random();
+
+  /**
    * Holds the current position of the cursor
    */
   @Getter
@@ -94,7 +99,7 @@ public class GameView extends View {
     super(context);
     final Bitmap decodedResource = BitmapFactory
         .decodeResource(context.getResources(), htllogo_round);
-    this.htlLogo = ImageUtils.scaleBm(decodedResource, 40, 40);
+    this.htlLogo = Bitmap.createScaledBitmap(decodedResource, 40, 40, false);
 
     // Speed timer
     new Timer().schedule(new TimerTask() {
@@ -166,7 +171,7 @@ public class GameView extends View {
     // Add new logos to screen if max amount of logos has not been reached (max logo amount = 10)
     for (int i = logos.size(); i < 10; i++) {
       // TODO: Preallocate memory for new HTL logos
-      logos.add(new ViewPoint(this.getWidth(), NumberUtils.rnd(this.getHeight())));
+      logos.add(new ViewPoint(this.getWidth(), random.nextInt(this.getHeight())));
     }
   }
 

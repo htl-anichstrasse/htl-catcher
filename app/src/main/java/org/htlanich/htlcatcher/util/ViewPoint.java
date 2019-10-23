@@ -1,4 +1,4 @@
-package org.htlanich.htlcatcher;
+package org.htlanich.htlcatcher.util;
 
 import android.graphics.Point;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class ViewPoint extends Point {
    * @param x the x coordinate of the point
    * @param y the y coordinate of the point
    */
-  ViewPoint(int x, int y) {
+  public ViewPoint(int x, int y) {
     super(x, y);
   }
 
@@ -30,7 +30,7 @@ public class ViewPoint extends Point {
    * @return null, if no point intersects, otherwise the intersecting points
    */
   @SuppressWarnings("SameParameterValue")
-  List<ViewPoint> intersect(final List<ViewPoint> points, final double radius) {
+  public List<ViewPoint> intersect(final List<ViewPoint> points, final double radius) {
     List<ViewPoint> returnPoints = new ArrayList<>();
     for (ViewPoint point : points) {
       if (intersect(point, radius)) {
