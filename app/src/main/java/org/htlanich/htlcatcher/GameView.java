@@ -46,13 +46,13 @@ public class GameView extends View {
   private List<ViewPoint> logosCaught = new ArrayList<>();
 
   /**
-   * Second player icon bitmap
+   * The first player icon bitmap
    */
   @Setter
   private Bitmap meBm;
 
   /**
-   * The first player icon bitmap
+   * The second player icon bitmap
    */
   @Setter
   private Bitmap meBm2;
