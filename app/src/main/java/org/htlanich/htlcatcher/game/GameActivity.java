@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
-import org.htlanich.htlcatcher.R;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.htlanich.htlcatcher.util.ViewPoint;
 
 /**
@@ -38,7 +38,10 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    // Instantiate view for activity
     this.gameView = new GameView(this);
+
+    // Sensor manager, set icons
     this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     if (getIntent().getExtras() != null) {
       this.gameView
@@ -48,9 +51,25 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     } else {
       Log.e(LOG_TAG, "Could not fetch intent extras bundle");
     }
-
-    setContentView(gameView);
     gameView.setOnTouchListener(this);
+
+    // Register game timer
+    new Timer().schedule(new TimerTask() {
+      @Override
+      public void run() {
+        // Redraw canvas
+        gameView.invalidate();
+
+        // Check loss
+        if (gameView.lost()) {
+          on = false;
+          // Toast.makeText(this, getString(R.string.game_lost), Toast.LENGTH_LONG).show();
+        }
+      }
+    }, 0, 10);
+
+    // Register view
+    setContentView(gameView);
   }
 
   @Override
@@ -109,11 +128,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       int x = (int) (gameView.getCursorPoint().x - pitch * 0.1);
       int y = (int) (gameView.getCursorPoint().y + roll * 0.1);
       gameView.setCursorPoint(new ViewPoint(x, y));
-
-      if (gameView.lost()) {
-        on = false;
-        Toast.makeText(this, getString(R.string.game_lost), Toast.LENGTH_LONG).show();
-      }
     }
   }
 
