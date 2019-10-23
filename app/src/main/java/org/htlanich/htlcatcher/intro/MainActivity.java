@@ -33,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
   private static String LOG_TAG = "MAIN_ACTIVITY";
 
   static final int REQUEST_IMAGE_CAPTURE1 = 1;
-  static final int REQUEST_IMAGE_CAPTURE2 = 2;
   ImageButton ib = null;
-  ImageButton ib2 = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +41,17 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     ib = findViewById(R.id.takePhotoBt);
-    ib2 = findViewById(R.id.takePhotoBt2);
 
     File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
     if (img.exists()) {
       ib.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
-    }
-
-    File img2 = new File(getFilesDir() + "/PHOTO", "me_disp2.png");
-    if (img2.exists()) {
-      ib2.setImageBitmap(BitmapFactory.decodeFile(img2.getAbsolutePath()));
     }
   }
 
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
-    if (requestCode == REQUEST_IMAGE_CAPTURE1 || requestCode == REQUEST_IMAGE_CAPTURE2) {
+    if (requestCode == REQUEST_IMAGE_CAPTURE1) {
       if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         dispatchTakePictureIntent(requestCode);
       } else {
@@ -70,11 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
   public void photo1(View view) {
     dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE1);
-  }
-
-
-  public void photo2(View view) {
-    dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE2);
   }
 
   private void dispatchTakePictureIntent(int id) {
@@ -112,12 +99,6 @@ public class MainActivity extends AppCompatActivity {
       ib.setImageBitmap(scaledBitmap);
       saveImage(getFilesDir() + "/PHOTO", "me_disp.png", scaledBitmap);
       saveImage(getFilesDir() + "/PHOTO", "me.png",
-          Bitmap.createScaledBitmap(getRoundedCroppedBitmap(bitmap), 100, 150, false));
-    } else if (requestCode == REQUEST_IMAGE_CAPTURE2 && resultCode == RESULT_OK) {
-      final Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
-      ib2.setImageBitmap(scaledBitmap);
-      saveImage(getFilesDir() + "/PHOTO", "me_disp2.png", scaledBitmap);
-      saveImage(getFilesDir() + "/PHOTO", "me2.png",
           Bitmap.createScaledBitmap(getRoundedCroppedBitmap(bitmap), 100, 150, false));
     }
   }

@@ -3,14 +3,12 @@ package org.htlanich.htlcatcher.game;
 import static org.htlanich.htlcatcher.R.mipmap.htllogo_round;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,7 +16,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
 import lombok.Setter;
-import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.util.ViewPoint;
 
 /**
@@ -48,12 +45,6 @@ public class GameView extends View {
   private Bitmap meBm;
 
   /**
-   * The second player icon bitmap
-   */
-  @Setter
-  private Bitmap meBm2;
-
-  /**
    * Contains a bitmap for the HTL logo (these will be spawned at the right side of the screen)
    */
   private final Bitmap htlLogo;
@@ -80,16 +71,6 @@ public class GameView extends View {
    */
   @Getter
   private List<ViewPoint> logos;
-
-  /**
-   * Contains a time value determining when the cursor icon was swapped for the last time
-   */
-  private long iconTimestamp = System.currentTimeMillis();
-
-  /**
-   * Determines the cursor icon to use, true if the first icon should be used, false otherwise
-   */
-  private boolean open = false;
 
   public GameView(final Context context) {
     super(context);
@@ -128,17 +109,8 @@ public class GameView extends View {
       cursorPoint.y = this.getHeight();
     }
 
-    // Swap first and second icon every 0.5s
-    long now = System.currentTimeMillis();
-    if (now - iconTimestamp > 500) {
-      iconTimestamp = now;
-      open = !open;
-    }
-    if (open) {
-      canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
-    } else {
-      canvas.drawBitmap(meBm2, cursorPoint.x, cursorPoint.y, paint);
-    }
+    // Draw cursor
+    canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
 
     // Move logos on canvas
     for (int i = 0; i < logos.size(); i++) {

@@ -46,8 +46,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     if (getIntent().getExtras() != null) {
       this.gameView
           .setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
-      this.gameView
-          .setMeBm2(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm2")));
     } else {
       Log.e(LOG_TAG, "Could not fetch intent extras bundle");
     }
