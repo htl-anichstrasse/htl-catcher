@@ -3,12 +3,14 @@ package org.htlanich.htlcatcher.game;
 import static org.htlanich.htlcatcher.R.mipmap.htllogo_round;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,8 +18,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
 import lombok.Setter;
+import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.util.ViewPoint;
-import org.htlanich.htlcatcher.utils.ImageUtils;
 
 /**
  * Manages the game's display, calculations for rendering take place here

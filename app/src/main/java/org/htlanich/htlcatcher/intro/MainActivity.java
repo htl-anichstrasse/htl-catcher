@@ -4,6 +4,14 @@ import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -15,12 +23,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import org.htlanich.htlcatcher.game.GameActivity;
 import org.htlanich.htlcatcher.R;
-import org.htlanich.htlcatcher.utils.ImageUtils;
+import org.htlanich.htlcatcher.game.GameActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+  private static String LOG_TAG = "MAIN_ACTIVITY";
 
   static final int REQUEST_IMAGE_CAPTURE1 = 1;
   static final int REQUEST_IMAGE_CAPTURE2 = 2;
@@ -37,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
     File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
     if (img.exists()) {
-      ib.setImageBitmap(ImageUtils.readBmFromFile(img.getAbsolutePath()));
+      ib.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
     }
 
     File img2 = new File(getFilesDir() + "/PHOTO", "me_disp2.png");
     if (img2.exists()) {
-      ib2.setImageBitmap(ImageUtils.readBmFromFile(img2.getAbsolutePath()));
+      ib2.setImageBitmap(BitmapFactory.decodeFile(img2.getAbsolutePath()));
     }
   }
 
@@ -82,41 +92,37 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    System.out.println("Received " + requestCode);
+    // Logging, testing
+    Log.d(LOG_TAG, "Received activity result code " + resultCode);
+    final Bundle extras = data.getExtras();
+    if (extras == null) {
+      Log.e(LOG_TAG, "Could not fetch activity result extras bundle");
+      return;
+    }
+
+    final Bitmap bitmap = (Bitmap) extras.get("data");
+    if (bitmap == null) {
+      Log.e(LOG_TAG, "Could not fetch activity result extras data");
+      return;
+    }
+
+    // Handling activity result request code
     if (requestCode == REQUEST_IMAGE_CAPTURE1 && resultCode == RESULT_OK) {
-      Log.d("PHOTO", "1");
-      Bundle extras = data.getExtras();
-      Bitmap bm = (Bitmap) extras.get("data");
-
-      try {
-        Bitmap meBm = Bitmap.createScaledBitmap(bm, 200, 200, false);
-        ib.setImageBitmap(meBm);
-        ImageUtils.saveImage(getFilesDir() + "/PHOTO", "me_disp.png", meBm);
-        Bitmap newBm = ImageUtils.getRoundedCroppedBitmap(bm);
-        newBm = Bitmap.createScaledBitmap(newBm, 100, 150, false);
-        ImageUtils.saveImage(getFilesDir() + "/PHOTO", "me.png", newBm);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      final Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+      ib.setImageBitmap(scaledBitmap);
+      saveImage(getFilesDir() + "/PHOTO", "me_disp.png", scaledBitmap);
+      saveImage(getFilesDir() + "/PHOTO", "me.png",
+          Bitmap.createScaledBitmap(getRoundedCroppedBitmap(bitmap), 100, 150, false));
     } else if (requestCode == REQUEST_IMAGE_CAPTURE2 && resultCode == RESULT_OK) {
-      Log.d("PHOTO", "1");
-      Bundle extras = data.getExtras();
-      Bitmap bm = (Bitmap) extras.get("data");
-
-      try {
-        Bitmap meBm = ImageUtils.scaleBm(bm, 200, 200);
-        ib2.setImageBitmap(meBm);
-        ImageUtils.saveImage(getFilesDir() + "/PHOTO", "me_disp2.png", meBm);
-        Bitmap newBm = ImageUtils.getRoundedCroppedBitmap(bm);
-        newBm = ImageUtils.scaleBm(newBm, 100, 150);
-        ImageUtils.saveImage(getFilesDir() + "/PHOTO", "me2.png", newBm);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      final Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+      ib2.setImageBitmap(scaledBitmap);
+      saveImage(getFilesDir() + "/PHOTO", "me_disp2.png", scaledBitmap);
+      saveImage(getFilesDir() + "/PHOTO", "me2.png",
+          Bitmap.createScaledBitmap(getRoundedCroppedBitmap(bitmap), 100, 150, false));
     }
   }
 
-  public void play(View view) {
+  public void play(final View view) {
     File img = new File(getFilesDir() + "/PHOTO", "me.png");
     if (img.exists()) {
       Intent intent = new Intent(this, GameActivity.class);
@@ -126,6 +132,77 @@ public class MainActivity extends AppCompatActivity {
     } else {
       Toast.makeText(this, getString(R.string.photo_first), Toast.LENGTH_LONG).show();
     }
+  }
+
+  /**
+   * Saves an image to the host's file system
+   *
+   * @param path the path to the directory for saving the image to
+   * @param fileName the file name of the image
+   * @param image the Bitmap object of the image
+   * @return true if saving the image was successful, false otherwise
+   */
+  @SuppressWarnings("UnusedReturnValue")
+  private boolean saveImage(final String path, final String fileName, final Bitmap image) {
+    // Prepare directory
+    final File saveDirectory = new File(path);
+    if (!saveDirectory.exists()) {
+      if (saveDirectory.mkdir()) {
+        // Could not create directory for image
+        return false;
+      }
+    }
+
+    // Prepare output file
+    final File destination = new File(saveDirectory, fileName);
+    Log.d(LOG_TAG, "Saving image to: " + destination.getAbsolutePath());
+
+    // Write file to disk
+    try (final FileOutputStream fos = new FileOutputStream(destination)) {
+      image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+      fos.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+      return false;
+    }
+
+    // Save successful
+    return true;
+  }
+
+  /**
+   * Crops an input bitmap to a circle format
+   *
+   * @param bitmap the bitmap to be cropped
+   * @return the cropped bitmap
+   */
+  public Bitmap getRoundedCroppedBitmap(Bitmap bitmap) {
+    // Return bitmap
+    final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+        bitmap.getHeight(), Config.ARGB_8888);
+    final Rect rect = new Rect(0, 0, bitmap.getWidth(),
+        bitmap.getHeight());
+
+    // Initialize canvas
+    final Canvas canvas = new Canvas(output);
+
+    // Initialize paint
+    final Paint paint = new Paint();
+    paint.setAntiAlias(true);
+    paint.setFilterBitmap(true);
+    paint.setDither(true);
+
+    // Draw circle and intersect
+    canvas.drawARGB(0, 0, 0, 0);
+    paint.setColor(Color.parseColor("#BAB399"));
+    canvas.drawCircle(bitmap.getWidth() / 2.0f + 0.7f,
+        bitmap.getHeight() / 2.0f + 0.7f,
+        bitmap.getWidth() / 2.0f + 0.1f, paint);
+    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+    canvas.drawBitmap(bitmap, rect, rect, paint);
+
+    // Return cropped image
+    return output;
   }
 
 }

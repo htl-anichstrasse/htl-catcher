@@ -1,6 +1,7 @@
 package org.htlanich.htlcatcher.game;
 
 import android.annotation.SuppressLint;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.widget.Toast;
 import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.util.ViewPoint;
-import org.htlanich.htlcatcher.utils.ImageUtils;
 
 /**
  * Manages game controls
@@ -24,6 +24,8 @@ import org.htlanich.htlcatcher.utils.ImageUtils;
 @SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements SensorEventListener,
     View.OnTouchListener {
+
+  private static String LOG_TAG = "GAME_ACTIVITY";
 
   private GameView gameView;
   private SensorManager sensorManager;
@@ -40,9 +42,11 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     if (getIntent().getExtras() != null) {
       this.gameView
-          .setMeBm(ImageUtils.readBmFromFile(getIntent().getExtras().getString("player_bm")));
+          .setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
       this.gameView
-          .setMeBm2(ImageUtils.readBmFromFile(getIntent().getExtras().getString("player_bm2")));
+          .setMeBm2(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm2")));
+    } else {
+      Log.e(LOG_TAG, "Could not fetch intent extras bundle");
     }
 
     setContentView(gameView);
@@ -73,14 +77,14 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   @Override
   public void onSensorChanged(SensorEvent event) {
     if (on) {
-      float[] werte = event.values.clone();
+      float[] sensorValues = event.values.clone();
       switch (event.sensor.getType()) {
         case Sensor.TYPE_ACCELEROMETER:
-          gravitation = werte;
+          gravitation = sensorValues;
 
           break;
         case Sensor.TYPE_MAGNETIC_FIELD:
-          magnetField = werte;
+          magnetField = sensorValues;
         default:
           return;
       }
@@ -92,7 +96,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       float[] rotationMatrix = new float[9];
 
       if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravitation, magnetField)) {
-        Log.d("HTL_CATCHER", "Getrotationmatrix_error");
+        Log.d(LOG_TAG, "Getrotationmatrix_error");
         return;
       }
 
