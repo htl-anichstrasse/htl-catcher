@@ -37,12 +37,6 @@ public class GameView extends View {
   private int speed = 0;
 
   /**
-   * Ticks the game for redrawing the canvas
-   */
-  @Getter
-  private Timer gameTicker;
-
-  /**
    * Contains a list with all caught logos
    */
   private List<ViewPoint> logosCaught = new ArrayList<>();
@@ -110,16 +104,6 @@ public class GameView extends View {
         speed++;
       }
     }, 0, 100 * 30);
-
-    // Redraw timer
-    final GameView gameView = this;
-    this.gameTicker = new Timer();
-    this.gameTicker.schedule(new TimerTask() {
-      @Override
-      public void run() {
-        gameView.invalidate();
-      }
-    }, 0, 10);
 
     this.logos = new ArrayList<>();
     int cx = this.getWidth() / 2;
