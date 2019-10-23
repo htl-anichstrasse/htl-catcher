@@ -22,6 +22,9 @@
     <activity
       android:name=".game.GameActivity"
       android:configChanges="orientation|keyboardHidden"
+      android:screenOrientation="landscape" />
+    <activity android:name=".game.stats.GameOverActivity"
+      android:configChanges="orientation|keyboardHidden"
       android:screenOrientation="portrait" />
   </application>
 
