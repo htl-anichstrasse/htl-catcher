@@ -7,4 +7,9 @@
   <string name="photo_and_start">Mach\' Dein Foto und Starte!</string>
   <string name="permission_not_granted">(Die App benötigt dafür Zugriff auf deine Kamera.)</string>
   <string name="game_lost">Du hast verloren!</string>
+  <string name="htl_logo_description">HTL Logo</string>
+  <string name="game_over_title">Game Over!</string>
+  <string name="game_over_footer">© HTL Anichstraße</string>
+  <string name="game_over_score">Gefangene Logos: %1$d</string>
+  <string name="game_over_time">Spielzeit: %1$d Sekunde(n)</string>
 </resources>

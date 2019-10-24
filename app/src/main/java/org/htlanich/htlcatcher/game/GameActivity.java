@@ -67,6 +67,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         if (gameView.lost()) {
           on = false;
           startActivity(new Intent(gameActivity, GameOverActivity.class));
+          finish();
         }
       }
     }, 0, 10);

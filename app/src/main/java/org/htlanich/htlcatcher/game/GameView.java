@@ -16,6 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
 import lombok.Setter;
+import org.htlanich.htlcatcher.game.stats.CatcherStatistics;
 import org.htlanich.htlcatcher.util.ViewPoint;
 
 /**
@@ -32,11 +33,6 @@ public class GameView extends View {
    */
   @Getter
   private int speed = 0;
-
-  /**
-   * Contains a list with all caught logos
-   */
-  private List<ViewPoint> logosCaught = new ArrayList<>();
 
   /**
    * The first player icon bitmap
@@ -77,6 +73,8 @@ public class GameView extends View {
     final Bitmap decodedResource = BitmapFactory
         .decodeResource(context.getResources(), htllogo_round);
     this.htlLogo = Bitmap.createScaledBitmap(decodedResource, 40, 40, false);
+    CatcherStatistics.reset(); // new game started, reset statistics
+    CatcherStatistics.getInstance().setStartTime(System.currentTimeMillis());
 
     // Speed timer
     new Timer().schedule(new TimerTask() {
@@ -120,9 +118,9 @@ public class GameView extends View {
 
     // Check caught logos (intersecting with cursor)
     for (final ViewPoint intersectingPoint : cursorPoint.intersect(logos, 100)) {
-      if (!logosCaught.contains(intersectingPoint)) {
-        logosCaught.add(intersectingPoint);
+      synchronized (this) {
         logos.remove(intersectingPoint);
+        CatcherStatistics.getInstance().incrementLogoCount();
       }
     }
 
@@ -138,7 +136,7 @@ public class GameView extends View {
    *
    * @return true if the player has lost, false otherwise
    */
-  public boolean lost() {
+  public synchronized boolean lost() {
     for (final ViewPoint logo : logos) {
       if (logo.x < 0) {
         return true;
