@@ -62,7 +62,7 @@ public class GameView extends View {
   /**
    * linear gradient for canvas background
    */
-  private LinearGradient linearGradient;
+  // private LinearGradient linearGradient;
 
   /**
    * Holds the current position of the cursor
@@ -102,7 +102,7 @@ public class GameView extends View {
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
     // linear-gradient as background
-    linearGradient = new LinearGradient(0, 0, 0, getHeight(), Color.BLACK, Color.WHITE, TileMode.MIRROR);
+    LinearGradient linearGradient = new LinearGradient(0, 0, 0, getHeight(), Color.BLACK, Color.WHITE, TileMode.MIRROR);
     paint.setShader(linearGradient);
 
     // Mirror icons
