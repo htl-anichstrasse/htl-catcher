@@ -7,7 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
+import android.graphics.Shader.TileMode;
 import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ import org.htlanich.htlcatcher.util.ViewPoint;
 /**
  * Manages the game's display, calculations for rendering take place here
  *
+ * @author Nicolaus Rossi
  * @author Joshua Winkler
  * @author Albert Greinöcher
  * @since 06.11.17
@@ -60,6 +64,11 @@ public class GameView extends View {
   private final Random random = new Random();
 
   /**
+   * linear gradient for canvas background
+   */
+  private LinearGradient linearGradient;
+
+  /**
    * Holds the current position of the cursor
    */
   @Getter
@@ -74,8 +83,7 @@ public class GameView extends View {
 
   public GameView(final Context context) {
     super(context);
-    final Bitmap decodedResource = BitmapFactory
-        .decodeResource(context.getResources(), htllogo_round);
+    final Bitmap decodedResource = BitmapFactory.decodeResource(context.getResources(), htllogo_round);
     this.htlLogo = Bitmap.createScaledBitmap(decodedResource, 40, 40, false);
 
     // Speed timer
@@ -95,19 +103,19 @@ public class GameView extends View {
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-
-    // Set color
-    canvas.drawColor(Color.BLACK);
+    // linear-gradient as background
+    linearGradient = new LinearGradient(0, 0, 0, getHeight(), Color.BLACK, Color.WHITE, TileMode.MIRROR);
+    paint.setShader(linearGradient);
 
     // Mirror icons
     cursorPoint.x = cursorPoint.x % this.getWidth();
     cursorPoint.y = cursorPoint.y % this.getHeight();
-    if (cursorPoint.x < 0) {
+
+    if (cursorPoint.x < 0)
       cursorPoint.x = this.getWidth();
-    }
-    if (cursorPoint.y < 0) {
+
+    if (cursorPoint.y < 0)
       cursorPoint.y = this.getHeight();
-    }
 
     // Draw cursor
     canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
@@ -134,17 +142,14 @@ public class GameView extends View {
   }
 
   /**
-   * Checks if the player has lost the game because a logo has passed the left side of the screen
-   *
+   * Checks if the player has lost the game because a logo has reached the left side of the screen
    * @return true if the player has lost, false otherwise
    */
   public boolean lost() {
     for (final ViewPoint logo : logos) {
-      if (logo.x < 0) {
+      if (logo.x < 0)
         return true;
-      }
     }
     return false;
   }
-
 }
