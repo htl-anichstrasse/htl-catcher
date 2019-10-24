@@ -12,4 +12,5 @@
   <string name="game_over_footer">© HTL Anichstraße</string>
   <string name="game_over_score">Gefangene Logos: %1$d</string>
   <string name="game_over_time">Spielzeit: %1$d Sekunde(n)</string>
+  <string name="gave_over_new_game">Neues Spiel starten</string>
 </resources>
