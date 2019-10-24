@@ -11,13 +11,13 @@
 >
 
   <TextView
-    android:id = "@+id/textView"
+    android:id = "@+id/title"
     android:layout_width = "match_parent"
     android:layout_height = "60dp"
-    android:background = "@drawable/background_title"
-    android:gravity = "center"
+    android:background = "@drawable/background_title_footer"
+    android:textAlignment = "center"
     android:text = "@string/htl_catcher"
-    android:textColor = "#ffffffff"
+    android:textColor = "#ffffff"
     android:textSize = "36sp"
     android:textStyle = "bold|italic"
     app:layout_constraintBottom_toBottomOf = "parent"
@@ -28,32 +28,45 @@
     app:layout_constraintVertical_bias = "0.0"
   />
 
+  <ImageView
+    android:id = "@+id/imageView"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/logo_height"
+    android:src="@drawable/logo"
+    android:contentDescription = "@string/app_name"
+    android:layout_marginTop = "30dp"
+    app:layout_constraintTop_toBottomOf = "@+id/title"
+    app:layout_constraintright = "parent"
+    app:layout_constraintLeft_toLeftOf = "parent"
+    app:layout_constraintRight_toRightOf = "parent"
+  />
+
   <ImageButton
     android:id = "@+id/takePhotoBt"
     android:layout_width = "@dimen/button_width"
     android:layout_height = "@dimen/button_height"
-    android:text = "@string/permission_not_granted"
+    android:layout_marginTop = "65dp"
     android:contentDescription = "@string/take_photo"
     android:onClick = "photo1"
-    app:layout_constraintBottom_toBottomOf = "parent"
-    app:layout_constraintEnd_toEndOf = "parent"
-    app:layout_constraintHorizontal_bias = "0.501"
-    app:layout_constraintLeft_toLeftOf = "parent"
+    android:background = "#283346"
+    android:text = "@string/permission_not_granted"
+    app:layout_constraintTop_toBottomOf = "@+id/imageView"
     app:layout_constraintRight_toRightOf = "parent"
-    app:layout_constraintStart_toStartOf = "parent"
-    app:layout_constraintTop_toBottomOf = "@+id/textView"
-    app:layout_constraintVertical_bias = "0.245"
+    app:layout_constraintLeft_toLeftOf = "parent"
     app:srcCompat = "@android:drawable/ic_menu_camera"
   />
+
 
   <ImageButton
     android:id = "@+id/playBt"
     android:layout_width = "@dimen/button_width"
     android:layout_height = "@dimen/button_height"
-    android:layout_marginTop = "180dp"
+    android:background = "#283346"
     android:contentDescription = "@string/start_game"
     android:onClick = "play"
-    android:background = "#000000"
+    android:layout_marginTop = "80dp"
+    app:layout_constraintBottom_ToBottomOf = "parent"
+    app:layout_constraintHorizontal_bias = "0.498"
     app:layout_constraintLeft_toLeftOf = "parent"
     app:layout_constraintRight_toRightOf = "parent"
     app:layout_constraintTop_toBottomOf = "@+id/takePhotoBt"
@@ -61,16 +74,19 @@
   />
 
   <TextView
-    android:id = "@+id/descTxt"
-    android:layout_width = "wrap_content"
-    android:layout_height = "44dp"
-    android:layout_marginTop = "144dp"
+    android:id = "@+id/footer"
+    android:layout_width = "fill_parent"
+    android:layout_height = "60dp"
+    android:layout_marginTop = "70dp"
     android:maxLines = "2"
     android:text = "@string/photo_and_start"
     android:textAlignment = "center"
+    android:textSize = "30sp"
     android:textColor = "#ffffffff"
+    android:background = "@drawable/background_title_footer"
     app:layout_constraintLeft_toLeftOf = "parent"
     app:layout_constraintRight_toRightOf = "parent"
-    app:layout_constraintTop_toBottomOf = "@+id/playBt" />
+    app:layout_constraintBottom_toBottomOf = "parent"
+  />
 
 </android.support.constraint.ConstraintLayout>
