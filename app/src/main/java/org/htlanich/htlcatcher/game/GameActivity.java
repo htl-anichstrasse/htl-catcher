@@ -1,6 +1,7 @@
 package org.htlanich.htlcatcher.game;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.htlanich.htlcatcher.game.stats.GameOverActivity;
 import org.htlanich.htlcatcher.util.ViewPoint;
 
 /**
@@ -54,6 +56,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     gameView.setOnTouchListener(this);
 
     // Register game timer
+    final GameActivity gameActivity = this;
     new Timer().schedule(new TimerTask() {
       @Override
       public void run() {
@@ -63,14 +66,16 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         // Check loss
         if (gameView.lost()) {
           on = false;
-          // Toast.makeText(this, getString(R.string.game_lost), Toast.LENGTH_LONG).show();
+          startActivity(new Intent(gameActivity, GameOverActivity.class));
+          finish();
         }
       }
     }, 0, 10);
 
     // Set window fullscreen
     this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     // Register view
     setContentView(gameView);
