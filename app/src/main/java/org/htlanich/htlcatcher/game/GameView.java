@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.view.View;
 import java.util.ArrayList;
@@ -133,10 +132,9 @@ public class GameView extends View {
     }
 
     // Add new logos to screen if max amount of logos has not been reached (max logo amount = 10)
-    for (int i = logos.size(); i < 10; i++) {
-      // TODO: Preallocate memory for new HTL logos
+    for (int i = logos.size(); i < 10; i++)
       logos.add(new ViewPoint(this.getWidth(), random.nextInt(this.getHeight())));
-    }
+    // TODO: Preallocate memory for new HTL logos
   }
 
   /**

@@ -1,6 +1,8 @@
-<!-- by Nicolaus Rossi; since /10/23/2019 -->
-
 <?xml version = "1.0" encoding = "utf-8"?>
+<!--
+@author:  Nicolaus Rossi
+@since:   23.10.2019
+-->
 
 <android.support.constraint.ConstraintLayout
   xmlns:android = "http://schemas.android.com/apk/res/android"
@@ -49,7 +51,7 @@
     android:layout_marginTop = "65dp"
     android:contentDescription = "@string/take_photo"
     android:onClick = "photo1"
-    android:background = "@drawable/button_design"
+    android:background = "@drawable/button_main_design"
     android:text = "@string/permission_not_granted"
     app:layout_constraintTop_toBottomOf = "@+id/imageView"
     app:layout_constraintRight_toRightOf = "parent"
@@ -62,7 +64,7 @@
     android:id = "@+id/playBt"
     android:layout_width = "@dimen/button_width"
     android:layout_height = "@dimen/button_height"
-    android:background = "@drawable/button_design"
+    android:background = "@drawable/button_main_design"
     android:contentDescription = "@string/start_game"
     android:onClick = "play"
     android:layout_marginTop = "80dp"

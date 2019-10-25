@@ -1,22 +1,17 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <!--
 @author:  Nicolaus Rossi
-@since:   23.10.2019
+@since:   25.10.2019
 -->
 <selector xmlns:android = "http://schemas.android.com/apk/res/android">
   <item>
     <shape>
       <gradient
         android:angle = "45"
-        android:startColor = "#18dcff"
-        android:centerColor = "#38ada9"
-        android:endColor = "#78e08f"
+        android:startColor = "#fa983a"
+        android:centerColor = "#ff6a00"
+        android:endColor = "#ee0979"
       />
     </shape>
   </item>
 </selector>
-
-<!--
-Iceland Poppy Orange  #fa983a
-
--->
