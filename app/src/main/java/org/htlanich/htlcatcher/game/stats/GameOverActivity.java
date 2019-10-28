@@ -14,7 +14,7 @@ import org.htlanich.htlcatcher.game.GameActivity;
 
 /**
  * Activity for game over screen
- *
+ * @author Nicolaus Rossi
  * @author Joshua Winkler
  * @since 23.10.19
  */
@@ -51,7 +51,6 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
   public void onClick(final View view) {
     Intent intent = new Intent(this, GameActivity.class);
     intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
-    intent.putExtra("player_bm2", getFilesDir() + "/PHOTO/me2.png");
     startActivity(intent);
   }
 }
