@@ -1,5 +1,4 @@
 package org.htlanich.htlcatcher.game.stats;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +16,7 @@ import org.htlanich.htlcatcher.intro.MainActivity;
  * Activity for game over screen
  * @author Nicolaus Rossi
  * @author Joshua Winkler
- * @since 23.10.19
+ * @since 23.10.2019
  */
 public class GameOverActivity extends AppCompatActivity implements OnClickListener {
   @Override
@@ -32,7 +31,7 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
     final LinearLayout linearLayout = currentView.findViewById(R.id.linearLayout);
     final TextView scoreText = new TextView(this);
     scoreText.setText(getString(R.string.game_over_score, catcherStatistics.getLogoCount().get()));
-    scoreText.setGravity(Gravity.CENTER);
+    scoreText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
     linearLayout.addView(scoreText);
     final TextView timeText = new TextView(this);
     final int seconds = (int) ((System.currentTimeMillis() - catcherStatistics.getStartTime()) / 1000L);
@@ -47,7 +46,7 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
   /**
    * Called on restart button click
    *
-   * @param view the button
+   * @param view the restart-button
    */
   public void onClick(final View view) {
     Intent intent = new Intent(this, GameActivity.class);
