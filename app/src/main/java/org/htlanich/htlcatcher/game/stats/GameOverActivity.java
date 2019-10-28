@@ -41,7 +41,7 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
     linearLayout.addView(scoreText);
     linearLayout.addView(timeText);
 
-    // Button listener
+    // Restart-button listener
     currentView.findViewById(R.id.restartButton).setOnClickListener(this);
   }
 
