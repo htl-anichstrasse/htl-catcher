@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.game.GameActivity;
+import org.htlanich.htlcatcher.intro.MainActivity;
 
 /**
  * Activity for game over screen
@@ -19,7 +20,6 @@ import org.htlanich.htlcatcher.game.GameActivity;
  * @since 23.10.19
  */
 public class GameOverActivity extends AppCompatActivity implements OnClickListener {
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -28,6 +28,7 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
 
     // Load stats into view
     final CatcherStatistics catcherStatistics = CatcherStatistics.getInstance();
+
     final LinearLayout linearLayout = currentView.findViewById(R.id.linearLayout);
     final TextView scoreText = new TextView(this);
     scoreText.setText(getString(R.string.game_over_score, catcherStatistics.getLogoCount().get()));
