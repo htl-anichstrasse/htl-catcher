@@ -48,8 +48,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     // Sensor manager, set icons
     this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     if (getIntent().getExtras() != null) {
-      this.gameView
-          .setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
+      this.gameView.setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
     } else {
       Log.e(LOG_TAG, "Could not fetch intent extras bundle");
     }
@@ -74,8 +73,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     // Set window fullscreen
     this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     // Register view
     setContentView(gameView);
@@ -86,12 +84,10 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     super.onResume();
 
     // Register sensor listeners for catcher controls
-    sensorManager.registerListener(this,
-        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-        SensorManager.SENSOR_DELAY_NORMAL);
-    sensorManager.registerListener(this,
-        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-        SensorManager.SENSOR_DELAY_NORMAL);
+    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+    SensorManager.SENSOR_DELAY_NORMAL);
+    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+    SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   @Override
@@ -109,17 +105,17 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       switch (event.sensor.getType()) {
         case Sensor.TYPE_ACCELEROMETER:
           gravitation = sensorValues;
-
           break;
+
         case Sensor.TYPE_MAGNETIC_FIELD:
           magnetField = sensorValues;
+
         default:
           return;
       }
 
-      if (gravitation == null || magnetField == null) {
+      if (gravitation == null || magnetField == null)
         return;
-      }
 
       float[] rotationMatrix = new float[9];
 
@@ -142,7 +138,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    // might use this for debug purposes, for now, ignore sensor accuarcy changes
+    // might use this for debug purposes, for now, ignore sensor accuracy changes
   }
 
   @Override

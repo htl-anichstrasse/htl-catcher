@@ -8,6 +8,7 @@ import lombok.Setter;
 /**
  * Class holding different kinds of statistics for a game of HTL Catcher
  *
+ * @author Nicolaus Rossi
  * @author Joshua Winkler
  * @since 24.10.19
  */
@@ -45,5 +46,4 @@ public class CatcherStatistics {
   public void incrementLogoCount() {
     this.logoCount.incrementAndGet();
   }
-
 }

@@ -6,14 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.game.GameActivity;
-import org.htlanich.htlcatcher.intro.MainActivity;
 
 /**
  * Activity for game over screen
+ *
  * @author Nicolaus Rossi
  * @author Joshua Winkler
  * @since 23.10.2019
@@ -27,16 +28,17 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
 
     // Load stats into view
     final CatcherStatistics catcherStatistics = CatcherStatistics.getInstance();
-
     final LinearLayout linearLayout = currentView.findViewById(R.id.linearLayout);
     final TextView scoreText = new TextView(this);
     scoreText.setText(getString(R.string.game_over_score, catcherStatistics.getLogoCount().get()));
     scoreText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-    linearLayout.addView(scoreText);
+
     final TextView timeText = new TextView(this);
     final int seconds = (int) ((System.currentTimeMillis() - catcherStatistics.getStartTime()) / 1000L);
     timeText.setText(getString(R.string.game_over_time, seconds));
     timeText.setGravity(Gravity.CENTER);
+
+    linearLayout.addView(scoreText);
     linearLayout.addView(timeText);
 
     // Button listener
@@ -48,6 +50,8 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
    *
    * @param view the restart-button
    */
+
+  @Override
   public void onClick(final View view) {
     Intent intent = new Intent(this, GameActivity.class);
     intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
