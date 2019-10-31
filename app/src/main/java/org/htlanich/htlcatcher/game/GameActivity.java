@@ -21,7 +21,7 @@ import org.htlanich.htlcatcher.util.ViewPoint;
 
 /**
  * Manages game controls
- *
+ * @author Nicolaus Rossi
  * @author Albert Greinöcker
  * @since 06.11.17
  */
@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
   private SensorManager sensorManager;
   private boolean on = true;
 
-  float[] gravitation = null;
+  float[] gravity = null;
   float[] magnetField = null;
 
   @Override
@@ -104,7 +104,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
       float[] sensorValues = event.values.clone();
       switch (event.sensor.getType()) {
         case Sensor.TYPE_ACCELEROMETER:
-          gravitation = sensorValues;
+          gravity = sensorValues;
           break;
 
         case Sensor.TYPE_MAGNETIC_FIELD:
@@ -114,13 +114,13 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
           return;
       }
 
-      if (gravitation == null || magnetField == null)
+      if (gravity == null || magnetField == null)
         return;
 
       float[] rotationMatrix = new float[9];
 
-      if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravitation, magnetField)) {
-        Log.d(LOG_TAG, "Getrotationmatrix_error");
+      if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravity, magnetField)) {
+        Log.d(LOG_TAG, "GetRotationMatrix_error");
         return;
       }
 
