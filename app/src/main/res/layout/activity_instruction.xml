@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!--
+@author Nicolaus Rossi
+@since  31.10.2019
+-->
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app = "http://schemas.android.com/apk/res-auto"
+  xmlns:tools = "http://schemas.android.com/tools"
+  android:id = "@+id/instruction"
+  android:layout_width = "match_parent"
+  android:layout_height = "match_parent"
+  android:background = "@drawable/background_main"
+  tools:context = "org.htlanich.htlcatcher.game.instruction.InstructionActivity"
+>
+
+  <TextView
+    android:id="@+id/textView"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/background_title_footer"
+    android:text="@string/how_to_play_the_game"
+    android:textAlignment="center"
+    android:textColor="#ffffff"
+    android:textSize="36sp"
+    android:textStyle="bold|italic"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text = "@string/game_instruction"
+    android:textAlignment = "center"
+    android:textColor="#ffffff"
+    android:textSize="24sp"
+    android:textStyle="bold|italic"
+    android:layout_marginTop = "200dp"
+    app:layout_constraintLeft_toLeftOf = "parent"
+    app:layout_constraintRight_toRightOf = "parent"
+    app:layout_constraintTop_toTopOf = "@+id/textView"
+  />
+
+  <ImageButton
+    android:id = "@+id/playButton"
+    android:contentDescription = "@string/start_game"
+    android:background = "@drawable/button_main_design"
+    android:layout_width = "@dimen/button_width"
+    android:layout_height = "@dimen/button_height"
+    android:layout_marginBottom = "200dp"
+    app:layout_constraintLeft_toLeftOf = "parent"
+    app:layout_constraintRight_toRightOf = "parent"
+    app:layout_constraintBottom_toBottomOf = "parent"
+    app:srcCompat = "@android:drawable/ic_media_play"
+    android:onClick = "jumpBackToMenu"
+  />
+</android.support.constraint.ConstraintLayout>
