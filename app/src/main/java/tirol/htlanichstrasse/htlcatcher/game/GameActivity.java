@@ -56,13 +56,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       new Timer().schedule(new TimerTask() {
          @Override
          public void run() {
-            // Redraw canvas
-            gameView.invalidate();
-
             // Check loss
             if (gameView.lost()) {
-               startActivity(new Intent(GameActivity.this, GameOverActivity.class));
                finish();
+               startActivity(new Intent(GameActivity.this, GameOverActivity.class));
             }
          }
       }, 0, 10);
