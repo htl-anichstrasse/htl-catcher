@@ -44,17 +44,17 @@ public class MainActivity extends AppCompatActivity {
    private static String LOG_TAG = "MAIN_ACTIVITY";
 
    /**
-    * Static unique request code for camera access
+    * Static unique request code for camera access & permission request
     */
    private static final int REQUEST_IMAGE_CAPTURE1 = 1;
 
    /**
-    * Reference to image button for starting the game
+    * Reference to image button for taking a picture (used as game cursor)
     */
    private ImageButton imageButton;
 
    @Override
-   protected void onCreate(final Bundle savedInstanceState) {
+   public void onCreate(final Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       // link xml
       setContentView(R.layout.activity_main);
@@ -89,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
    @Override
    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
       Log.d(LOG_TAG, "Received activity result code " + resultCode);
+      // extract bitmap for intent extras
       final Bundle extras = data.getExtras();
       if (extras == null) {
          Log.e(LOG_TAG, "Could not fetch activity result extras bundle");
          return;
       }
-
       final Bitmap bitmap = (Bitmap) extras.get("data");
       if (bitmap == null) {
          Log.e(LOG_TAG, "Could not fetch activity result extras data");
@@ -120,27 +120,50 @@ public class MainActivity extends AppCompatActivity {
       dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE1);
    }
 
-   private void dispatchTakePictureIntent(int id) {
-      if (VERSION.SDK_INT >= VERSION_CODES.M) {
-         if (checkSelfPermission(permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{permission.CAMERA}, id);
-            return;
-         }
-      }
-      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-      if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-         startActivityForResult(takePictureIntent, id);
-      }
-   }
-
-   public void play(final View view) {
-      File img = new File(getFilesDir() + "/PHOTO", "me.png");
-      if (img.exists()) {
-         Intent intent = new Intent(this, GameActivity.class);
+   /**
+    * Click handler for play button in main activity
+    *
+    * @param view the clicked button
+    */
+   public void onPlayButtonClicked(final View view) {
+      if (new File(getFilesDir() + "/PHOTO", "me.png").exists()) {
+         // Start new game activity and hand over image data
+         final Intent intent = new Intent(this, GameActivity.class);
          intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
          startActivity(intent);
       } else {
          Toast.makeText(this, getString(R.string.photo_first), Toast.LENGTH_LONG).show();
+      }
+   }
+
+   /**
+    * Click handler for instructions button in main activity
+    *
+    * @param view the clicked button
+    */
+   public void onInstructionsButtonClicked(final View view) {
+      startActivity(new Intent(this, InstructionActivity.class));
+   }
+
+   /**
+    * Tries to start a new camera activity which then returns the taken picture to the app, the
+    * picture is then used as an image for the image button
+    *
+    * @param requestId id for request permission to camera & camera activity
+    */
+   private void dispatchTakePictureIntent(int requestId) {
+      // Check permission and request if needed
+      if (VERSION.SDK_INT >= VERSION_CODES.M) {
+         if (checkSelfPermission(permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{permission.CAMERA}, requestId);
+            return;
+         }
+      }
+
+      // Start camera intent
+      final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+         startActivityForResult(takePictureIntent, requestId);
       }
    }
 
@@ -213,10 +236,6 @@ public class MainActivity extends AppCompatActivity {
 
       // Return cropped image
       return output;
-   }
-
-   public void seeInstructions(final View view) {
-      startActivity(new Intent(this, InstructionActivity.class));
    }
 
 }
