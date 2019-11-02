@@ -9,7 +9,7 @@
   <string name="main_takephoto_toast_nopermission">(Die App benötigt dafür Zugriff auf deine Kamera)</string>
   <string name="main_instruction_button">So wird gespielt.</string>
 
-  <string name="instruction_decription">Add proper instruction here.</string>
+  <string name="instruction_description">Add proper instruction here.</string>
   <string name="instruction_title">So wird gespielt:</string>
 
   <string name="game_toast_lost">Du hast verloren!</string>
