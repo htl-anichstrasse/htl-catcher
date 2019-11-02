@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <rotate
+      android:drawable = "@android:drawable/ic_media_play"
+      android:fromDegrees = "180"
+      android:toDegrees = "180"
+      android:visible = "true"
+    />
+  </item>
+</selector>
+
