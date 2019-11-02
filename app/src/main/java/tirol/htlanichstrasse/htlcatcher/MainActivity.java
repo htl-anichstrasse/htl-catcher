@@ -137,12 +137,14 @@ public class MainActivity extends AppCompatActivity {
    }
 
    /**
-    * Click handler for instructions button in main activity
+    * Switches to instruction view, which provides a description of the game and explains how to
+    * play the game.
     *
     * @param view the clicked button
     */
    public void onInstructionsButtonClicked(final View view) {
       startActivity(new Intent(this, InstructionActivity.class));
+      // finish();
    }
 
    /**
