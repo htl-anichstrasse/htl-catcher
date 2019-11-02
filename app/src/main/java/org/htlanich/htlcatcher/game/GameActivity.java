@@ -3,7 +3,6 @@ package org.htlanich.htlcatcher.game;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,17 +22,13 @@ import org.htlanich.htlcatcher.util.ViewPoint;
  * @author Albert Greinöcker
  * @since 06.11.17
  */
+@SuppressWarnings("FieldCanBeLocal")
 @SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
 
    private static String LOG_TAG = "GAME_ACTIVITY";
 
    private GameView gameView;
-   private SensorManager sensorManager;
-   private boolean on = true;
-
-   float[] gravity = null;
-   float[] magnetField = null;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       // Instantiate view for activity
       this.gameView = new GameView(this);
 
-      // Sensor manager, set icons
-      this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+      // Set icons
       if (getIntent().getExtras() != null) {
          this.gameView
              .setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
@@ -62,7 +56,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
             // Check loss
             if (gameView.lost()) {
-               on = false;
                startActivity(new Intent(gameActivity, GameOverActivity.class));
                finish();
             }

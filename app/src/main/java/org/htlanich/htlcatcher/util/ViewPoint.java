@@ -18,7 +18,7 @@ public class ViewPoint extends Point {
     * @param x the x coordinate of the point
     * @param y the y coordinate of the point
     */
-   public ViewPoint(int x, int y) {
+   public ViewPoint(final int x, final int y) {
       super(x, y);
    }
 
@@ -47,7 +47,7 @@ public class ViewPoint extends Point {
     * @param radius the radius of the point
     * @return true if this point intersects with the provided point, false otherwise
     */
-   private boolean intersect(ViewPoint point, double radius) {
+   private boolean intersect(final ViewPoint point, final double radius) {
       return
           Math.pow(
               (this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y),

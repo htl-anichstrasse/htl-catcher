@@ -14,7 +14,6 @@ import org.htlanich.htlcatcher.intro.MainActivity;
  * @author Nicolaus Rossi
  * @since 31.10.2019
  */
-
 public class InstructionActivity extends AppCompatActivity implements OnClickListener {
 
    @Override
