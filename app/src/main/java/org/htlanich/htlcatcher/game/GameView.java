@@ -27,7 +27,7 @@ import org.htlanich.htlcatcher.util.ViewPoint;
  *
  * @author Nicolaus Rossi
  * @author Joshua Winkler
- * @author Albert Greinöcher
+ * @author Albert Greinöcker
  * @since 06.11.17
  */
 public class GameView extends View {
