@@ -31,10 +31,13 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     */
    private static String LOG_TAG = "GAME_ACTIVITY";
 
+   /**
+    * GameView class attached to this activity
+    */
    private GameView gameView;
 
    @Override
-   protected void onCreate(Bundle savedInstanceState) {
+   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
 
       // Instantiate view for activity
@@ -74,7 +77,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    }
 
    @Override
-   public boolean onTouch(View view, MotionEvent event) {
+   public boolean onTouch(final View view, final MotionEvent event) {
       gameView.setCursorPoint(new ViewPoint((int) event.getX(), (int) event.getY()));
       return true;
    }
