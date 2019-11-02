@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Represents a point in the HTL Catcher GameView canvas
- *
+ * @author Joshua Winkler
  * @author Albert Greinöcker
  * @since 06.11.17
  */

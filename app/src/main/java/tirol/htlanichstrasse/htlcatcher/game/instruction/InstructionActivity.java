@@ -32,5 +32,4 @@ public class InstructionActivity extends AppCompatActivity implements OnClickLis
    public void jumpBackToMenu(final View view) {
       startActivity(new Intent(this, MainActivity.class));
    }
-
 }
