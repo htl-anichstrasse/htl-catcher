@@ -1,21 +1,18 @@
-<?xml version = "1.0" encoding = "utf-8"?>
-<!--
+<?xml version = "1.0" encoding = "utf-8"?><!--
 @author Nicolaus Rossi
 @since  31.10.2019
 -->
-<android.support.constraint.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app = "http://schemas.android.com/apk/res-auto"
-  xmlns:tools = "http://schemas.android.com/tools"
-  android:id = "@+id/instruction"
-  android:layout_width = "match_parent"
-  android:layout_height = "match_parent"
-  android:background = "@drawable/background_main"
-  tools:context = "tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity"
->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/instruction"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/background_main"
+  tools:context="tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity">
 
   <TextView
-    android:id="@+id/textView"
+    android:id="@+id/title"
     android:layout_width="fill_parent"
     android:layout_height="60dp"
     android:background="@drawable/background_title_footer"
@@ -29,30 +26,60 @@
     app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
-    android:layout_width="wrap_content"
+    android:id="@+id/gameDescription"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text = "@string/instruction_decription"
-    android:textAlignment = "center"
+    android:text="@string/gameDescription"
+    android:textAlignment="center"
     android:textColor="#ffffff"
-    android:textSize="24sp"
+    android:textSize="20sp"
     android:textStyle="bold|italic"
-    android:layout_marginTop = "200dp"
-    app:layout_constraintLeft_toLeftOf = "parent"
-    app:layout_constraintRight_toRightOf = "parent"
-    app:layout_constraintTop_toTopOf = "@+id/textView"
-  />
+    android:layout_marginTop="20dp"
+    app:layout_constraintTop_toBottomOf="@+id/title"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    />
+
+  <TextView
+    android:id="@+id/instructionView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:text="@string/instruction"
+    android:textAlignment="center"
+    android:textColor="#ffffff"
+    android:textSize="20sp"
+    android:textStyle="bold|italic"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/gameDescription" />
 
   <ImageButton
-    android:id = "@+id/playButton"
-    android:contentDescription = "@string/main_play_button"
-    android:background = "@drawable/button_main_design"
-    android:layout_width = "@dimen/button_width"
-    android:layout_height = "@dimen/button_height"
-    android:layout_marginBottom = "200dp"
-    app:layout_constraintLeft_toLeftOf = "parent"
-    app:layout_constraintRight_toRightOf = "parent"
-    app:layout_constraintBottom_toBottomOf = "parent"
-    app:srcCompat = "@android:drawable/ic_media_play"
-    android:onClick = "jumpBackToMenu"
-  />
+    android:id="@+id/playButton"
+    android:layout_width="@dimen/button_width"
+    android:layout_height="@dimen/button_height"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/button_main_design"
+    android:contentDescription="@string/main_play_button"
+    android:onClick="onClick"
+    app:layout_constraintBottom_toTopOf="@+id/backToMainMenuButton"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/instructionView"
+    app:srcCompat="@android:drawable/ic_media_play" />
+
+  <ImageButton
+    android:id="@+id/backToMainMenuButton"
+    android:layout_width="@dimen/button_width"
+    android:layout_height="@dimen/button_height"
+    android:background="@drawable/button_main_design"
+    android:contentDescription="@string/main_play_button"
+    android:onClick="onClick"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/playButton"
+    app:srcCompat="@drawable/turned_play_button" />
+
+
 </android.support.constraint.ConstraintLayout>
