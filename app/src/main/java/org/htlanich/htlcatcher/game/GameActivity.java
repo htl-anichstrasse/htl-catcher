@@ -26,8 +26,7 @@ import org.htlanich.htlcatcher.util.ViewPoint;
  * @since 06.11.17
  */
 @SuppressLint("ClickableViewAccessibility")
-public class GameActivity extends AppCompatActivity implements SensorEventListener,
-    View.OnTouchListener {
+public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
 
   private static String LOG_TAG = "GAME_ACTIVITY";
 
@@ -77,68 +76,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     // Register view
     setContentView(gameView);
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-
-    // Register sensor listeners for catcher controls
-    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-    SensorManager.SENSOR_DELAY_NORMAL);
-    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-    SensorManager.SENSOR_DELAY_NORMAL);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-
-    // Don't use sensors in paused app state
-    sensorManager.unregisterListener(this);
-  }
-
-  @Override
-  public void onSensorChanged(SensorEvent event) {
-    if (on) {
-      float[] sensorValues = event.values.clone();
-      switch (event.sensor.getType()) {
-        case Sensor.TYPE_ACCELEROMETER:
-          gravity = sensorValues;
-          break;
-
-        case Sensor.TYPE_MAGNETIC_FIELD:
-          magnetField = sensorValues;
-
-        default:
-          return;
-      }
-
-      if (gravity == null || magnetField == null)
-        return;
-
-      float[] rotationMatrix = new float[9];
-
-      if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravity, magnetField)) {
-        Log.d(LOG_TAG, "GetRotationMatrix_error");
-        return;
-      }
-
-      float[] orientation = new float[3];
-      SensorManager.getOrientation(rotationMatrix, orientation);
-
-      float pitch = Math.round(Math.toDegrees(event.values[0]));
-      float roll = Math.round(Math.toDegrees(event.values[1]));
-
-      int x = (int) (gameView.getCursorPoint().x - pitch * 0.1);
-      int y = (int) (gameView.getCursorPoint().y + roll * 0.1);
-      gameView.setCursorPoint(new ViewPoint(x, y));
-    }
-  }
-
-  @Override
-  public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    // might use this for debug purposes, for now, ignore sensor accuracy changes
   }
 
   @Override
