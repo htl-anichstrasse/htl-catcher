@@ -1,4 +1,4 @@
-package org.htlanich.htlcatcher.game;
+package tirol.htlanichstrasse.htlcatcher.game;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
-import org.htlanich.htlcatcher.game.stats.GameOverActivity;
-import org.htlanich.htlcatcher.util.ViewPoint;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
+import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
  * Manages game controls

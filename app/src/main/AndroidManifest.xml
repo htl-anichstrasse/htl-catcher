@@ -9,7 +9,7 @@
     android:supportsRtl = "true"
     android:theme = "@style/AppTheme">
     <activity
-      android:name = ".intro.MainActivity"
+      android:name = "tirol.htlanichstrasse.htlcatcher.MainActivity"
       android:configChanges = "orientation|keyboardHidden"
       android:screenOrientation = "portrait">
       <intent-filter>
@@ -18,19 +18,19 @@
       </intent-filter>
     </activity>
     <activity
-      android:name = ".game.GameActivity"
+      android:name = "tirol.htlanichstrasse.htlcatcher.game.GameActivity"
       android:configChanges = "orientation|keyboardHidden"
       android:screenOrientation = "landscape"
     />
 
     <activity
-      android:name = ".game.stats.GameOverActivity"
+      android:name = "tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity"
       android:configChanges = "orientation|keyboardHidden"
       android:screenOrientation = "portrait"
     />
 
     <activity
-      android:name = ".game.instruction.InstructionActivity"
+      android:name = "tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity"
       android:configChanges = "orientation|keyboardHidden"
       android:screenOrientation = "portrait"
     />

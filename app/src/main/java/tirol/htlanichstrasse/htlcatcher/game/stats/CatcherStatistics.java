@@ -1,4 +1,4 @@
-package org.htlanich.htlcatcher.game.stats;
+package tirol.htlanichstrasse.htlcatcher.game.stats;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;

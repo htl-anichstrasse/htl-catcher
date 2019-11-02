@@ -1,4 +1,4 @@
-package org.htlanich.htlcatcher.game;
+package tirol.htlanichstrasse.htlcatcher.game;
 
 import static org.htlanich.htlcatcher.R.mipmap.htllogo_round;
 
@@ -19,8 +19,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
 import lombok.Setter;
-import org.htlanich.htlcatcher.game.stats.CatcherStatistics;
-import org.htlanich.htlcatcher.util.ViewPoint;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
+import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
  * Manages the game's display, calculations for rendering take place here
