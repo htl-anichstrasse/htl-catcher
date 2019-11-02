@@ -47,7 +47,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       gameView.setOnTouchListener(this);
 
       // Register game timer
-      final GameActivity gameActivity = this;
       new Timer().schedule(new TimerTask() {
          @Override
          public void run() {
@@ -56,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
             // Check loss
             if (gameView.lost()) {
-               startActivity(new Intent(gameActivity, GameOverActivity.class));
+               startActivity(new Intent(GameActivity.this, GameOverActivity.class));
                finish();
             }
          }
