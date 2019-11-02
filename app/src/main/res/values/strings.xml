@@ -1,20 +1,23 @@
 <resources>
-  <string name = "app_name">HTL Catcher</string>
-  <string name = "htl_catcher">HTL Catcher</string>
-  <string name = "take_photo">Foto aufnehmen</string>
-  <string name = "start_game">Spiel starten</string>
-  <string name = "photo_first">Bitte zuerst ein Foto machen!</string>
-  <string name = "photo_and_start">Mach\' ein Foto und leg los!</string>
-  <string name = "permission_not_granted">(Die App benötigt dafür Zugriff auf deine Kamera)</string>
-  <string name = "game_lost">Du hast verloren!</string>
-  <string name = "htl_logo_description">HTL Logo</string>
-  <string name = "game_over_title">GAME OVER!</string>
-  <string name = "game_over_footer">© HTL Anichstraße | 4AHWII 19/20</string>
-  <string name = "developers">Developed by Nicolaus Rossi, Joshua Winkler, Hannes Sammer</string>
-  <string name = "game_over_score">Gefangene Logos: %1$d</string>
-  <string name = "game_over_time">Spielzeit: %1$d Sekunde(n)</string>
-  <string name = "gave_over_new_game">Neues Spiel starten</string>
-  <string name = "how_to_play_the_game">So wird gespielt:</string>
-  <string name = "game_instruction">Add proper instruction here.</string>
-  <string name = "game_instruction_show_instructions">So wird gespeilt.</string>
+  <string name="generic_app_name">HTL Catcher</string>
+
+  <string name="main_title">HTL Catcher</string>
+  <string name="main_play_button">Spiel starten</string>
+  <string name="main_takephoto_button">Foto aufnehmen</string>
+  <string name="main_takephoto_toast_nophoto">Bitte zuerst ein Foto machen!</string>
+  <string name="main_takephoto_button_description">Mach\' ein Foto und leg los!</string>
+  <string name="main_takephoto_toast_nopermission">(Die App benötigt dafür Zugriff auf deine Kamera)</string>
+  <string name="main_instruction_button">So wird gespielt.</string>
+
+  <string name="instruction_decription">Add proper instruction here.</string>
+  <string name="instruction_title">So wird gespielt:</string>
+
+  <string name="game_toast_lost">Du hast verloren!</string>
+
+  <string name="gameover_title">GAME OVER!</string>
+  <string name="gameover_title_description">HTL Logo</string>
+  <string name="gameover_footer">© HTL Anichstraße | 4AHWII 19/20</string>
+  <string name="gameover_score">Gefangene Logos: %1$d</string>
+  <string name="gameover_gametime">Spielzeit: %1$d Sekunde(n)</string>
+  <string name="gameover_newgame">Neues Spiel starten</string>
 </resources>

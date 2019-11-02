@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             dispatchTakePictureIntent(requestCode);
          } else {
             // App has no permission for using camera
-            Toast.makeText(this, getString(R.string.permission_not_granted), Toast.LENGTH_LONG)
+            Toast.makeText(this, getString(R.string.main_takephoto_toast_nopermission), Toast.LENGTH_LONG)
                 .show();
          }
       }
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
          intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
          startActivity(intent);
       } else {
-         Toast.makeText(this, getString(R.string.photo_first), Toast.LENGTH_LONG).show();
+         Toast.makeText(this, getString(R.string.main_takephoto_toast_nophoto), Toast.LENGTH_LONG).show();
       }
    }
 

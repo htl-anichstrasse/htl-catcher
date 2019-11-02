@@ -32,13 +32,13 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
       final LinearLayout linearLayout = currentView.findViewById(R.id.linearLayout);
       final TextView scoreText = new TextView(this);
       scoreText
-          .setText(getString(R.string.game_over_score, catcherStatistics.getLogoCount().get()));
+          .setText(getString(R.string.gameover_score, catcherStatistics.getLogoCount().get()));
       scoreText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
       final TextView timeText = new TextView(this);
       final int seconds = (int) ((System.currentTimeMillis() - catcherStatistics.getStartTime())
           / 1000L);
-      timeText.setText(getString(R.string.game_over_time, seconds));
+      timeText.setText(getString(R.string.gameover_gametime, seconds));
       timeText.setGravity(Gravity.CENTER);
 
       linearLayout.addView(scoreText);

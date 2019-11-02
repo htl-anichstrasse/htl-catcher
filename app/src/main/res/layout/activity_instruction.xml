@@ -19,7 +19,7 @@
     android:layout_width="fill_parent"
     android:layout_height="60dp"
     android:background="@drawable/background_title_footer"
-    android:text="@string/how_to_play_the_game"
+    android:text="@string/instruction_title"
     android:textAlignment="center"
     android:textColor="#ffffff"
     android:textSize="36sp"
@@ -31,7 +31,7 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text = "@string/game_instruction"
+    android:text = "@string/instruction_decription"
     android:textAlignment = "center"
     android:textColor="#ffffff"
     android:textSize="24sp"
@@ -44,7 +44,7 @@
 
   <ImageButton
     android:id = "@+id/playButton"
-    android:contentDescription = "@string/start_game"
+    android:contentDescription = "@string/main_play_button"
     android:background = "@drawable/button_main_design"
     android:layout_width = "@dimen/button_width"
     android:layout_height = "@dimen/button_height"
