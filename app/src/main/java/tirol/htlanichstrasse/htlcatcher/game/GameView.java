@@ -9,17 +9,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.view.View;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.Config;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
+import tirol.htlanichstrasse.htlcatcher.util.Logo;
 import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
@@ -31,12 +28,6 @@ import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
  * @since 06.11.17
  */
 public class GameView extends View {
-
-   /**
-    * Holds the speed of HTL logos
-    */
-   @Getter
-   private int speed = 0;
 
    /**
     * The first player icon bitmap
@@ -60,102 +51,115 @@ public class GameView extends View {
    private final Random random = new Random();
 
    /**
-    * linear gradient for canvas background
+    * Holds a UNIX timestamp determining when the last logo died
     */
-   // private LinearGradient linearGradient;
+   private long lastLogoDied = 0L;
 
    /**
     * Holds the current position of the cursor
     */
    @Getter
    @Setter
-   private ViewPoint cursorPoint;
+   private ViewPoint cursorPoint = new ViewPoint(0, 0);
 
    /**
-    * Logos currently on the canvas
+    * Holds logo currently on the canvas
     */
-   @Getter
-   private List<ViewPoint> logos;
+   private Logo logo = new Logo(-999, -999);
 
+   /**
+    * Determinse whether this is the first draw on the screen
+    */
+   private boolean init = true;
+
+   /**
+    * Creates new GameView
+    */
    public GameView(final Context context) {
       super(context);
+
+      // initialize logo bitmap
       final Bitmap decodedResource = BitmapFactory
           .decodeResource(context.getResources(), htllogo_round);
-      this.htlLogo = Bitmap.createScaledBitmap(decodedResource, 40, 40, false);
-      CatcherStatistics.reset(); // new game started, reset statistics
+      this.htlLogo = Bitmap
+          .createScaledBitmap(decodedResource, Config.getInstance().getLogoRadius() * 2,
+              Config.getInstance().getLogoRadius() * 2, false);
+
+      // initialize game statistics
+      CatcherStatistics.reset();
       CatcherStatistics.getInstance().setStartTime(System.currentTimeMillis());
 
-      // Speed timer
-      new Timer().schedule(new TimerTask() {
-         @Override
-         public void run() {
-            speed++;
-         }
-      }, 0, 100 * 30);
-
-      this.logos = new ArrayList<>();
-      int cx = this.getWidth() / 2;
-      int cy = this.getHeight() / 2;
-      this.cursorPoint = new ViewPoint(cx, cy);
+      // canvas background
+      LinearGradient linearGradient = new LinearGradient(0, 0, 0, getHeight(),
+          Color.rgb(93, 106, 162),
+          Color.rgb(29, 33, 50), TileMode.MIRROR);
+      this.paint.setShader(linearGradient);
    }
 
    @Override
-   protected void onDraw(Canvas canvas) {
+   protected void onDraw(final Canvas canvas) {
       super.onDraw(canvas);
-      // linear-gradient as background
-      Shader shader = new LinearGradient(0, 0, 0, getHeight(), Color.rgb(93, 106, 162),
-          Color.rgb(29, 33, 50), TileMode.MIRROR);
-      paint.setShader(shader);
+
+      // Initialize cursor and logo
+      if (init) {
+         this.cursorPoint.x = Config.getInstance().getInitCursorX();
+         this.cursorPoint.y = this.getHeight() / 2;
+         final int logoMargin = Config.getInstance().getLogoMargin();
+         this.logo
+             .resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
+                 this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
+                 this.random);
+         init = false;
+      }
+
+      // Draw background
       canvas.drawPaint(paint);
-
-      // Mirror icons
-      cursorPoint.x = cursorPoint.x % this.getWidth();
-      cursorPoint.y = cursorPoint.y % this.getHeight();
-
-      if (cursorPoint.x < 0) {
-         cursorPoint.x = this.getWidth();
-      }
-
-      if (cursorPoint.y < 0) {
-         cursorPoint.y = this.getHeight();
-      }
 
       // Draw cursor
       canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
 
-      // Move logos on canvas
-      for (int i = 0; i < logos.size(); i++) {
-         logos.get(i).x = logos.get(i).x - speed;
-         canvas.drawBitmap(htlLogo, logos.get(i).x, logos.get(i).y, paint);
+      // Move logo on canvas (and redraw if alive)
+      if (logo.isAlive()) {
+         logo.x = logo.x - logo.getSpeed();
+         canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
+         if (logo.x + Config.getInstance().getLogoRadius() < 0) {
+            logo.setAlive(false);
+            this.lastLogoDied = System.currentTimeMillis();
+         }
       }
 
       // Check caught logos (intersecting with cursor)
-      for (final ViewPoint intersectingPoint : cursorPoint.intersect(logos, 100)) {
-         synchronized (this) {
-            logos.remove(intersectingPoint);
-            CatcherStatistics.getInstance().incrementLogoCount();
+      if (cursorPoint.intersect(logo, 50)) {
+         logo.setAlive(false);
+         this.lastLogoDied = System.currentTimeMillis();
+         CatcherStatistics.getInstance().incrementLogoCount();
+      }
+
+      // Spawn new logo
+      if (!logo.isAlive()) {
+         if (System.currentTimeMillis() > this.lastLogoDied + (
+             (Config.getInstance().getMinDelayBetweenLogos() + this.random.nextInt(3)) * 1000L)) {
+            final int logoMargin = Config.getInstance().getLogoMargin();
+            logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
+                this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
+                this.random);
          }
       }
 
-      // Add new logos to screen if max amount of logos has not been reached (max logo amount = 10)
-      for (int i = logos.size(); i < 10; i++) {
-         logos.add(new ViewPoint(this.getWidth(), random.nextInt(this.getHeight())));
-      }
-      // TODO: Preallocate memory for new HTL logos
+      // Redraw
+      this.invalidate();
    }
 
    /**
-    * Checks if the player has lost the game because a logo has reached the left side of the screen
+    * Checks if the player has lost the game because the cursor has left the screen (or hit an
+    * obstacle)
     *
     * @return true if the player has lost, false otherwise
     */
-   public synchronized boolean lost() {
-      for (final ViewPoint logo : logos) {
-         if (logo.x < 0) {
-            return true;
-         }
-      }
-      return false;
+   public boolean lost() {
+      return this.cursorPoint.x < 0 || this.cursorPoint.x > this.getWidth()
+          || this.cursorPoint.y < 0
+          || this.cursorPoint.y > this.getHeight();
    }
 
 }
