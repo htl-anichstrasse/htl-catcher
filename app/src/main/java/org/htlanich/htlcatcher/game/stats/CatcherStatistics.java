@@ -16,34 +16,35 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CatcherStatistics {
 
-  /**
-   * Singleton instance of CatcherStatistics, remember resetting before re-using
-   */
-  @Getter
-  private static CatcherStatistics instance = new CatcherStatistics();
+   /**
+    * Singleton instance of CatcherStatistics, remember resetting before re-using
+    */
+   @Getter
+   private static CatcherStatistics instance = new CatcherStatistics();
 
-  /**
-   * Statically resets the singleton instance, resetting every game
-   */
-  public static void reset() {
-    CatcherStatistics.instance = new CatcherStatistics();
-  }
+   /**
+    * Statically resets the singleton instance, resetting every game
+    */
+   public static void reset() {
+      CatcherStatistics.instance = new CatcherStatistics();
+   }
 
-  /**
-   * Holds the amount of caught logos
-   */
-  private AtomicInteger logoCount = new AtomicInteger();
+   /**
+    * Holds the amount of caught logos
+    */
+   private AtomicInteger logoCount = new AtomicInteger();
 
-  /**
-   * Holds the start time of the game
-   */
-  @Setter
-  private long startTime = 0L;
+   /**
+    * Holds the start time of the game
+    */
+   @Setter
+   private long startTime = 0L;
 
-  /**
-   * Safely increments the logo count by one
-   */
-  public void incrementLogoCount() {
-    this.logoCount.incrementAndGet();
-  }
+   /**
+    * Safely increments the logo count by one
+    */
+   public void incrementLogoCount() {
+      this.logoCount.incrementAndGet();
+   }
+
 }

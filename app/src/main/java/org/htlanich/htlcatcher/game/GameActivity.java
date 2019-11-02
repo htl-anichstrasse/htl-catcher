@@ -3,9 +3,6 @@ package org.htlanich.htlcatcher.game;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +18,7 @@ import org.htlanich.htlcatcher.util.ViewPoint;
 
 /**
  * Manages game controls
+ *
  * @author Nicolaus Rossi
  * @author Albert Greinöcker
  * @since 06.11.17
@@ -28,59 +26,62 @@ import org.htlanich.htlcatcher.util.ViewPoint;
 @SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
 
-  private static String LOG_TAG = "GAME_ACTIVITY";
+   private static String LOG_TAG = "GAME_ACTIVITY";
 
-  private GameView gameView;
-  private SensorManager sensorManager;
-  private boolean on = true;
+   private GameView gameView;
+   private SensorManager sensorManager;
+   private boolean on = true;
 
-  float[] gravity = null;
-  float[] magnetField = null;
+   float[] gravity = null;
+   float[] magnetField = null;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
 
-    // Instantiate view for activity
-    this.gameView = new GameView(this);
+      // Instantiate view for activity
+      this.gameView = new GameView(this);
 
-    // Sensor manager, set icons
-    this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-    if (getIntent().getExtras() != null) {
-      this.gameView.setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
-    } else {
-      Log.e(LOG_TAG, "Could not fetch intent extras bundle");
-    }
-    gameView.setOnTouchListener(this);
-
-    // Register game timer
-    final GameActivity gameActivity = this;
-    new Timer().schedule(new TimerTask() {
-      @Override
-      public void run() {
-        // Redraw canvas
-        gameView.invalidate();
-
-        // Check loss
-        if (gameView.lost()) {
-          on = false;
-          startActivity(new Intent(gameActivity, GameOverActivity.class));
-          finish();
-        }
+      // Sensor manager, set icons
+      this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+      if (getIntent().getExtras() != null) {
+         this.gameView
+             .setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
+      } else {
+         Log.e(LOG_TAG, "Could not fetch intent extras bundle");
       }
-    }, 0, 10);
+      gameView.setOnTouchListener(this);
 
-    // Set window fullscreen
-    this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      // Register game timer
+      final GameActivity gameActivity = this;
+      new Timer().schedule(new TimerTask() {
+         @Override
+         public void run() {
+            // Redraw canvas
+            gameView.invalidate();
 
-    // Register view
-    setContentView(gameView);
-  }
+            // Check loss
+            if (gameView.lost()) {
+               on = false;
+               startActivity(new Intent(gameActivity, GameOverActivity.class));
+               finish();
+            }
+         }
+      }, 0, 10);
 
-  @Override
-  public boolean onTouch(View view, MotionEvent event) {
-    gameView.setCursorPoint(new ViewPoint((int) event.getX(), (int) event.getY()));
-    return true;
-  }
+      // Set window fullscreen
+      this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+          WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+      // Register view
+      setContentView(gameView);
+   }
+
+   @Override
+   public boolean onTouch(View view, MotionEvent event) {
+      gameView.setCursorPoint(new ViewPoint((int) event.getX(), (int) event.getY()));
+      return true;
+   }
+
 }
