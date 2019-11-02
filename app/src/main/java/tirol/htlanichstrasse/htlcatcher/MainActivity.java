@@ -30,63 +30,64 @@ import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
 
 /**
+ * Main activity executed on app launch
+ *
  * @author Albert Greinöcker
  * @author Nicolaus Rossi
  * @since 31.10.2019
  */
 public class MainActivity extends AppCompatActivity {
 
+   /**
+    * Static logging tag used for loggings from this class
+    */
    private static String LOG_TAG = "MAIN_ACTIVITY";
 
-   static final int REQUEST_IMAGE_CAPTURE1 = 1;
-   ImageButton imageButton = null;
+   /**
+    * Static unique request code for camera access
+    */
+   private static final int REQUEST_IMAGE_CAPTURE1 = 1;
+
+   /**
+    * Reference to image button for starting the game
+    */
+   private ImageButton imageButton;
 
    @Override
-   protected void onCreate(Bundle savedInstanceState) {
+   protected void onCreate(final Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      // link xml
       setContentView(R.layout.activity_main);
 
+      // get imageButton for game start
       imageButton = findViewById(R.id.takePhotoButton);
 
-      File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
+      // load saved image if already taken before
+      final File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
       if (img.exists()) {
          imageButton.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
       }
    }
 
    @Override
-   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-       @NonNull int[] grantResults) {
+   public void onRequestPermissionsResult(final int requestCode,
+       @NonNull final String[] permissions,
+       @NonNull final int[] grantResults) {
       if (requestCode == REQUEST_IMAGE_CAPTURE1) {
+         // Check if users has declined camera permissions
          if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Dispatch picture request to camera
             dispatchTakePictureIntent(requestCode);
          } else {
+            // App has no permission for using camera
             Toast.makeText(this, getString(R.string.permission_not_granted), Toast.LENGTH_LONG)
                 .show();
          }
       }
    }
 
-   public void photo1(View view) {
-      dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE1);
-   }
-
-   private void dispatchTakePictureIntent(int id) {
-      if (VERSION.SDK_INT >= VERSION_CODES.M) {
-         if (checkSelfPermission(permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{permission.CAMERA}, id);
-            return;
-         }
-      }
-      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-      if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-         startActivityForResult(takePictureIntent, id);
-      }
-   }
-
    @Override
-   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-      // Logging, testing
+   public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
       Log.d(LOG_TAG, "Received activity result code " + resultCode);
       final Bundle extras = data.getExtras();
       if (extras == null) {
@@ -107,6 +108,28 @@ public class MainActivity extends AppCompatActivity {
          saveImage(getFilesDir() + "/PHOTO", "me_disp.png", scaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png",
              Bitmap.createScaledBitmap(getRoundedCroppedBitmap(bitmap), 100, 150, false));
+      }
+   }
+
+   /**
+    * Click handler for image button in main activity
+    *
+    * @param view the clicked button
+    */
+   public void onImageButtonClicked(final View view) {
+      dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE1);
+   }
+
+   private void dispatchTakePictureIntent(int id) {
+      if (VERSION.SDK_INT >= VERSION_CODES.M) {
+         if (checkSelfPermission(permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{permission.CAMERA}, id);
+            return;
+         }
+      }
+      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+         startActivityForResult(takePictureIntent, id);
       }
    }
 

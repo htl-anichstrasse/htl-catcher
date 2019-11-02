@@ -49,7 +49,7 @@
     android:layout_height = "@dimen/button_height"
     android:layout_marginTop = "30dp"
     android:contentDescription = "@string/take_photo"
-    android:onClick = "photo1"
+    android:onClick = "onImageButtonClicked"
     android:background = "@drawable/button_main_design"
     android:text = "@string/permission_not_granted"
     app:layout_constraintTop_toBottomOf = "@+id/imageView"

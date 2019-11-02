@@ -26,6 +26,9 @@ import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 @SuppressLint("ClickableViewAccessibility")
 public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
 
+   /**
+    * Static logging tag used for loggings from this class
+    */
    private static String LOG_TAG = "GAME_ACTIVITY";
 
    private GameView gameView;
