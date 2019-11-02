@@ -3,7 +3,6 @@
 @author  Nicolaus Rossi
 @since   23.10.2019
 -->
-
 <android.support.constraint.ConstraintLayout
   xmlns:android = "http://schemas.android.com/apk/res/android"
   xmlns:app = "http://schemas.android.com/apk/res-auto"
@@ -45,10 +44,10 @@
   />
 
   <ImageButton
-    android:id = "@+id/takePhotoBt"
+    android:id = "@+id/takePhotoButton"
     android:layout_width = "@dimen/button_width"
     android:layout_height = "@dimen/button_height"
-    android:layout_marginTop = "65dp"
+    android:layout_marginTop = "30dp"
     android:contentDescription = "@string/take_photo"
     android:onClick = "photo1"
     android:background = "@drawable/button_main_design"
@@ -59,6 +58,19 @@
     app:srcCompat = "@android:drawable/ic_menu_camera"
   />
 
+  <ImageButton
+    android:id = "@+id/instructionsButton"
+    android:layout_marginTop = "80dp"
+    android:contentDescription = "@string/game_instruction_show_instructions"
+    android:layout_width = "@dimen/button_width"
+    android:layout_height = "@dimen/button_height"
+    android:background = "@drawable/button_main_design"
+    app:layout_constraintLeft_toLeftOf = "parent"
+    app:layout_constraintRight_toRightOf = "parent"
+    app:layout_constraintTop_toBottomOf = "@+id/takePhotoButton"
+    app:layout_constraintBottom_toTopOf = "@+id/playBt"
+    android:onClick = "seeInstructions"
+  />
 
   <ImageButton
     android:id = "@+id/playBt"
@@ -67,11 +79,11 @@
     android:background = "@drawable/button_main_design"
     android:contentDescription = "@string/start_game"
     android:onClick = "play"
-    android:layout_marginTop = "80dp"
-    app:layout_constraintHorizontal_bias = "0.498"
+    android:layout_marginBottom = "60dp"
     app:layout_constraintLeft_toLeftOf = "parent"
     app:layout_constraintRight_toRightOf = "parent"
-    app:layout_constraintTop_toBottomOf = "@+id/takePhotoBt"
+    app:layout_constraintBottom_toTopOf = "@+id/footer"
+    app:layout_constraintTop_toBottomOf="@+id/instructionsButton"
     app:srcCompat = "@android:drawable/ic_media_play"
   />
 
@@ -79,16 +91,15 @@
     android:id = "@+id/footer"
     android:layout_width = "fill_parent"
     android:layout_height = "60dp"
-    android:layout_marginTop = "70dp"
+    android:background = "@drawable/background_title_footer"
     android:maxLines = "2"
     android:text = "@string/photo_and_start"
     android:textAlignment = "center"
-    android:textSize = "30sp"
     android:textColor = "#ffffffff"
-    android:background = "@drawable/background_title_footer"
+    android:textSize = "30sp"
+    app:layout_constraintBottom_toBottomOf = "parent"
     app:layout_constraintLeft_toLeftOf = "parent"
     app:layout_constraintRight_toRightOf = "parent"
-    app:layout_constraintBottom_toBottomOf = "parent"
   />
 
 </android.support.constraint.ConstraintLayout>

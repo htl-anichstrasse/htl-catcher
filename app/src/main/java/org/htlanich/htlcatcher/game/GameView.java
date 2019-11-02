@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.view.View;
 import java.util.ArrayList;
@@ -101,8 +102,9 @@ public class GameView extends View {
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
     // linear-gradient as background
-    LinearGradient linearGradient = new LinearGradient(0, 0, 0, getHeight(), Color.BLACK, Color.WHITE, TileMode.MIRROR);
-    paint.setShader(linearGradient);
+    Shader shader = new LinearGradient(0, 0, 0, getHeight(), Color.rgb(93, 106, 162), Color.rgb(29, 33, 50), TileMode.MIRROR);
+    paint.setShader(shader);
+    canvas.drawPaint(paint);
 
     // Mirror icons
     cursorPoint.x = cursorPoint.x % this.getWidth();

@@ -27,24 +27,32 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import org.htlanich.htlcatcher.R;
 import org.htlanich.htlcatcher.game.GameActivity;
+import org.htlanich.htlcatcher.game.instruction.InstructionActivity;
 
+/**
+ * @author Albert Greinöcker
+ * @since ?
+ *
+ * @author Nicolaus Rossi
+ * @since 31.10.2019
+ */
 public class MainActivity extends AppCompatActivity {
 
   private static String LOG_TAG = "MAIN_ACTIVITY";
 
   static final int REQUEST_IMAGE_CAPTURE1 = 1;
-  ImageButton ib = null;
+  ImageButton imageButton = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    ib = findViewById(R.id.takePhotoBt);
+    imageButton = findViewById(R.id.takePhotoButton);
 
     File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
     if (img.exists()) {
-      ib.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
+      imageButton.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
     }
   }
 
@@ -96,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     // Handling activity result request code
     if (requestCode == REQUEST_IMAGE_CAPTURE1 && resultCode == RESULT_OK) {
       final Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
-      ib.setImageBitmap(scaledBitmap);
+      imageButton.setImageBitmap(scaledBitmap);
       saveImage(getFilesDir() + "/PHOTO", "me_disp.png", scaledBitmap);
       saveImage(getFilesDir() + "/PHOTO", "me.png",
           Bitmap.createScaledBitmap(getRoundedCroppedBitmap(bitmap), 100, 150, false));
@@ -108,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
     if (img.exists()) {
       Intent intent = new Intent(this, GameActivity.class);
       intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
-      intent.putExtra("player_bm2", getFilesDir() + "/PHOTO/me2.png");
       startActivity(intent);
     } else {
       Toast.makeText(this, getString(R.string.photo_first), Toast.LENGTH_LONG).show();
@@ -139,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
     Log.d(LOG_TAG, "Saving image to: " + destination.getAbsolutePath());
 
     // Write file to disk
-    try (final FileOutputStream fos = new FileOutputStream(destination)) {
-      image.compress(Bitmap.CompressFormat.PNG, 90, fos);
-      fos.flush();
+    try (final FileOutputStream fileOutputStream = new FileOutputStream(destination)) {
+      image.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
+      fileOutputStream.flush();
     } catch (IOException e) {
       e.printStackTrace();
       return false;
@@ -184,6 +191,10 @@ public class MainActivity extends AppCompatActivity {
 
     // Return cropped image
     return output;
+  }
+
+  public void seeInstructions(final View view) {
+    startActivity(new Intent(this, InstructionActivity.class));
   }
 
 }

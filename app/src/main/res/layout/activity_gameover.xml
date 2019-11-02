@@ -57,6 +57,7 @@
       android:background="@drawable/button_game_over_design"
       android:fontFamily="sans-serif-black"
       android:text="@string/gave_over_new_game"
+      android:onClick = "onClick"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
