@@ -10,7 +10,7 @@
   android:layout_width = "match_parent"
   android:layout_height = "match_parent"
   android:background = "@drawable/background_game_over"
-  tools:context = "org.htlanich.htlcatcher.tirol.htlanich.htlcatcher.game.stats.GameOverActivity"
+  tools:context = "tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity"
 >
     <ImageView
       android:id="@+id/imageView"

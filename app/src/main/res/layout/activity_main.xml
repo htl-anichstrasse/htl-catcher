@@ -10,7 +10,7 @@
   android:layout_width = "match_parent"
   android:layout_height = "match_parent"
   android:background = "@drawable/background_main"
-  tools:context = "org.htlanich.htlcatcher.tirol.htlanich.htlcatcher.intro.MainActivity"
+  tools:context = "tirol.htlanichstrasse.htlcatcher.MainActivity"
 >
 
   <TextView
