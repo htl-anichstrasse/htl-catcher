@@ -11,7 +11,6 @@ import java.util.List;
  * @since 06.11.17
  */
 public class ViewPoint extends Point {
-
    /**
     * Creates a new point on the GameView canvas
     *

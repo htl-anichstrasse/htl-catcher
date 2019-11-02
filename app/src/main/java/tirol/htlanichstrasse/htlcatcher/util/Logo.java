@@ -10,11 +10,11 @@ public class Logo extends ViewPoint {
    /**
     * Creates a new point on the GameView canvas
     *
-    * @param x the x coordinate of the point
-    * @param y the y coordinate of the point
+    * @param xCoordinate the x coordinate of the point
+    * @param yCoordinate the y coordinate of the point
     */
-   public Logo(int x, int y) {
-      super(x, y);
+   public Logo(int xCoordinate, int yCoordinate) {
+      super(xCoordinate, yCoordinate);
    }
 
 }

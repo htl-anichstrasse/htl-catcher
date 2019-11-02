@@ -14,6 +14,7 @@ import tirol.htlanichstrasse.htlcatcher.MainActivity;
  * @author Nicolaus Rossi
  * @since 31.10.2019
  */
+
 public class InstructionActivity extends AppCompatActivity implements OnClickListener {
 
    @Override
@@ -26,10 +27,15 @@ public class InstructionActivity extends AppCompatActivity implements OnClickLis
 
    @Override
    public void onClick(final View view) {
-      startActivity(new Intent(this, GameActivity.class));
+      switch (view.getId()) {
+         case R.id.playButton:
+            startActivity(new Intent(this, GameActivity.class));
+            break;
+
+         case R.id.backToMainMenuButton:
+            startActivity(new Intent(this, MainActivity.class));
+            break;
+      }
    }
 
-   public void jumpBackToMenu(final View view) {
-      startActivity(new Intent(this, MainActivity.class));
-   }
 }
