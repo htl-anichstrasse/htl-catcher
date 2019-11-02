@@ -29,7 +29,9 @@ public class InstructionActivity extends AppCompatActivity implements OnClickLis
    public void onClick(final View view) {
       switch (view.getId()) {
          case R.id.playButton:
-            startActivity(new Intent(this, GameActivity.class));
+            final Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
+            startActivity(intent);
             break;
 
          case R.id.backToMainMenuButton:

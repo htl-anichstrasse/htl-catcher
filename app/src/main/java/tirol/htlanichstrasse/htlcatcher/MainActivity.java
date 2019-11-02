@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
     */
    public void onInstructionsButtonClicked(final View view) {
       startActivity(new Intent(this, InstructionActivity.class));
-      // finish();
    }
 
    /**
