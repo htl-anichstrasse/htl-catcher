@@ -92,6 +92,7 @@ public class GameView extends View {
    /**
     * Timestamp when the last point for surviving was awarded
     */
+   @Setter
    private long lastPointTimestamp = 0L;
 
    /**
@@ -129,7 +130,6 @@ public class GameView extends View {
          logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
              this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
              random);
-         lastPointTimestamp = System.currentTimeMillis();
          init = false;
       }
 

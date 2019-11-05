@@ -79,7 +79,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    @Override
    public boolean onTouch(final View view, final MotionEvent event) {
       // Change game state
-      gameView.setGameState(GameState.INGAME);
+      if (gameView.getGameState() == GameState.START) {
+         gameView.setLastPointTimestamp(System.currentTimeMillis());
+         gameView.setGameState(GameState.INGAME);
+      }
+
       // Accelerate cursor in y position
       final Cursor gameCursor = gameView.getCursor();
       final int acceleration =
