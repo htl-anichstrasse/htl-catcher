@@ -38,7 +38,7 @@ public class GameView extends View {
     * The first player icon bitmap
     */
    @Setter
-   private Bitmap meBm;
+   private Bitmap playerBitmap;
 
    /**
     * Contains a bitmap for the HTL logo (these will be spawned at the right side of the screen)
@@ -154,7 +154,7 @@ public class GameView extends View {
          cursor.y += cursor.getYVelocity();
          cursor.setYVelocity(cursor.getYVelocity() + Config.getInstance().getCursorGravity());
       }
-      canvas.drawBitmap(meBm, cursor.x, cursor.y, paint);
+      canvas.drawBitmap(playerBitmap, cursor.x, cursor.y, paint);
 
       // Only execute if game has already started
       if (gameState == GameState.INGAME) {

@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       // Set icons
       if (getIntent().getExtras() != null) {
          this.gameView
-             .setMeBm(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
+             .setPlayerBitmap(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
       } else {
          Log.e(LOG_TAG, "Could not fetch intent extras bundle");
       }
