@@ -109,7 +109,6 @@ public class GameView extends View {
 
       // initialize game statistics
       CatcherStatistics.reset();
-      CatcherStatistics.getInstance().setStartTime(System.currentTimeMillis());
 
       // canvas background
       LinearGradient linearGradient = new LinearGradient(0, 0, 0, getHeight(),

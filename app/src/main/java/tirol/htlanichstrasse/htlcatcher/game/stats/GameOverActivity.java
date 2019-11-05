@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 
 /**
  * Activity for game over screen
@@ -36,8 +37,8 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
       scoreText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
       final TextView timeText = new TextView(this);
-      final int seconds = (int) ((System.currentTimeMillis() - catcherStatistics.getStartTime())
-          / 1000L);
+      final int seconds = catcherStatistics.points.get() - (catcherStatistics.caughtLogos.get()
+          * StatisticsAction.LOGO.getPoints());
       timeText.setText(getString(R.string.gameover_gametime, seconds));
       timeText.setGravity(Gravity.CENTER);
 

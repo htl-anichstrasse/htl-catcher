@@ -3,7 +3,6 @@ package tirol.htlanichstrasse.htlcatcher.game.stats;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Class holding different kinds of statistics for a game of HTL Catcher
@@ -34,10 +33,9 @@ public class CatcherStatistics {
    public AtomicInteger points = new AtomicInteger(0);
 
    /**
-    * Holds the start time of the game
+    * Holds the total amount of caught logos
     */
-   @Setter
-   private long startTime = 0L;
+   public AtomicInteger caughtLogos = new AtomicInteger(0);
 
    /**
     * Increases the amount of points accordingly to the fulfilled action
@@ -45,6 +43,9 @@ public class CatcherStatistics {
     * @param action the fulfilled action awarding the player points
     */
    public void increase(final StatisticsAction action) {
+      if (action == StatisticsAction.LOGO) {
+         caughtLogos.incrementAndGet();
+      }
       this.points.addAndGet(action.getPoints());
    }
 
