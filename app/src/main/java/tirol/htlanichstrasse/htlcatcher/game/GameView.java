@@ -127,8 +127,8 @@ public class GameView extends View {
          cursor.x = Config.getInstance().getCursorInitialX();
          cursor.y = this.getHeight() / 2 - cursor.getRadius();
          final int logoMargin = Config.getInstance().getLogoMargin();
-         logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
-             this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
+         logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
+             this.getHeight() - (logoMargin + logo.getRadius()),
              random);
          init = false;
       }
