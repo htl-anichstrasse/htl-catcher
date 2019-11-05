@@ -32,8 +32,8 @@ public class Logo extends ViewPoint {
     * @param x the x coordinate of the logo
     * @param y the y coordinate of the logo
     */
-   public Logo(final int x, final int y) {
-      super(x, y);
+   public Logo(final int x, final int y, final int radius) {
+      super(x, y, radius);
    }
 
    /**
@@ -43,7 +43,7 @@ public class Logo extends ViewPoint {
        final Random random) {
       this.x = screenWidth;
       this.y = random.nextInt(maxY - minY) + minY;
-      this.speed = random.nextInt(3) + Config.getInstance().getMinLogoSpeed();
+      this.speed = random.nextInt(3) + Config.getInstance().getLogoMinSpeed();
       this.alive = true;
    }
 

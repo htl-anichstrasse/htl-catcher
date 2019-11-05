@@ -16,8 +16,8 @@ import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.Config;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
+import tirol.htlanichstrasse.htlcatcher.util.Cursor;
 import tirol.htlanichstrasse.htlcatcher.util.Logo;
-import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
  * Manages the game's display, calculations for rendering take place here
@@ -56,21 +56,28 @@ public class GameView extends View {
    private long lastLogoDied = 0L;
 
    /**
-    * Holds the current position of the cursor
+    * Holds an instance of the player cursor
     */
    @Getter
    @Setter
-   private ViewPoint cursorPoint = new ViewPoint(0, 0);
+   private Cursor cursor = new Cursor(0, 0, Config.getInstance().getCursorRadius());
 
    /**
     * Holds logo currently on the canvas
     */
-   private Logo logo = new Logo(-999, -999);
+   private Logo logo = new Logo(-999, -999, Config.getInstance().getLogoRadius());
 
    /**
-    * Determinse whether this is the first draw on the screen
+    * Determines whether this is the first draw on the screen
     */
    private boolean init = true;
+
+   /**
+    * Determines the current game state
+    */
+   @Getter
+   @Setter
+   public GameState gameState = GameState.START;
 
    /**
     * Creates new GameView
@@ -81,9 +88,8 @@ public class GameView extends View {
       // initialize logo bitmap
       final Bitmap decodedResource = BitmapFactory
           .decodeResource(context.getResources(), htllogo_round);
-      this.htlLogo = Bitmap
-          .createScaledBitmap(decodedResource, Config.getInstance().getLogoRadius() * 2,
-              Config.getInstance().getLogoRadius() * 2, false);
+      this.htlLogo = Bitmap.createScaledBitmap(decodedResource, this.logo.getRadius() * 2,
+          this.logo.getRadius() * 2, false);
 
       // initialize game statistics
       CatcherStatistics.reset();
@@ -102,47 +108,62 @@ public class GameView extends View {
 
       // Initialize cursor and logo
       if (init) {
-         this.cursorPoint.x = Config.getInstance().getInitCursorX();
-         this.cursorPoint.y = this.getHeight() / 2;
+         cursor.x = Config.getInstance().getCursorInitialX();
+         cursor.y = this.getHeight() / 2 - cursor.getRadius();
          final int logoMargin = Config.getInstance().getLogoMargin();
-         this.logo
-             .resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
-                 this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
-                 this.random);
+         logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
+             this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
+             random);
          init = false;
       }
 
       // Draw background
       canvas.drawPaint(paint);
 
-      // Draw cursor
-      canvas.drawBitmap(meBm, cursorPoint.x, cursorPoint.y, paint);
-
-      // Move logo on canvas (and redraw if alive)
-      if (logo.isAlive()) {
-         logo.x = logo.x - logo.getSpeed();
-         canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
-         if (logo.x + Config.getInstance().getLogoRadius() < 0) {
-            logo.setAlive(false);
-            this.lastLogoDied = System.currentTimeMillis();
+      // Draw / move cursor
+      if (gameState == GameState.START) {
+         // Swap direction
+         if (System.currentTimeMillis() > cursor.getStartLastTurn() + Config.getInstance()
+             .getCursorStartChangeDelay()) {
+            cursor.setStartDirection(!cursor.isStartDirection());
+            cursor.setStartLastTurn(System.currentTimeMillis());
          }
+         cursor.y += cursor.isStartDirection() ? -1 : 1;
+      } else {
+         cursor.y += cursor.getYVelocity();
+         cursor.setYVelocity(cursor.getYVelocity() + Config.getInstance().getCursorGravity());
       }
+      canvas.drawBitmap(meBm, cursor.x, cursor.y, paint);
 
-      // Check caught logos (intersecting with cursor)
-      if (cursorPoint.intersect(logo, 50)) {
-         logo.setAlive(false);
-         this.lastLogoDied = System.currentTimeMillis();
-         CatcherStatistics.getInstance().incrementLogoCount();
-      }
+      // Only execute if game has already started
+      if (gameState == GameState.INGAME) {
+         // Move logo on canvas (and redraw if alive)
+         if (logo.isAlive()) {
+            logo.x = logo.x - logo.getSpeed();
+            // Check if logo has left the screen
+            if (logo.x + Config.getInstance().getLogoRadius() < 0) {
+               logo.setAlive(false);
+               lastLogoDied = System.currentTimeMillis();
+            }
+            canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
+         }
 
-      // Spawn new logo
-      if (!logo.isAlive()) {
-         if (System.currentTimeMillis() > this.lastLogoDied + (
-             (Config.getInstance().getMinDelayBetweenLogos() + this.random.nextInt(3)) * 1000L)) {
-            final int logoMargin = Config.getInstance().getLogoMargin();
-            logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
-                this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
-                this.random);
+         // Check caught logos (intersecting with cursor)
+         if (cursor.intersect(logo, 50)) {
+            logo.setAlive(false);
+            lastLogoDied = System.currentTimeMillis();
+            CatcherStatistics.getInstance().incrementLogoCount();
+         }
+
+         // Spawn new logo
+         if (!logo.isAlive()) {
+            if (System.currentTimeMillis() > lastLogoDied + (
+                (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
+               final int logoMargin = Config.getInstance().getLogoMargin();
+               logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
+                   this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
+                   random);
+            }
          }
       }
 
@@ -157,9 +178,9 @@ public class GameView extends View {
     * @return true if the player has lost, false otherwise
     */
    public boolean lost() {
-      return this.cursorPoint.x < 0 || this.cursorPoint.x > this.getWidth()
-          || this.cursorPoint.y < 0
-          || this.cursorPoint.y > this.getHeight();
+      return this.cursor.x < 0 || this.cursor.x > this.getWidth()
+          || this.cursor.y < 0
+          || this.cursor.y > this.getHeight();
    }
 
 }

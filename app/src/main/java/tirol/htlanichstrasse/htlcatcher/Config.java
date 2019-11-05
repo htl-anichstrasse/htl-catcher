@@ -22,10 +22,14 @@ public class Config {
    @Getter
    private static final Config instance = new Config();
 
+   /*
+      LOGO CONFIGURATION
+    */
+
    /**
     * The minimum speed the logo random generate may use
     */
-   private int minLogoSpeed = 5;
+   private int logoMinSpeed = 5;
 
    /**
     * Pixel margin from lower and upper bound of the screen for random Y coordinate of logos — make
@@ -42,11 +46,35 @@ public class Config {
    /**
     * The minimum delay between 2 logos spawning on the screen in seconds
     */
-   private long minDelayBetweenLogos = 5;
+   private long logoMinDelay = 5;
+
+   /*
+      CURSOR CONFIGURATION
+    */
 
    /**
     * The initial X position of the player cursor
     */
-   private int initCursorX = 30;
+   private int cursorInitialX = 100;
+
+   /**
+    * Cursor radius in pixels
+    */
+   private int cursorRadius = 40;
+
+   /**
+    * Constant gravity value
+    */
+   private int cursorGravity = 1;
+
+   /**
+    * Value of cursor accelerating in negative y direction on touch
+    */
+   private int cursorAcceleration = 25;
+
+   /**
+    * The direction delay in the start phase
+    */
+   private long cursorStartChangeDelay = 500L;
 
 }

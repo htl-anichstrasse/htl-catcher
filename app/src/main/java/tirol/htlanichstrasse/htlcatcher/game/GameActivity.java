@@ -12,8 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
+import tirol.htlanichstrasse.htlcatcher.Config;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
-import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
+import tirol.htlanichstrasse.htlcatcher.util.Cursor;
 
 /**
  * Manages game controls
@@ -58,7 +59,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
          public void run() {
             // Check loss
             if (gameView.lost()) {
+               cancel();
                finish();
+               gameView.setGameState(GameState.END);
                startActivity(new Intent(GameActivity.this, GameOverActivity.class));
             }
          }
@@ -75,7 +78,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
    @Override
    public boolean onTouch(final View view, final MotionEvent event) {
-      gameView.setCursorPoint(new ViewPoint((int) event.getX(), (int) event.getY()));
+      // Change game state
+      gameView.setGameState(GameState.INGAME);
+      // Accelerate cursor in y position
+      final Cursor gameCursor = gameView.getCursor();
+      final int acceleration =
+          gameCursor.getYVelocity() < 0 ? 5 : Config.getInstance().getCursorAcceleration();
+      gameCursor.setYVelocity(
+          gameCursor.getYVelocity() - acceleration);
       return true;
    }
 

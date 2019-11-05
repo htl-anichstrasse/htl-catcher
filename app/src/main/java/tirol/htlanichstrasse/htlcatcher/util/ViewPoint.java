@@ -1,6 +1,7 @@
 package tirol.htlanichstrasse.htlcatcher.util;
 
 import android.graphics.Point;
+import lombok.Getter;
 
 /**
  * Represents a point in the HTL Catcher GameView canvas
@@ -10,14 +11,22 @@ import android.graphics.Point;
  * @since 06.11.17
  */
 public class ViewPoint extends Point {
+
+   /**
+    * The radius of this view point (used for collision)
+    */
+   @Getter
+   private int radius;
+
    /**
     * Creates a new point on the GameView canvas
     *
     * @param x the x coordinate of the point
     * @param y the y coordinate of the point
     */
-   public ViewPoint(final int x, final int y) {
+   ViewPoint(final int x, final int y, final int radius) {
       super(x, y);
+      this.radius = radius;
    }
 
    /**
