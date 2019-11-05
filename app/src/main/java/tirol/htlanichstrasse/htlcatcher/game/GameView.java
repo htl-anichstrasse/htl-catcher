@@ -167,18 +167,15 @@ public class GameView extends View {
                logo.setAlive(false);
                lastLogoDied = System.currentTimeMillis();
             }
+            // Check caught logos (intersecting with cursor)
+            if (cursor.intersect(logo)) {
+               logo.setAlive(false);
+               lastLogoDied = System.currentTimeMillis();
+               CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
+            }
             canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
-         }
-
-         // Check caught logos (intersecting with cursor)
-         if (cursor.intersect(logo)) {
-            logo.setAlive(false);
-            lastLogoDied = System.currentTimeMillis();
-            CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
-         }
-
-         // Spawn new logo
-         if (!logo.isAlive()) {
+         } else {
+            // Spawn new logo
             if (System.currentTimeMillis() > lastLogoDied + (
                 (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
                final int logoMargin = Config.getInstance().getLogoMargin();
