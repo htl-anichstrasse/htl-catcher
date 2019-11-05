@@ -7,14 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import org.htlanich.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.MainActivity;
+import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 
 /**
+ * Shows instructions for playing the game
+ *
  * @author Nicolaus Rossi
  * @since 31.10.2019
  */
-
 public class InstructionActivity extends AppCompatActivity implements OnClickListener {
 
    @Override
@@ -33,7 +34,6 @@ public class InstructionActivity extends AppCompatActivity implements OnClickLis
             intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
             startActivity(intent);
             break;
-
          case R.id.backToMainMenuButton:
             startActivity(new Intent(this, MainActivity.class));
             break;

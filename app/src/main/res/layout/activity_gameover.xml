@@ -1,77 +1,66 @@
 <?xml version = "1.0" encoding = "utf-8"?>
-<!--
-@author  Nicolaus Rossi
-@since   24.10.2019
--->
-<android.support.constraint.ConstraintLayout
-  xmlns:android = "http://schemas.android.com/apk/res/android"
-  xmlns:app = "http://schemas.android.com/apk/res-auto"
-  xmlns:tools = "http://schemas.android.com/tools"
-  android:layout_width = "match_parent"
-  android:layout_height = "match_parent"
-  android:background = "@drawable/background_game_over"
-  tools:context = "tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity"
->
-    <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="64dp"
-      android:contentDescription="@string/gameover_title_description"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@mipmap/ic_launcher_foreground"
-    />
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/background_game_over"
+  tools:context="tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity">
+  <ImageView
+    android:id="@+id/imageView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="64dp"
+    android:contentDescription="@string/gameover_title_description"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@mipmap/ic_launcher_foreground" />
 
-    <TextView
-      android:id = "@+id/textView2"
-      android:layout_width = "fill_parent"
-      android:layout_height = "50dp"
-      android:layout_marginTop = "20dp"
-      android:fontFamily = "sans-serif-black"
-      android:textAlignment = "center"
-      android:text = "@string/gameover_title"
-      android:textSize = "36sp"
-      app:layout_constraintTop_toBottomOf = "@+id/imageView"
-      app:layout_constraintLeft_toLeftOf = "parent"
-      app:layout_constraintRight_toRightOf = "parent"
-    />
+  <TextView
+    android:id="@+id/textView2"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="20dp"
+    android:fontFamily="sans-serif-black"
+    android:text="@string/gameover_title"
+    android:textAlignment="center"
+    android:textSize="36sp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <LinearLayout
-      android:id = "@+id/linearLayout"
-      android:layout_width = "fill_parent"
-      android:layout_height = "wrap_content"
-      android:layout_marginTop = "20dp"
-      android:orientation = "vertical"
-      app:layout_constraintLeft_toLeftOf = "parent"
-      app:layout_constraintRight_toRightOf = "parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView2"
-    />
+  <LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <Button
-      android:id="@+id/restartButton"
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="180dp"
-      android:background="@drawable/button_game_over_design"
-      android:fontFamily="sans-serif-black"
-      android:text="@string/gameover_newgame"
-      android:onClick = "onClick"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-  />
+  <Button
+    android:id="@+id/restartButton"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="180dp"
+    android:background="@drawable/button_game_over_design"
+    android:fontFamily="sans-serif-black"
+    android:onClick="onClick"
+    android:text="@string/gameover_newgame"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-      android:id = "@+id/textView3"
-      android:layout_width = "fill_parent"
-      android:layout_height = "wrap_content"
-      android:layout_marginBottom = "20dp"
-      android:textAlignment = "center"
-      android:gravity = "end"
-      android:text = "@string/gameover_footer"
-      app:layout_constraintBottom_toBottomOf = "parent"
-      app:layout_constraintEnd_toEndOf = "parent"
-    />
+  <TextView
+    android:id="@+id/textView3"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:gravity="end"
+    android:text="@string/gameover_footer"
+    android:textAlignment="center"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
