@@ -65,7 +65,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                startActivity(new Intent(GameActivity.this, GameOverActivity.class));
             }
          }
-      }, 0, 10);
+      }, 0, 50);
 
       // Set window fullscreen
       this.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -29,9 +29,9 @@ public class CatcherStatistics {
    }
 
    /**
-    * Holds the amount of caught logos
+    * Holds the total amount of points collected during gameplay
     */
-   private AtomicInteger logoCount = new AtomicInteger();
+   public AtomicInteger points = new AtomicInteger(0);
 
    /**
     * Holds the start time of the game
@@ -40,10 +40,32 @@ public class CatcherStatistics {
    private long startTime = 0L;
 
    /**
-    * Safely increments the logo count by one
+    * Increases the amount of points accordingly to the fulfilled action
+    *
+    * @param action the fulfilled action awarding the player points
     */
-   public void incrementLogoCount() {
-      this.logoCount.incrementAndGet();
+   public void increase(final StatisticsAction action) {
+      this.points.addAndGet(action.getPoints());
+   }
+
+   /**
+    * Enumerates all actions which add points to the game's total point counter
+    *
+    * @author Joshua Winkler
+    * @since 05.11.2019
+    */
+   public enum StatisticsAction {
+      SECOND(1), LOGO(5);
+
+      /**
+       * Determines the worth of this action
+       */
+      @Getter
+      private int points;
+
+      StatisticsAction(final int points) {
+         this.points = points;
+      }
    }
 
 }

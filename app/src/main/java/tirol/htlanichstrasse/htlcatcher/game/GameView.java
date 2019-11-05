@@ -9,13 +9,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.Shader.TileMode;
+import android.util.TypedValue;
 import android.view.View;
 import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
+import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.Config;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.Cursor;
 import tirol.htlanichstrasse.htlcatcher.util.Logo;
 
@@ -44,6 +49,11 @@ public class GameView extends View {
     * Paint instance used for the canvas
     */
    private final Paint paint = new Paint();
+
+   /**
+    * Paint instance used for text on the canvas
+    */
+   private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
    /**
     * Random generator for game's rendering
@@ -80,6 +90,11 @@ public class GameView extends View {
    public GameState gameState = GameState.START;
 
    /**
+    * Timestamp when the last point for surviving was awarded
+    */
+   private long lastPointTimestamp = 0L;
+
+   /**
     * Creates new GameView
     */
    public GameView(final Context context) {
@@ -114,7 +129,14 @@ public class GameView extends View {
          logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
              this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
              random);
+         lastPointTimestamp = System.currentTimeMillis();
          init = false;
+      }
+
+      // Award point
+      if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
+         CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
+         lastPointTimestamp = System.currentTimeMillis();
       }
 
       // Draw background
@@ -141,7 +163,7 @@ public class GameView extends View {
          if (logo.isAlive()) {
             logo.x = logo.x - logo.getSpeed();
             // Check if logo has left the screen
-            if (logo.x + Config.getInstance().getLogoRadius() < 0) {
+            if (logo.x + logo.getRadius() < 0) {
                logo.setAlive(false);
                lastLogoDied = System.currentTimeMillis();
             }
@@ -149,10 +171,10 @@ public class GameView extends View {
          }
 
          // Check caught logos (intersecting with cursor)
-         if (cursor.intersect(logo, 50)) {
+         if (cursor.intersect(logo)) {
             logo.setAlive(false);
             lastLogoDied = System.currentTimeMillis();
-            CatcherStatistics.getInstance().incrementLogoCount();
+            CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
          }
 
          // Spawn new logo
@@ -160,11 +182,23 @@ public class GameView extends View {
             if (System.currentTimeMillis() > lastLogoDied + (
                 (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
                final int logoMargin = Config.getInstance().getLogoMargin();
-               logo.resetLogo(this.getWidth(), logoMargin + Config.getInstance().getLogoRadius(),
-                   this.getHeight() - (logoMargin + Config.getInstance().getLogoRadius()),
+               logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
+                   this.getHeight() - (logoMargin + logo.getRadius()),
                    random);
             }
          }
+
+         // Draw statistics
+         textPaint.setColor(Color.WHITE);
+         textPaint.setTextSize((int) TypedValue
+             .applyDimension(TypedValue.COMPLEX_UNIT_SP, 50, getResources().getDisplayMetrics()));
+         textPaint.setTextAlign(Align.LEFT);
+         final FontMetrics metric = textPaint.getFontMetrics();
+         final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
+         final int y = (int) (textHeight - metric.descent);
+         canvas.drawText(getResources()
+                 .getString(R.string.game_points, CatcherStatistics.getInstance().getPoints().get()),
+             10, y, textPaint);
       }
 
       // Redraw

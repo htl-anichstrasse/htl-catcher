@@ -14,12 +14,12 @@
   <string name="instruction">Dein Avatar wird durch Tipps auf dein Handy-Display gesteuert. Tippst du auf dein Display springt dein Avatar einmal nach oben, fällt danach aber wieder hinunter.</string>
   <string name="instruction_title">So wird gespielt:</string>
 
-  <string name="game_toast_lost">Du hast verloren!</string>
+  <string name="game_points">Punkte: %1$d</string>
 
   <string name="gameover_title">GAME OVER!</string>
   <string name="gameover_title_description">HTL Logo</string>
   <string name="gameover_footer">© HTL Anichstraße | Rossi N. and Winkler J.</string>
-  <string name="gameover_score">Gefangene Logos: %1$d</string>
+  <string name="gameover_score">Punkte: %1$d</string>
   <string name="gameover_gametime">Spielzeit: %1$d Sekunde(n)</string>
   <string name="gameover_newgame">Neues Spiel starten</string>
 </resources>

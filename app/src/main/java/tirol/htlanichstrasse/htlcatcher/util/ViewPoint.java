@@ -33,14 +33,13 @@ public class ViewPoint extends Point {
     * Checks if this point intersects with another one
     *
     * @param point the point to be checked
-    * @param radius the radius of the point
     * @return true if this point intersects with the provided point, false otherwise
     */
-   public boolean intersect(final ViewPoint point, final double radius) {
+   public boolean intersect(final ViewPoint point) {
       return
           Math.pow(
               (this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y),
-              0.5) < radius;
+              0.5) < this.radius + point.radius;
    }
 
    @Override
