@@ -18,7 +18,7 @@ Nicolaus Rossi and Joshua Winkler, 4AHWII, 2019/20.
 
 ## Contact
 ### Developers
-Nicolaus Rossi - nirossi@tsn.at 
+Nicolaus Rossi - nirossi@tsn.at  
 Joshua Winkler - joswinkler@tsn.at
 ### Project Link
 https://github.com/EverythingUnderCTRL/HTLCatcher
