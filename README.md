@@ -14,3 +14,12 @@ HTLCatcher is a Flappy-Bird-inspired Android Game developed for entertainment pu
 ## Contributors
 Nicolaus Rossi and Joshua Winkler, 4AHWII, 2019/20.
 
+## License
+
+## Contact
+### Developers
+Nicolaus Rossi - nirossi@tsn.at 
+Joshua Winkler - joswinkler@tsn.at
+### Project Link
+https://github.com/EverythingUnderCTRL/HTLCatcher
+
