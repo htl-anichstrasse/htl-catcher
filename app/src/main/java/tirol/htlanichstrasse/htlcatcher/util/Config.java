@@ -1,4 +1,4 @@
-package tirol.htlanichstrasse.htlcatcher;
+package tirol.htlanichstrasse.htlcatcher.util;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,7 +1,8 @@
-package tirol.htlanichstrasse.htlcatcher.util;
+package tirol.htlanichstrasse.htlcatcher.game.component;
 
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
  * Representing the player cursor on the GameView canvas

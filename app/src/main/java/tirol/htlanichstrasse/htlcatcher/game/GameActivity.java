@@ -12,9 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
-import tirol.htlanichstrasse.htlcatcher.Config;
+import tirol.htlanichstrasse.htlcatcher.util.Config;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
-import tirol.htlanichstrasse.htlcatcher.util.Cursor;
+import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 
 /**
  * Manages game controls

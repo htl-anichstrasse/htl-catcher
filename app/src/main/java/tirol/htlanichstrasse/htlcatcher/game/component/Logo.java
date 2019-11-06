@@ -1,9 +1,10 @@
-package tirol.htlanichstrasse.htlcatcher.util;
+package tirol.htlanichstrasse.htlcatcher.game.component;
 
 import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
-import tirol.htlanichstrasse.htlcatcher.Config;
+import tirol.htlanichstrasse.htlcatcher.util.Config;
+import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
  * Represents a logo on the GameView canvas

@@ -24,7 +24,7 @@ public class ViewPoint extends Point {
     * @param x the x coordinate of the point
     * @param y the y coordinate of the point
     */
-   ViewPoint(final int x, final int y, final int radius) {
+   public ViewPoint(final int x, final int y, final int radius) {
       super(x, y);
       this.radius = radius;
    }

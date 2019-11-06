@@ -18,11 +18,11 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import org.htlanich.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.Config;
+import tirol.htlanichstrasse.htlcatcher.util.Config;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
-import tirol.htlanichstrasse.htlcatcher.util.Cursor;
-import tirol.htlanichstrasse.htlcatcher.util.Logo;
+import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
+import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 
 /**
  * Manages the game's display, calculations for rendering take place here
