@@ -11,6 +11,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
+import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
 import android.util.TypedValue;
 import android.view.View;
@@ -18,11 +19,12 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import org.htlanich.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
+import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
+import tirol.htlanichstrasse.htlcatcher.util.Config;
 
 /**
  * Manages the game's display, calculations for rendering take place here
@@ -54,6 +56,11 @@ public class GameView extends View {
     * Paint instance used for text on the canvas
     */
    private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+
+   /**
+    * Paint instance used for obstacles
+    */
+   private final Paint obstaclePaint = new Paint();
 
    /**
     * Random generator for game's rendering
@@ -96,6 +103,16 @@ public class GameView extends View {
    private long lastPointTimestamp = 0L;
 
    /**
+    * Holds a list of all obstacles currently on the screen
+    */
+   private Obstacle[] obstacles = new Obstacle[Config.getInstance().getObstaclesMaxAmount()];
+
+   /**
+    * Timestamp when the last obstacle was spawned
+    */
+   private long lastObstacleSpawned = 0L;
+
+   /**
     * Creates new GameView
     */
    public GameView(final Context context) {
@@ -110,11 +127,15 @@ public class GameView extends View {
       // initialize game statistics
       CatcherStatistics.reset();
 
+      // initialize obstacles
+      for (int i = 0; i < obstacles.length; i++) {
+         obstacles[i] = new Obstacle();
+      }
+
       // canvas background
-      LinearGradient linearGradient = new LinearGradient(0, 0, 0, getHeight(),
+      paint.setShader(new LinearGradient(0, 0, 0, getHeight(),
           Color.rgb(93, 106, 162),
-          Color.rgb(29, 33, 50), TileMode.MIRROR);
-      this.paint.setShader(linearGradient);
+          Color.rgb(29, 33, 50), TileMode.MIRROR));
    }
 
    @Override
@@ -181,6 +202,41 @@ public class GameView extends View {
                logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
                    this.getHeight() - (logoMargin + logo.getRadius()),
                    random);
+            }
+         }
+
+         // Spawn new obstacle
+         if (System.currentTimeMillis() > lastObstacleSpawned + Config.getInstance()
+             .getObstacleSpawnDelay()) {
+            for (Obstacle obstacle : obstacles) {
+               if (!obstacle.isAlive()) {
+                  obstacle
+                      .resetObstacle(this.getWidth(),
+                          this.getHeight(),
+                          random.nextInt(255) + 55,
+                          random.nextInt(
+                              Config.getInstance().getObstacleMaxGap() - Config.getInstance()
+                                  .getObstacleMinGap() + 1) + Config.getInstance()
+                              .getObstacleMinGap());
+                  break;
+               }
+            }
+            lastObstacleSpawned = System.currentTimeMillis();
+         }
+         // Rendering; Move alive obstacles and kill obstacles which have left the screen
+         for (Obstacle obstacle : obstacles) {
+            if (obstacle.isAlive()) {
+               obstaclePaint.setColor(Color.BLACK);
+               // Draw upper part
+               final Rect upperPart = obstacle.getUpperPart();
+               canvas.drawRect(upperPart, obstaclePaint);
+               // Draw lower part
+               final Rect lowerPart = obstacle.getLowerPart();
+               canvas.drawRect(lowerPart, obstaclePaint);
+               obstacle.move();
+               if (upperPart.right < 0) {
+                  obstacle.setAlive(false);
+               }
             }
          }
 

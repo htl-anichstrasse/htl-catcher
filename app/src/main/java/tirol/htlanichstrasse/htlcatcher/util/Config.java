@@ -77,4 +77,38 @@ public class Config {
     */
    private long cursorStartChangeDelay = 500L;
 
+   /*
+    * OBSTACLE CONFIGURATION
+    */
+
+   /**
+    * The speed of obstacles for moving to the left; increases over time
+    */
+   private int obstacleXDelta = 4;
+
+   /**
+    * Minimum gap between two obstacles in pixels
+    */
+   private int obstacleMinGap = 450;
+
+   /**
+    * Maximum gap between two obstacles in pixels
+    */
+   private int obstacleMaxGap = 650;
+
+   /**
+    * Delay in milliseconds between two obstacles spawning
+    */
+   private long obstacleSpawnDelay = 4500L;
+
+   /**
+    * Max amount of obstacles to be on screen simultaneously
+    */
+   private int obstaclesMaxAmount = 40;
+
+   /**
+    * Constant width for all obstacles
+    */
+   private int obstacleWidth = 120;
+
 }
