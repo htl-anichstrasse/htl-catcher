@@ -3,9 +3,8 @@
 [![](https://img.shields.io/github/stars/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/stargazers)
 [![](https://tokei.rs/b1/github/EverythingUnderCTRL/HTLCatcher?category=code)](https://github.com/XAMPPRocky/tokei)
 [![](https://img.shields.io/github/license/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/blob/master/LICENSE)
-[![](https://img.shields.io/github/license/EverythingUnderCTRL/HTLCatcher?style=plastic)]()
 
-# HTLCatcher
+# HTL Catcher
 
 
 <!-- PROJECT LOGO -->
