@@ -264,9 +264,49 @@ public class GameView extends View {
     * @return true if the player has lost, false otherwise
     */
    public boolean lost() {
-      return this.cursor.x < 0 || this.cursor.x > this.getWidth()
+      // If cursor has left the screen
+      boolean lost = this.cursor.x < 0 || this.cursor.x > this.getWidth()
           || this.cursor.y < 0
           || this.cursor.y > this.getHeight();
+
+      // Don't check obstacle if player has left screen
+      if (lost) {
+         return true;
+      }
+
+      // If cursor has hit obstacle
+      for (Obstacle obstacle : obstacles) {
+         if (obstacle.isAlive()) {
+            // Upper obstacle
+            for (Rect part : new Rect[]{obstacle.getUpperPart(), obstacle.getLowerPart()}) {
+               // calculate edges to test
+               float testX = cursor.x;
+               float testY = cursor.y;
+
+               // x axis
+               if (cursor.x < part.left) {
+                  testX = part.left;
+               } else if (cursor.x > part.right) {
+                  testX = part.right;
+               }
+               // y axis
+               if (cursor.y < part.top) {
+                  testY = part.top;
+               } else if (cursor.y > part.bottom) {
+                  testY = part.bottom;
+               }
+
+               // calculate edge distance
+               float distX = cursor.x - testX;
+               float distY = cursor.y - testY;
+               double distance = Math.sqrt((distX * distX) + (distY * distY));
+
+               // check collision
+               lost |= distance < cursor.getRadius();
+            }
+         }
+      }
+      return lost;
    }
 
 }
