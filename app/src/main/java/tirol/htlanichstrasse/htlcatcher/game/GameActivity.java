@@ -12,9 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
+import tirol.htlanichstrasse.htlcatcher.util.Config;
 
 /**
  * Manages game controls
@@ -47,7 +47,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       // Set icons
       if (getIntent().getExtras() != null) {
          this.gameView
-             .setPlayerBitmap(BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
+             .setPlayerBitmap(
+                 BitmapFactory.decodeFile(getIntent().getExtras().getString("player_bm")));
       } else {
          Log.e(LOG_TAG, "Could not fetch intent extras bundle");
       }
@@ -86,10 +87,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
       // Accelerate cursor in y position
       final Cursor gameCursor = gameView.getCursor();
+      final int cursorAcceleration = Config.getInstance().getCursorAcceleration();
       final int acceleration =
-          gameCursor.getYVelocity() < 0 ? 5 : Config.getInstance().getCursorAcceleration();
-      gameCursor.setYVelocity(
-          gameCursor.getYVelocity() - acceleration);
+          gameCursor.getYVelocity() > 0 ? cursorAcceleration * 2 : cursorAcceleration;
+      gameCursor.setYVelocity(gameCursor.getYVelocity() - acceleration);
       return true;
    }
 
