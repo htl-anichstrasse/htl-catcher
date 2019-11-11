@@ -70,7 +70,7 @@ public class Config {
    /**
     * Value of cursor accelerating in negative y direction on touch
     */
-   private int cursorAcceleration = 6;
+   private int cursorAcceleration = 5;
 
    /**
     * The direction delay in the start phase
