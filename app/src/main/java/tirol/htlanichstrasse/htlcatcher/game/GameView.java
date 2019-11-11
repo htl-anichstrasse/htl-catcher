@@ -297,7 +297,8 @@ public class GameView extends View {
       // If cursor has left the screen
       boolean lost = this.cursor.x < 0 || this.cursor.x > this.getWidth()
           || this.cursor.y < 0
-          || this.cursor.y > this.getHeight();
+          || this.cursor.y > this.getHeight() - 240;
+      // 160 for floor height
 
       // Don't check obstacle if player has left screen
       if (lost) {

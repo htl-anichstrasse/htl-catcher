@@ -68,11 +68,13 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
          @Override
          public void run() {
             // Check loss
-            if (gameView.lost()) {
-               cancel();
-               finish();
-               gameView.setGameState(GameState.END);
-               startActivity(new Intent(GameActivity.this, GameOverActivity.class));
+            if (gameView.gameState == GameState.INGAME) {
+               if (gameView.lost()) {
+                  cancel();
+                  finish();
+                  gameView.setGameState(GameState.END);
+                  startActivity(new Intent(GameActivity.this, GameOverActivity.class));
+               }
             }
          }
       }, 0, 50);
