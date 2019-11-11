@@ -167,17 +167,16 @@ public class GameView extends View {
          init = false;
       }
 
-      // Award point
-      if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
-         CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
-         lastPointTimestamp = System.currentTimeMillis();
-      }
-
       // Draw / move cursor
       renderCursor(canvas);
 
       // Only execute if game has already started
       if (gameState == GameState.INGAME) {
+         // Award point
+         if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
+            CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
+            lastPointTimestamp = System.currentTimeMillis();
+         }
 
          // Renders / moves obstacles on canvas
          renderObstacle(canvas);
