@@ -45,6 +45,14 @@ git clone https://github.com/EverythingUnderCTRL/HTLCatcher.git
 - [Q42 Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
 - [Gradle](https://gradle.org/)
 
+# Graphics
+
+Special thanks to all those amazing graphic designers out there who create free to use game sprites for projects like these.
+
+- [Clouds from "Background Set" by kvsr](https://kvsr.itch.io/background-set-pixel-assets)
+- [Background and floor sprite by bevoiliin.com](https://opengameart.org/content/bevouliin-free-game-background-for-game-developers)
+- [Obstacle sprites made by Joshua Winkler](https://github.com/bemoty)
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
