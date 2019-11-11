@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -112,6 +113,10 @@ public class GameView extends View {
     */
    private long lastObstacleSpawned = 0L;
 
+   private Bitmap obstacleBitmap;
+
+   private Bitmap flippedObstacleBitmap;
+
    /**
     * Creates new GameView
     */
@@ -131,6 +136,12 @@ public class GameView extends View {
       for (int i = 0; i < obstacles.length; i++) {
          obstacles[i] = new Obstacle();
       }
+      this.obstacleBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.obstacle);
+      Matrix matrix = new Matrix();
+      matrix.preScale(1.0F, -1.0F);
+      this.flippedObstacleBitmap = Bitmap
+          .createBitmap(obstacleBitmap, 0, 0, obstacleBitmap.getWidth(), obstacleBitmap.getHeight(),
+              matrix, true);
    }
 
    @Override
@@ -218,13 +229,15 @@ public class GameView extends View {
          // Rendering; Move alive obstacles and kill obstacles which have left the screen
          for (Obstacle obstacle : obstacles) {
             if (obstacle.isAlive()) {
-               obstaclePaint.setColor(Color.BLACK);
-               // Draw upper part
+               // Draw upper part (flipped bitmap)
                final Rect upperPart = obstacle.getUpperPart();
-               canvas.drawRect(upperPart, obstaclePaint);
+               upperPart.top =
+                   (flippedObstacleBitmap.getHeight() - upperPart.bottom) * -1;  // no vert scale
+               canvas.drawBitmap(flippedObstacleBitmap, null, upperPart, null);
                // Draw lower part
                final Rect lowerPart = obstacle.getLowerPart();
-               canvas.drawRect(lowerPart, obstaclePaint);
+               lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
+               canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
                obstacle.move();
                if (upperPart.right < 0) {
                   obstacle.setAlive(false);
