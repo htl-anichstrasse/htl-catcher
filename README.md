@@ -45,7 +45,7 @@ git clone https://github.com/EverythingUnderCTRL/HTLCatcher.git
 - [Q42 Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
 - [Gradle](https://gradle.org/)
 
-# Graphics
+## Graphics
 
 Special thanks to all those amazing graphic designers out there who create free to use game sprites for projects like these.
 
