@@ -11,7 +11,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
+import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -57,6 +59,11 @@ public class GameView extends View {
     * Paint instance used for text on the canvas
     */
    private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+
+   /**
+    * Paint instance used for text stroke on the canvas
+    */
+   private final Paint textStrokePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
    /**
     * Random generator for game's rendering
@@ -254,14 +261,26 @@ public class GameView extends View {
          // Draw statistics
          textPaint.setColor(Color.WHITE);
          textPaint.setTextSize((int) TypedValue
-             .applyDimension(TypedValue.COMPLEX_UNIT_SP, 50, getResources().getDisplayMetrics()));
+             .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
          textPaint.setTextAlign(Align.LEFT);
+         textPaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
+         textPaint.setFakeBoldText(true);
          final FontMetrics metric = textPaint.getFontMetrics();
          final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
          final int y = (int) (textHeight - metric.descent);
-         canvas.drawText(getResources()
-                 .getString(R.string.game_points, CatcherStatistics.getInstance().getPoints().get()),
-             10, y, textPaint);
+         final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
+         canvas.drawText(text, this.getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
+             textPaint);
+         textStrokePaint.setStyle(Style.STROKE);
+         textStrokePaint.setStrokeWidth(8);
+         textStrokePaint.setColor(Color.BLACK);
+         textStrokePaint.setTextSize((int) TypedValue
+             .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
+         textStrokePaint.setTextAlign(Align.LEFT);
+         textStrokePaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
+         textStrokePaint.setFakeBoldText(true);
+         canvas.drawText(text, this.getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f, y + 50,
+             textStrokePaint);
       }
 
       // Redraw
