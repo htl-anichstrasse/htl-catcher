@@ -2,17 +2,14 @@ package tirol.htlanichstrasse.htlcatcher.game;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.view.WindowManager;
-import com.q42.android.scrollingimageview.ScrollingImageView;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.htlanich.htlcatcher.R;
