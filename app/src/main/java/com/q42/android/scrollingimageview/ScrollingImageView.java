@@ -12,8 +12,6 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -167,23 +165,6 @@ public class ScrollingImageView extends View {
    public void start() {
       if (!isStarted) {
          isStarted = true;
-         postInvalidateOnAnimation();
-      }
-   }
-
-   /**
-    * Stop the animation
-    */
-   public void stop() {
-      if (isStarted) {
-         isStarted = false;
-         invalidate();
-      }
-   }
-
-   public void setSpeed(float speed) {
-      this.speed = speed;
-      if (isStarted) {
          postInvalidateOnAnimation();
       }
    }
