@@ -113,8 +113,14 @@ public class GameView extends View {
     */
    private long lastObstacleSpawned = 0L;
 
+   /**
+    * Bitmap of the lower obstacle parts
+    */
    private Bitmap obstacleBitmap;
 
+   /**
+    * Bitmap of the upper obstacle parts
+    */
    private Bitmap flippedObstacleBitmap;
 
    /**
