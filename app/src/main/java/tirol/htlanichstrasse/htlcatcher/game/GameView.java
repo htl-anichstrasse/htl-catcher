@@ -188,32 +188,6 @@ public class GameView extends View {
 
       // Only execute if game has already started
       if (gameState == GameState.INGAME) {
-         // Move logo on canvas (and redraw if alive)
-         if (logo.isAlive()) {
-            logo.x = logo.x - logo.getSpeed();
-            // Check if logo has left the screen
-            if (logo.x + logo.getRadius() < 0) {
-               logo.setAlive(false);
-               lastLogoDied = System.currentTimeMillis();
-            }
-            // Check caught logos (intersecting with cursor)
-            if (cursor.intersect(logo)) {
-               logo.setAlive(false);
-               lastLogoDied = System.currentTimeMillis();
-               CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
-            }
-            canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
-         } else {
-            // Spawn new logo
-            if (System.currentTimeMillis() > lastLogoDied + (
-                (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
-               final int logoMargin = Config.getInstance().getLogoMargin();
-               logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
-                   this.getHeight() - (logoMargin + logo.getRadius()),
-                   random);
-            }
-         }
-
          // Spawn new obstacle
          if (System.currentTimeMillis() > lastObstacleSpawned + Config.getInstance()
              .getObstacleSpawnDelay()) {
@@ -248,6 +222,32 @@ public class GameView extends View {
                if (upperPart.right < 0) {
                   obstacle.setAlive(false);
                }
+            }
+         }
+
+         // Move logo on canvas (and redraw if alive)
+         if (logo.isAlive()) {
+            logo.x = logo.x - logo.getSpeed();
+            // Check if logo has left the screen
+            if (logo.x + logo.getRadius() < 0) {
+               logo.setAlive(false);
+               lastLogoDied = System.currentTimeMillis();
+            }
+            // Check caught logos (intersecting with cursor)
+            if (cursor.intersect(logo)) {
+               logo.setAlive(false);
+               lastLogoDied = System.currentTimeMillis();
+               CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
+            }
+            canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
+         } else {
+            // Spawn new logo
+            if (System.currentTimeMillis() > lastLogoDied + (
+                (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
+               final int logoMargin = Config.getInstance().getLogoMargin();
+               logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
+                   this.getHeight() - (logoMargin + logo.getRadius()),
+                   random);
             }
          }
 

@@ -29,7 +29,7 @@ public class Config {
    /**
     * The minimum speed the logo random generate may use
     */
-   private int logoMinSpeed = 5;
+   private int logoMinSpeed = 7;
 
    /**
     * Pixel margin from lower and upper bound of the screen for random Y coordinate of logos — make
@@ -55,7 +55,7 @@ public class Config {
    /**
     * The initial X position of the player cursor
     */
-   private int cursorInitialX = 100;
+   private int cursorInitialX = 200;
 
    /**
     * Cursor radius in pixels
@@ -84,7 +84,7 @@ public class Config {
    /**
     * The speed of obstacles for moving to the left; increases over time
     */
-   private int obstacleXDelta = 5;
+   private int obstacleXDelta = 6;
 
    /**
     * Minimum gap between two obstacles in pixels
