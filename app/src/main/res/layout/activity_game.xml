@@ -16,8 +16,15 @@
       android:id="@+id/scrolling_background"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      scrolling_image_view:speed="0.5dp"
+      scrolling_image_view:speed="0.2dp"
       scrolling_image_view:src="@drawable/layer1" />
+
+    <com.q42.android.scrollingimageview.ScrollingImageView
+      android:id="@+id/scrolling_clouds"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      scrolling_image_view:speed="0.4dp"
+      scrolling_image_view:src="@drawable/clouds" />
 
     <com.q42.android.scrollingimageview.ScrollingImageView
       android:id="@+id/scrolling_floor"
