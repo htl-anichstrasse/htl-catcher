@@ -84,7 +84,7 @@ public class Config {
    /**
     * The speed of obstacles for moving to the left; increases over time
     */
-   private int obstacleXDelta = 4;
+   private int obstacleXDelta = 5;
 
    /**
     * Minimum gap between two obstacles in pixels
