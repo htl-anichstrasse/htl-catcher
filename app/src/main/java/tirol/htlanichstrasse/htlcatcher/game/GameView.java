@@ -167,11 +167,6 @@ public class GameView extends View {
          init = false;
       }
 
-      // Stop rendering on lose
-      if (gameState == GameState.END) {
-         return;
-      }
-
       // Award point
       if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
          CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
@@ -179,6 +174,37 @@ public class GameView extends View {
       }
 
       // Draw / move cursor
+      renderCursor(canvas);
+
+      // Only execute if game has already started
+      if (gameState == GameState.INGAME) {
+
+         // Renders / moves obstacles on canvas
+         renderObstacle(canvas);
+
+         // Renders / moves logos on canvas
+         renderLogo(canvas);
+
+         // Renders statistics (point display)
+         renderStatistics(canvas);
+
+         // Check lose
+         if (lost()) {
+            gameState = GameState.END;
+            return;
+         }
+      }
+
+      // Redraw
+      postInvalidateOnAnimation();
+   }
+
+   /**
+    * Renders the player cursor onto the canvas
+    *
+    * @param canvas the canvas to render the cursor on
+    */
+   private void renderCursor(final Canvas canvas) {
       if (gameState == GameState.START) {
          // Swap direction
          if (System.currentTimeMillis() > cursor.getStartLastTurn() + Config.getInstance()
@@ -188,108 +214,133 @@ public class GameView extends View {
          }
          cursor.y += cursor.isStartDirection() ? -1 : 1;
       } else {
+         // Velocity / gravity calculation
          cursor.y += cursor.getYVelocity();
          cursor.setYVelocity(cursor.getYVelocity() + Config.getInstance().getCursorGravity());
       }
+      // Draw player bitmap on canvas
       canvas.drawBitmap(playerBitmap, cursor.x, cursor.y, paint);
+   }
 
-      // Only execute if game has already started
-      if (gameState == GameState.INGAME) {
-         // Spawn new obstacle
-         if (System.currentTimeMillis() > lastObstacleSpawned + Config.getInstance()
-             .getObstacleSpawnDelay()) {
-            for (Obstacle obstacle : obstacles) {
-               if (!obstacle.isAlive()) {
-                  obstacle
-                      .resetObstacle(this.getWidth(),
-                          this.getHeight(),
-                          random.nextInt(255) + 55,
-                          random.nextInt(
-                              Config.getInstance().getObstacleMaxGap() - Config.getInstance()
-                                  .getObstacleMinGap() + 1) + Config.getInstance()
-                              .getObstacleMinGap());
-                  break;
-               }
-            }
-            lastObstacleSpawned = System.currentTimeMillis();
-         }
-         // Rendering; Move alive obstacles and kill obstacles which have left the screen
+   /**
+    * Renders obstacles onto the canvas (and moves them)
+    *
+    * @param canvas the canvas to render the obstacles on
+    */
+   private void renderObstacle(final Canvas canvas) {
+      // Spawn new obstacle
+      if (System.currentTimeMillis() > lastObstacleSpawned + Config.getInstance()
+          .getObstacleSpawnDelay()) {
          for (Obstacle obstacle : obstacles) {
-            if (obstacle.isAlive()) {
-               // Draw upper part (flipped bitmap)
-               final Rect upperPart = obstacle.getUpperPart();
-               upperPart.top =
-                   (flippedObstacleBitmap.getHeight() - upperPart.bottom) * -1;  // no vert scale
-               canvas.drawBitmap(flippedObstacleBitmap, null, upperPart, null);
-               // Draw lower part
-               final Rect lowerPart = obstacle.getLowerPart();
-               lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
-               canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
-               obstacle.move();
-               if (upperPart.right < 0) {
-                  obstacle.setAlive(false);
-               }
+            if (!obstacle.isAlive()) {
+               // respawn obstacle!
+               obstacle
+                   .resetObstacle(this.getWidth(),
+                       this.getHeight(),
+                       random.nextInt(255) + 55,
+                       random.nextInt(
+                           Config.getInstance().getObstacleMaxGap() - Config.getInstance()
+                               .getObstacleMinGap() + 1) + Config.getInstance()
+                           .getObstacleMinGap());
+               break;
             }
          }
-
-         // Move logo on canvas (and redraw if alive)
-         if (logo.isAlive()) {
-            logo.x = logo.x - logo.getSpeed();
-            // Check if logo has left the screen
-            if (logo.x + logo.getRadius() < 0) {
-               logo.setAlive(false);
-               lastLogoDied = System.currentTimeMillis();
-            }
-            // Check caught logos (intersecting with cursor)
-            if (cursor.intersect(logo)) {
-               logo.setAlive(false);
-               lastLogoDied = System.currentTimeMillis();
-               CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
-            }
-            canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
-         } else {
-            // Spawn new logo
-            if (System.currentTimeMillis() > lastLogoDied + (
-                (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
-               final int logoMargin = Config.getInstance().getLogoMargin();
-               logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
-                   this.getHeight() - (logoMargin + logo.getRadius()),
-                   random);
-            }
-         }
-
-         // Draw statistics
-         textPaint.setColor(Color.WHITE);
-         textPaint.setTextSize((int) TypedValue
-             .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
-         textPaint.setTextAlign(Align.LEFT);
-         textPaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
-         textPaint.setFakeBoldText(true);
-         final FontMetrics metric = textPaint.getFontMetrics();
-         final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
-         final int y = (int) (textHeight - metric.descent);
-         final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
-         canvas.drawText(text, this.getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
-             textPaint);
-         textStrokePaint.setStyle(Style.STROKE);
-         textStrokePaint.setStrokeWidth(8);
-         textStrokePaint.setColor(Color.BLACK);
-         textStrokePaint.setTextSize((int) TypedValue
-             .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
-         textStrokePaint.setTextAlign(Align.LEFT);
-         textStrokePaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
-         textStrokePaint.setFakeBoldText(true);
-         canvas.drawText(text, this.getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f, y + 50,
-             textStrokePaint);
+         // set flag for delay
+         lastObstacleSpawned = System.currentTimeMillis();
       }
+      // Rendering; Move alive obstacles and kill obstacles which have left the screen
+      for (Obstacle obstacle : obstacles) {
+         if (obstacle.isAlive()) {
+            // Draw upper part (flipped bitmap)
+            final Rect upperPart = obstacle.getUpperPart();
+            upperPart.top =
+                (flippedObstacleBitmap.getHeight() - upperPart.bottom) * -1;  // no vert scale
+            canvas.drawBitmap(flippedObstacleBitmap, null, upperPart, null);
+            // Draw lower part
+            final Rect lowerPart = obstacle.getLowerPart();
+            lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
+            canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
+            obstacle.move();
+            if (upperPart.right < 0) {
+               obstacle.setAlive(false);
+            }
+         }
+      }
+   }
 
-      // Redraw
-      postInvalidateOnAnimation();
+   /**
+    * Renders the current logo
+    *
+    * @param canvas the canvas the render the logo on
+    */
+   private void renderLogo(final Canvas canvas) {
+      // Move logo on canvas (and redraw if alive)
+      if (logo.isAlive()) {
+         logo.x = logo.x - logo.getSpeed();
+         // Check if logo has left the screen
+         if (logo.x + logo.getRadius() < 0) {
+            logo.setAlive(false);
+            lastLogoDied = System.currentTimeMillis();
+         }
+         // Check caught logos (intersecting with cursor)
+         if (cursor.intersect(logo)) {
+            logo.setAlive(false);
+            lastLogoDied = System.currentTimeMillis();
+            CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
+         }
+         // Draw logo on canvas
+         canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
+      } else {
+         // Spawn new logo
+         if (System.currentTimeMillis() > lastLogoDied + (
+             (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
+            final int logoMargin = Config.getInstance().getLogoMargin();
+            logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
+                this.getHeight() - (logoMargin + logo.getRadius()),
+                random);
+         }
+      }
+   }
+
+   /**
+    * Renders the statistics text onto the canvas
+    *
+    * @param canvas the canvas the render the statistics on
+    */
+   private void renderStatistics(final Canvas canvas) {
+      // Setup text paint & stroke paint
+      textPaint.setColor(Color.WHITE);
+      textPaint.setTextSize((int) TypedValue
+          .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
+      textPaint.setTextAlign(Align.LEFT);
+      textPaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
+      textPaint.setFakeBoldText(true);
+      textStrokePaint.setStyle(Style.STROKE);
+      textStrokePaint.setStrokeWidth(8);
+      textStrokePaint.setColor(Color.BLACK);
+      textStrokePaint.setTextSize((int) TypedValue
+          .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
+      textStrokePaint.setTextAlign(Align.LEFT);
+      textStrokePaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
+      textStrokePaint.setFakeBoldText(true);
+
+      // Calculate position, width and height
+      final FontMetrics metric = textPaint.getFontMetrics();
+      final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
+      final int y = (int) (textHeight - metric.descent);
+      final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
+
+      // Draw text onto canvas
+      canvas.drawText(text, this.getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
+          textPaint);
+      canvas.drawText(text, this.getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f,
+          y + 50,
+          textStrokePaint);
    }
 
    /**
     * Checks if the player has lost the game because the cursor has left the screen (or hit an
-    * obstacle)
+    * obstacle / the floor)
     *
     * @return true if the player has lost, false otherwise
     */
