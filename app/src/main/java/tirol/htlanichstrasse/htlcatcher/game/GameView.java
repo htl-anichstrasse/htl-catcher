@@ -59,11 +59,6 @@ public class GameView extends View {
    private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
    /**
-    * Paint instance used for obstacles
-    */
-   private final Paint obstaclePaint = new Paint();
-
-   /**
     * Random generator for game's rendering
     */
    private final Random random = new Random();
