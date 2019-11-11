@@ -1,12 +1,11 @@
+<p align="center">
 <!-- shields -->
 [![](https://img.shields.io/github/issues/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/issues)
 [![](https://img.shields.io/github/stars/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/stargazers)
 [![](https://tokei.rs/b1/github/EverythingUnderCTRL/HTLCatcher?category=code)](https://github.com/XAMPPRocky/tokei)
 [![](https://img.shields.io/github/license/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/blob/master/LICENSE)
-<h1 align="center>
-HTL Catcher
-</h1>
-
+</p>
+# HTL Catcher
 
 <!-- PROJECT LOGO -->
 <br/>
