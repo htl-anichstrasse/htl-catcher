@@ -160,6 +160,11 @@ public class GameView extends View {
          init = false;
       }
 
+      // Stop rendering on lose
+      if (gameState == GameState.END) {
+         return;
+      }
+
       // Award point
       if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
          CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
