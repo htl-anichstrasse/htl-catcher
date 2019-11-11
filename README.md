@@ -6,7 +6,6 @@
 
 # HTL Catcher
 
-
 <!-- PROJECT LOGO -->
 <br/>
 <p align="center">
