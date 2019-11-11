@@ -15,6 +15,7 @@
   <string name="instruction_title">So wird gespielt:</string>
 
   <string name="gameover_title">GAME OVER!</string>
+  <string name="backToMainMenu">Hauptmenü</string>
   <string name="gameover_title_description">HTL Logo</string>
   <string name="gameover_footer">© HTL Anichstraße | Rossi N. and Winkler J.</string>
   <string name="gameover_score">Punkte: %1$d</string>

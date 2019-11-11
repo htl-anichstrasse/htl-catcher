@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.htlanich.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 
@@ -47,10 +48,11 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
 
       // Restart-button listener
       currentView.findViewById(R.id.restartButton).setOnClickListener(this);
+      // currentView.findViewById(R.id.backToMenu).setOnClickListener(this);
    }
 
    /**
-    * Called on restart button click
+    * Called on restart button click to start a new game.
     *
     * @param view the restart-button
     */
@@ -60,6 +62,15 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
       Intent intent = new Intent(this, GameActivity.class);
       intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
       startActivity(intent);
+   }
+
+   /**
+    * Called on main-menu button click to jump back to the main menu.
+    * @param view the main-menu button
+    */
+
+   public void backToMainMenu(final View view) {
+      startActivity(new Intent(this, MainActivity.class));
    }
 
 }
