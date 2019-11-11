@@ -42,6 +42,7 @@ git clone https://github.com/EverythingUnderCTRL/HTLCatcher.git
 
 - [The Android SDK (Android Studio)](https://developer.android.com/studio/)
 - [Lombok](https://projectlombok.org/)
+- [Q42 Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
 - [Gradle](https://gradle.org/)
 
 ## License
