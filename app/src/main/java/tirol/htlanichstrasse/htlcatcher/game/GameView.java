@@ -7,12 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
-import android.graphics.Shader.TileMode;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import java.util.Random;
@@ -115,8 +115,8 @@ public class GameView extends View {
    /**
     * Creates new GameView
     */
-   public GameView(final Context context) {
-      super(context);
+   public GameView(final Context context, @Nullable final AttributeSet attributeSet) {
+      super(context, attributeSet);
 
       // initialize logo bitmap
       final Bitmap decodedResource = BitmapFactory
@@ -131,11 +131,6 @@ public class GameView extends View {
       for (int i = 0; i < obstacles.length; i++) {
          obstacles[i] = new Obstacle();
       }
-
-      // canvas background
-      paint.setShader(new LinearGradient(0, 0, 0, getHeight(),
-          Color.rgb(93, 106, 162),
-          Color.rgb(29, 33, 50), TileMode.MIRROR));
    }
 
    @Override
@@ -158,9 +153,6 @@ public class GameView extends View {
          CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
          lastPointTimestamp = System.currentTimeMillis();
       }
-
-      // Draw background
-      canvas.drawPaint(paint);
 
       // Draw / move cursor
       if (gameState == GameState.START) {
@@ -254,7 +246,7 @@ public class GameView extends View {
       }
 
       // Redraw
-      this.invalidate();
+      postInvalidateOnAnimation();
    }
 
    /**

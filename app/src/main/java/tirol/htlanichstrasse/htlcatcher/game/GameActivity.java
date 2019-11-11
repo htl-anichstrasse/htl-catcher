@@ -2,16 +2,20 @@ package tirol.htlanichstrasse.htlcatcher.game;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.view.WindowManager;
+import com.q42.android.scrollingimageview.ScrollingImageView;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
@@ -41,8 +45,16 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
 
+      // Set window fullscreen
+      this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+          WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+      // link xml
+      setContentView(R.layout.activity_game);
+
       // Instantiate view for activity
-      this.gameView = new GameView(this);
+      gameView = findViewById(R.id.gameView);
 
       // Set icons
       if (getIntent().getExtras() != null) {
@@ -67,14 +79,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             }
          }
       }, 0, 50);
-
-      // Set window fullscreen
-      this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-      this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-          WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-      // Register view
-      setContentView(gameView);
    }
 
    @Override
