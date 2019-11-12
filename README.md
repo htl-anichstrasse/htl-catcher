@@ -16,7 +16,7 @@
   <h3 align="center">HTL Catcher</h3>
 
   <p align="center">
-    A Flappy-Bird-inspired Android game for the HTL Anichstraße's open day
+    A Flappy-Bird-inspired Android game for the HTL Anichstraße's open day 2019/2020.
     <br/>
     <a href="#" title="Coming soon"><s>Download</s></a>
     ·
