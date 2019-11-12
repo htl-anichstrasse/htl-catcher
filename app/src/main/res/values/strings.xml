@@ -10,8 +10,8 @@
   <string name="main_instruction_button">So wird gespielt.</string>
 
   <string name="gameDescription">HTLCatcher ist ein Flappy-Bird-ähnliches Spiel bei dem du so lange wie möglich durch auf dich zukommende Hindernisse navigieren musst. Je länger dir dies gelingt,
-  desto mehr Punkte erhältst du. Zusätzlich kannst du versuchen, vorbeifliegende HTL Logos zu fangen, um noch mehr Punkte zu erhalten.</string>
-  <string name="instruction">Dein Avatar wird durch Tipps auf dein Handy-Display gesteuert. Tippst du auf dein Display springt dein Avatar einmal nach oben, fällt danach aber wieder hinunter.</string>
+  desto mehr Punkte erhältst du. Zusätzlich dazu kannst du versuchen, vorbeifliegende HTL Logos zu fangen, um noch mehr Punkte zu erhalten.</string>
+  <string name="instruction">Dein Avatar wird durch Tipps auf dein Handy-Display gesteuert. Pro Tip springt dein Avatar einmal nach oben, fällt danach aber wieder aufgrund der Gravitation hinunter.</string>
   <string name="instruction_title">So wird gespielt:</string>
 
   <string name="gameover_title">GAME OVER!</string>
