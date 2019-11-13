@@ -292,6 +292,13 @@ public class GameView extends View {
             lastLogoDied = System.currentTimeMillis();
             CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
          }
+         // Wiggle logo a bit
+         if (System.currentTimeMillis() > logo.getLastTurn() + Config.getInstance()
+             .getCursorStartChangeDelay()) {
+            logo.setYDirection(!logo.isYDirection());
+            logo.setLastTurn(System.currentTimeMillis());
+         }
+         logo.y += logo.isYDirection() ? -2 : 2;
          // Draw logo on canvas
          canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
       } else {

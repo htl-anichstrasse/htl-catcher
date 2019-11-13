@@ -28,6 +28,16 @@ public class Logo extends ViewPoint {
    private int speed = 0;
 
    /**
+    * True if the logo is currently flying upwards, false otherwise
+    */
+   private boolean yDirection = true;
+
+   /**
+    * UNIX timestamp of the last turn in y direction
+    */
+   private long lastTurn = 0L;
+
+   /**
     * Creates a new logo on the GameView canvas
     *
     * @param x the x coordinate of the logo

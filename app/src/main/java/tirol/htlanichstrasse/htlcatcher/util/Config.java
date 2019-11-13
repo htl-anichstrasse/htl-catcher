@@ -48,6 +48,11 @@ public class Config {
     */
    private long logoMinDelay = 5;
 
+   /**
+    * The direction delay for logos in y direction
+    */
+   private long logoStartChangeDelay = 500L;
+
    /*
       CURSOR CONFIGURATION
     */
@@ -73,9 +78,9 @@ public class Config {
    private int cursorAcceleration = 5;
 
    /**
-    * The direction delay in the start phase
+    * The direction delay in the start phase in y direction
     */
-   private long cursorStartChangeDelay = 500L;
+   private long cursorStartChangeDelay = 1000L;
 
    /*
     * OBSTACLE CONFIGURATION
