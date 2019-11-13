@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import lombok.Getter;
 import org.htlanich.htlcatcher.R;
 
 /**
@@ -29,6 +30,7 @@ public class ScrollingImageView extends View {
    public static ScrollingImageViewBitmapLoader BITMAP_LOADER = (context, resourceId) ->
        BitmapFactory.decodeResource(context.getResources(), resourceId);
 
+   @Getter
    private List<Bitmap> bitmaps;
    private float speed;
    private int[] scene;

@@ -26,13 +26,18 @@
       scrolling_image_view:speed="0.4dp"
       scrolling_image_view:src="@drawable/clouds" />
 
-    <com.q42.android.scrollingimageview.ScrollingImageView
-      android:id="@+id/scrolling_floor"
+    <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      scrolling_image_view:speed="2.0dp"
-      scrolling_image_view:src="@drawable/layer2" />
+      android:layout_height="match_parent">
 
+      <tirol.htlanichstrasse.htlcatcher.game.component.Floor
+        android:id="@+id/scrolling_floor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
+        scrolling_image_view:speed="2.0dp"
+        scrolling_image_view:src="@drawable/layer2" />
+    </android.support.constraint.ConstraintLayout>
     <tirol.htlanichstrasse.htlcatcher.game.GameView
       android:id="@+id/gameView"
       android:layout_width="match_parent"
