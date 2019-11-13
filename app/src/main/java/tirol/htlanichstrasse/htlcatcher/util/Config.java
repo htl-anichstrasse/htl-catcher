@@ -41,7 +41,7 @@ public class Config {
    /**
     * Logo radius in pixels
     */
-   private int logoRadius = 60;
+   private int logoRadius = 70;
 
    /**
     * The minimum delay between 2 logos spawning on the screen in seconds
