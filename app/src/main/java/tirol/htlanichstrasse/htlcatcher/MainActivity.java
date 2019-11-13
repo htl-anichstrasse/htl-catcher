@@ -229,9 +229,9 @@ public class MainActivity extends AppCompatActivity {
       // Draw circle and intersect
       canvas.drawARGB(0, 0, 0, 0);
       paint.setColor(Color.parseColor("#BAB399"));
-      canvas.drawCircle(bitmap.getWidth() / 2.0f + 0.7f,
-          bitmap.getHeight() / 2.0f + 0.7f,
-          bitmap.getWidth() / 2.0f + 0.1f, paint);
+      canvas.drawCircle(bitmap.getWidth() / 2.0f,
+          bitmap.getHeight() / 2.0f,
+          bitmap.getWidth() / 2.0f, paint);
       paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
       canvas.drawBitmap(bitmap, rect, rect, paint);
 
