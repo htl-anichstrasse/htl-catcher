@@ -62,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
          Log.e(LOG_TAG, "Could not fetch intent extras bundle");
       }
       gameView.setOnTouchListener(this);
+      gameView.setFloor(findViewById(R.id.scrolling_floor));
 
       // Register game timer
       new Timer().schedule(new TimerTask() {

@@ -127,6 +127,12 @@ public class GameView extends View {
    private Bitmap flippedObstacleBitmap;
 
    /**
+    * Game floor object
+    */
+   @Setter
+   private Floor floor;
+
+   /**
     * Creates new GameView
     */
    public GameView(final Context context, @Nullable final AttributeSet attributeSet) {
@@ -350,10 +356,7 @@ public class GameView extends View {
           || this.cursor.y < 0;
 
       // Check floor collision
-      final Floor floor = findViewById(R.id.scrolling_floor);
-      if (floor != null) {
-         lost |= floor.isCursorCollided(this.cursor, this);
-      }
+      lost |= floor.isCursorCollided(this.cursor, this);
 
       // Don't check obstacle if player has left screen
       if (lost) {
