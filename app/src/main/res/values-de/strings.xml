@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="main_takephoto_button">Foto aufnehmen</string>
+  <string name="backToMainMenu">Hauptmenü</string>
+  <string name="gameDescription">HTLCatcher ist ein Flappy-Bird-ähnliches Spiel bei dem du so lange wie möglich durch auf dich zukommende Hindernisse navigieren musst. Je länger dir dies gelingt,   desto mehr Punkte erhältst du. Zusätzlich dazu kannst du versuchen, vorbeifliegende HTL Logos zu fangen, um noch mehr Punkte zu erhalten.</string>
+  <string name="gameover_footer">© HTL Anichstraße | Rossi N. und Winkler J.</string>
+  <string name="gameover_gametime">Spielzeit: %1$d Sekunde(n)</string>
+  <string name="gameover_newgame">Neues Spiel starten</string>
+  <string name="gameover_score">Punkte: %1$d</string>
+  <string name="gameover_title">GAME OVER!</string>
+  <string name="gameover_title_description">HTL Logo</string>
+  <string name="generic_app_name">HTL Catcher</string>
+  <string name="instruction">Dein Avatar wird durch Tipps auf dein Handy-Display gesteuert. Pro Tip springt dein Avatar einmal nach oben, fällt danach aber wieder aufgrund der Gravitation hinunter.</string>
+  <string name="instruction_title">So wird gespielt:</string>
+  <string name="main_instruction_button">So wird gespielt.</string>
+  <string name="main_play_button">Spiel starten</string>
+  <string name="main_takephoto_button_description">Mach ein Foto und leg los!</string>
+  <string name="main_takephoto_toast_nopermission">(Die App benötigt dafür Zugriff auf deine Kamera)</string>
+  <string name="main_takephoto_toast_nophoto">Bitte zuerst ein Foto machen!</string>
+  <string name="main_title">HTL Catcher</string>
+</resources>
