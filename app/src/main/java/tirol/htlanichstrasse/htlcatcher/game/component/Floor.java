@@ -13,14 +13,8 @@ import tirol.htlanichstrasse.htlcatcher.game.GameView;
  */
 public class Floor extends ScrollingImageView {
 
-   /**
-    * The relative height of the floor
-    */
-   private final int floorHeight;
-
    public Floor(final Context context, final AttributeSet attrs) {
       super(context, attrs);
-      this.floorHeight = getBitmaps().get(0).getHeight();
    }
 
    /**
@@ -31,7 +25,7 @@ public class Floor extends ScrollingImageView {
     * @return true if the cursor is collided, false otherwise
     */
    public boolean isCursorCollided(final Cursor cursor, final GameView view) {
-      return cursor.y + cursor.getRadius() > view.getHeight() - this.floorHeight;
+      return cursor.y + cursor.getRadius() > view.getHeight() - (this.getHeight() * 1.6f);
    }
 
 }
