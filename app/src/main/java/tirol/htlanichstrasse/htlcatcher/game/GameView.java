@@ -185,23 +185,25 @@ public class GameView extends View {
             lastPointTimestamp = System.currentTimeMillis();
          }
 
-         // Renders / moves obstacles on canvas
-         renderObstacle(canvas);
+         // Check lose
+         if (lost()) {
+            gameState = GameState.END;
+         }
 
          // Renders / moves logos on canvas
          renderLogo(canvas);
 
+         // Renders / moves obstacles on canvas
+         renderObstacle(canvas);
+
          // Renders statistics (point display)
          renderStatistics(canvas);
-
-         // Check lose
-         if (lost()) {
-            gameState = GameState.END;
-            return;
-         }
       }
 
       // Redraw
+      if (gameState == GameState.END) {
+         return;
+      }
       postInvalidateOnAnimation();
    }
 
