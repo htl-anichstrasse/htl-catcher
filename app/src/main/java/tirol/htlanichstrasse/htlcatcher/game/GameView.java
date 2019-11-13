@@ -240,14 +240,12 @@ public class GameView extends View {
          for (Obstacle obstacle : obstacles) {
             if (!obstacle.isAlive()) {
                // respawn obstacle!
-               obstacle
-                   .resetObstacle(this.getWidth(),
-                       this.getHeight(),
-                       random.nextInt(255) + 55,
-                       random.nextInt(
-                           Config.getInstance().getObstacleMaxGap() - Config.getInstance()
-                               .getObstacleMinGap() + 1) + Config.getInstance()
-                           .getObstacleMinGap());
+               final int topHeight = random.nextInt(255) + 55;
+               final int gap = random.nextInt(
+                   Config.getInstance().getObstacleMaxGap() - Config.getInstance()
+                       .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
+               obstacle.resetObstacle(this.getWidth(), this.getHeight(), topHeight,
+                   topHeight + gap > this.getHeight() ? gap / 2 : gap);
                break;
             }
          }
