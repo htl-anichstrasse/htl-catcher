@@ -23,6 +23,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
+import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
@@ -346,9 +347,13 @@ public class GameView extends View {
    public boolean lost() {
       // If cursor has left the screen
       boolean lost = this.cursor.x < 0 || this.cursor.x > this.getWidth()
-          || this.cursor.y < 0
-          || this.cursor.y > this.getHeight() - 240;
-      // 160 for floor height
+          || this.cursor.y < 0;
+
+      // Check floor collision
+      final Floor floor = findViewById(R.id.scrolling_floor);
+      if (floor != null) {
+         lost |= floor.isCursorCollided(this.cursor, this);
+      }
 
       // Don't check obstacle if player has left screen
       if (lost) {
