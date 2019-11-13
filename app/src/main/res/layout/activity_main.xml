@@ -61,7 +61,8 @@
     app:layout_constraintBottom_toTopOf="@+id/playBt"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/takePhotoButton" />
+    app:layout_constraintTop_toBottomOf="@+id/takePhotoButton"
+  app:srcCompat="@drawable/instructions" />
 
   <ImageButton
     android:id="@+id/playBt"
