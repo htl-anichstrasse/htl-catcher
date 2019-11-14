@@ -94,12 +94,12 @@ public class Config {
    /**
     * Minimum gap between two obstacles in pixels
     */
-   private int obstacleMinGap = 500;
+   private int obstacleMinGap = 350;
 
    /**
     * Maximum gap between two obstacles in pixels
     */
-   private int obstacleMaxGap = 650;
+   private int obstacleMaxGap = 600;
 
    /**
     * Delay in milliseconds between two obstacles spawning
@@ -114,6 +114,6 @@ public class Config {
    /**
     * Constant width for all obstacles
     */
-   private int obstacleWidth = 120;
+   private int obstacleWidth = 150;
 
 }
