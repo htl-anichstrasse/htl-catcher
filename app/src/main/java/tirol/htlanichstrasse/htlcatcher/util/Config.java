@@ -25,7 +25,7 @@ public class Config {
    /**
     * The time for a player to be in a stage for the game to become harder
     */
-   private long stageTime = 5000;
+   private long stageTime = 2000;
 
    /*
       LOGO CONFIGURATION

@@ -23,7 +23,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
-import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
@@ -141,8 +140,8 @@ public class GameView extends View {
       // initialize logo bitmap
       final Bitmap decodedResource = BitmapFactory
           .decodeResource(context.getResources(), htllogo_round);
-      this.htlLogo = Bitmap.createScaledBitmap(decodedResource, this.logo.getRadius() * 2,
-          this.logo.getRadius() * 2, false);
+      this.htlLogo = Bitmap.createScaledBitmap(decodedResource, logo.getRadius() * 2,
+          logo.getRadius() * 2, false);
 
       // initialize game statistics
       CatcherStatistics.reset();
@@ -166,10 +165,10 @@ public class GameView extends View {
       // Initialize cursor and logo
       if (init) {
          cursor.x = Config.getInstance().getCursorInitialX();
-         cursor.y = this.getHeight() / 2 - cursor.getRadius();
+         cursor.y = getHeight() / 2 - cursor.getRadius();
          final int logoMargin = Config.getInstance().getLogoMargin();
-         logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
-             this.getHeight() - (logoMargin + logo.getRadius()),
+         logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
+             getHeight() - (logoMargin + logo.getRadius()),
              random);
          init = false;
       }
@@ -178,11 +177,12 @@ public class GameView extends View {
       renderCursor(canvas);
 
       // Only execute if game has already started
-      if (gameState == GameState.INGAME || gameState == GameState.INGAME2
-          || gameState == GameState.INGAME3) {
+      if (GameState.isInGame(gameState)) {
          // Check game state
-         if (System.currentTimeMillis() > CatcherStatistics.getInstance().getGameStageChanged() + Config.getInstance().getStageTime() ) {
-            switch(gameState) {
+         if (System.currentTimeMillis()
+             > CatcherStatistics.getInstance().getGameStageChanged() + Config.getInstance()
+             .getStageTime()) {
+            switch (gameState) {
                case INGAME:
                   gameState = GameState.INGAME2;
                   break;
@@ -253,8 +253,11 @@ public class GameView extends View {
     */
    private void renderObstacle(final Canvas canvas) {
       // Spawn new obstacle
-      if (System.currentTimeMillis() > lastObstacleSpawned + Config.getInstance()
-          .getObstacleSpawnDelay()) {
+      long obstacleSpawnDelay = Config.getInstance().getObstacleSpawnDelay();
+      if (gameState == GameState.INGAME3) {
+         obstacleSpawnDelay /= 4;
+      }
+      if (System.currentTimeMillis() > lastObstacleSpawned + obstacleSpawnDelay) {
          for (Obstacle obstacle : obstacles) {
             if (!obstacle.isAlive()) {
                // respawn obstacle!
@@ -262,8 +265,9 @@ public class GameView extends View {
                final int gap = random.nextInt(
                    Config.getInstance().getObstacleMaxGap() - Config.getInstance()
                        .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
-               obstacle.resetObstacle(this.getWidth(), this.getHeight(), topHeight,
-                   topHeight + gap > this.getHeight() - activity.getFloor().getHeight() ? gap / 2 : gap);
+               obstacle.resetObstacle(getWidth(), getHeight(), topHeight,
+                   topHeight + gap > getHeight() - activity.getFloor().getHeight() ? gap / 2
+                       : gap);
                break;
             }
          }
@@ -282,7 +286,7 @@ public class GameView extends View {
             final Rect lowerPart = obstacle.getLowerPart();
             lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
-            obstacle.move();
+            obstacle.move(gameState);
             if (upperPart.right < 0) {
                obstacle.setAlive(false);
             }
@@ -324,8 +328,8 @@ public class GameView extends View {
          if (System.currentTimeMillis() > lastLogoDied + (
              (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
             final int logoMargin = Config.getInstance().getLogoMargin();
-            logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
-                this.getHeight() - (logoMargin + logo.getRadius()),
+            logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
+                getHeight() - (logoMargin + logo.getRadius()),
                 random);
          }
       }
@@ -360,9 +364,9 @@ public class GameView extends View {
       final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
 
       // Draw text onto canvas
-      canvas.drawText(text, this.getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
+      canvas.drawText(text, getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
           textPaint);
-      canvas.drawText(text, this.getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f,
+      canvas.drawText(text, getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f,
           y + 50,
           textStrokePaint);
    }
@@ -375,11 +379,10 @@ public class GameView extends View {
     */
    public boolean lost() {
       // If cursor has left the screen
-      boolean lost = this.cursor.x < 0 || this.cursor.x > this.getWidth()
-          || this.cursor.y < 0;
+      boolean lost = cursor.x < 0 || cursor.x > getWidth() || cursor.y < 0;
 
       // Check floor collision
-      lost |= activity.getFloor().isCursorCollided(this.cursor, this);
+      lost |= activity.getFloor().isCursorCollided(cursor, this);
 
       // Don't check obstacle if player has left screen
       if (lost) {
@@ -389,35 +392,11 @@ public class GameView extends View {
       // If cursor has hit obstacle
       for (Obstacle obstacle : obstacles) {
          if (obstacle.isAlive()) {
-            // Upper obstacle
-            for (Rect part : new Rect[]{obstacle.getUpperPart(), obstacle.getLowerPart()}) {
-               // calculate edges to test
-               float testX = cursor.x;
-               float testY = cursor.y;
-
-               // x axis
-               if (cursor.x < part.left) {
-                  testX = part.left;
-               } else if (cursor.x > part.right) {
-                  testX = part.right;
-               }
-               // y axis
-               if (cursor.y < part.top) {
-                  testY = part.top;
-               } else if (cursor.y > part.bottom) {
-                  testY = part.bottom;
-               }
-
-               // calculate edge distance
-               float distX = cursor.x - testX;
-               float distY = cursor.y - testY;
-               double distance = Math.sqrt((distX * distX) + (distY * distY));
-
-               // check collision
-               lost |= distance < cursor.getRadius();
-            }
+            lost |= obstacle.isCursorCollided(cursor);
          }
       }
+
+      // we done
       return lost;
    }
 

@@ -3,6 +3,7 @@ package tirol.htlanichstrasse.htlcatcher.game.component;
 import android.graphics.Rect;
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.game.GameState;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
 
 /**
@@ -42,9 +43,14 @@ public final class Obstacle {
 
    /**
     * Moves this obstacle to the left on the GameView canvas
+    *
+    * @param gameState the current gameState
     */
-   public void move() {
-      final int obstacleXDelta = Config.getInstance().getObstacleXDelta();
+   public void move(final GameState gameState) {
+      int obstacleXDelta = Config.getInstance().getObstacleXDelta();
+      if (gameState == GameState.INGAME3) {
+         obstacleXDelta *= 2;
+      }
       upperPart.left -= obstacleXDelta;
       upperPart.right -= obstacleXDelta;
       lowerPart.left -= obstacleXDelta;
@@ -73,6 +79,50 @@ public final class Obstacle {
       lowerPart.top = topHeight + gap;
       lowerPart.right = screenWidth + Config.getInstance().getObstacleWidth();
       lowerPart.bottom = screenHeight;
+   }
+
+   /**
+    * Checks if the given cursor is collided with this obstacle
+    *
+    * @param cursor the cursor to check collision with
+    * @return true if the cursor is collided, false otherwise
+    */
+   public boolean isCursorCollided(final Cursor cursor) {
+      boolean collided = false;
+
+      // Upper obstacle
+      for (Rect part : new Rect[]{upperPart, lowerPart}) {
+         // calculate edges to test
+         float testX = cursor.x;
+         float testY = cursor.y;
+
+         // x axis
+         if (cursor.x < part.left) {
+            testX = part.left;
+         } else if (cursor.x > part.right) {
+            testX = part.right;
+         }
+         // y axis
+         if (cursor.y < part.top) {
+            testY = part.top;
+         } else if (cursor.y > part.bottom) {
+            testY = part.bottom;
+         }
+
+         // calculate edge distance
+         float distX = cursor.x - testX;
+         float distY = cursor.y - testY;
+         double distance = Math.sqrt((distX * distX) + (distY * distY));
+
+         // check collision
+         if (distance < cursor.getRadius()) {
+            collided = true;
+            break;
+         }
+      }
+
+      // if ya didnt know then now u know
+      return collided;
    }
 
 }
