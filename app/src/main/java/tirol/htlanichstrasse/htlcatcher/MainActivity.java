@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
          imageButton.setImageBitmap(roundedScaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedScaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png",
-             Bitmap.createScaledBitmap(roundedBitmap, 100, 150, false));
+             Bitmap.createScaledBitmap(roundedBitmap, 180, 180, false));
       }
    }
 
