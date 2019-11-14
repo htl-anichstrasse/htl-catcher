@@ -25,7 +25,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
 
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     * @param bitmap the bitmap to be cropped
     * @return the cropped bitmap
     */
-   public Bitmap getRoundedCroppedBitmap(Bitmap bitmap) {
+   public Bitmap getRoundedCroppedBitmap(final Bitmap bitmap) {
       // Return bitmap
       final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
           bitmap.getHeight(), Config.ARGB_8888);

@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.MainActivity;
+import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 
 /**
