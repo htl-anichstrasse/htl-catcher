@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
          gameView.setGameState(GameState.INGAME);
       }
 
-      // Accelerate cursor in y position
+      // Set the cursors speed so that it jumps up
       gameView.getCursor().setYVelocity(-Config.getInstance().getCursorJumpSpeed());
       return true;
    }
