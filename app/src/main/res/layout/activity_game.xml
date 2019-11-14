@@ -12,6 +12,16 @@
     scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
     scrolling_image_view:layout_constraintEnd_toEndOf="parent">
 
+    <!-- stage three -->
+    <com.q42.android.scrollingimageview.ScrollingImageView
+      android:id="@+id/scrolling_background_red"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      scrolling_image_view:speed="0.2dp"
+      scrolling_image_view:src="@drawable/layer1_red" />
+
+    <!-- initial view -->
     <com.q42.android.scrollingimageview.ScrollingImageView
       android:id="@+id/scrolling_background"
       android:layout_width="match_parent"

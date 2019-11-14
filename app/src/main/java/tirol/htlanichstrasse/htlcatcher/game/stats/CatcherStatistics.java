@@ -3,6 +3,7 @@ package tirol.htlanichstrasse.htlcatcher.game.stats;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Class holding different kinds of statistics for a game of HTL Catcher
@@ -26,6 +27,13 @@ public class CatcherStatistics {
    public static void reset() {
       CatcherStatistics.instance = new CatcherStatistics();
    }
+
+   /**
+    * Holds a UNIX timestamp of when the game stage was changed the last time (or the game was
+    * started)
+    */
+   @Setter
+   private long gameStageChanged = 0L;
 
    /**
     * Holds the total amount of points collected during gameplay

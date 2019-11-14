@@ -22,6 +22,16 @@ public class Config {
    @Getter
    private static final Config instance = new Config();
 
+   /**
+    * The time for a player to be in a stage for the game to become harder
+    */
+   private long stageTime = 10000;
+
+   /**
+    * The time for the background transition
+    */
+   private int stageAnimationTime = 500;
+
    /*
       LOGO CONFIGURATION
     */
@@ -99,7 +109,7 @@ public class Config {
    /**
     * Maximum gap between two obstacles in pixels
     */
-   private int obstacleMaxGap = 600;
+   private int obstacleMaxGap = 550;
 
    /**
     * Delay in milliseconds between two obstacles spawning

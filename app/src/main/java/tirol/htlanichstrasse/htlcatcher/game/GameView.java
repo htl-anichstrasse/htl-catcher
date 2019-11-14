@@ -127,10 +127,10 @@ public class GameView extends View {
    private Bitmap flippedObstacleBitmap;
 
    /**
-    * Game floor object
+    * The activity for this view
     */
    @Setter
-   private Floor floor;
+   private GameActivity activity;
 
    /**
     * Creates new GameView
@@ -178,7 +178,22 @@ public class GameView extends View {
       renderCursor(canvas);
 
       // Only execute if game has already started
-      if (gameState == GameState.INGAME) {
+      if (gameState == GameState.INGAME || gameState == GameState.INGAME2
+          || gameState == GameState.INGAME3) {
+         // Check game state
+         if (System.currentTimeMillis() > CatcherStatistics.getInstance().getGameStageChanged() + Config.getInstance().getStageTime() ) {
+            switch(gameState) {
+               case INGAME:
+                  gameState = GameState.INGAME2;
+                  break;
+               case INGAME2:
+                  gameState = GameState.INGAME3;
+                  activity.changeGameStage(gameState);
+                  break;
+            }
+            CatcherStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
+         }
+
          // Award point
          if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
             CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
@@ -248,7 +263,7 @@ public class GameView extends View {
                    Config.getInstance().getObstacleMaxGap() - Config.getInstance()
                        .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
                obstacle.resetObstacle(this.getWidth(), this.getHeight(), topHeight,
-                   topHeight + gap > this.getHeight() - floor.getHeight() ? gap / 2 : gap);
+                   topHeight + gap > this.getHeight() - activity.getFloor().getHeight() ? gap / 2 : gap);
                break;
             }
          }
@@ -364,7 +379,7 @@ public class GameView extends View {
           || this.cursor.y < 0;
 
       // Check floor collision
-      lost |= floor.isCursorCollided(this.cursor, this);
+      lost |= activity.getFloor().isCursorCollided(this.cursor, this);
 
       // Don't check obstacle if player has left screen
       if (lost) {

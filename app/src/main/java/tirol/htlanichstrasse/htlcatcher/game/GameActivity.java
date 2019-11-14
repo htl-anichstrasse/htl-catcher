@@ -1,5 +1,7 @@
 package tirol.htlanichstrasse.htlcatcher.game;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -12,8 +14,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
+import lombok.Getter;
 import org.htlanich.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
+import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
 
@@ -38,6 +42,12 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     */
    private GameView gameView;
 
+   /**
+    * The floor of this view
+    */
+   @Getter
+   private Floor floor;
+
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -51,7 +61,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       setContentView(R.layout.activity_game);
 
       // Instantiate view for activity
+      floor = findViewById(R.id.scrolling_floor);
       gameView = findViewById(R.id.gameView);
+      gameView.setActivity(this);
 
       // Set icons
       if (getIntent().getExtras() != null) {
@@ -62,7 +74,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
          Log.e(LOG_TAG, "Could not fetch intent extras bundle");
       }
       gameView.setOnTouchListener(this);
-      gameView.setFloor(findViewById(R.id.scrolling_floor));
 
       // Register game timer
       new Timer().schedule(new TimerTask() {
@@ -78,12 +89,45 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       }, 0, 50);
    }
 
+   /**
+    * Changes the game stage to another ingame stage
+    *
+    * @param gameStage the ingame stage to change to
+    * @throws IllegalArgumentException if provided gameStage is not an ingame stage
+    */
+   public void changeGameStage(final GameState gameStage) {
+      switch (gameStage) {
+         case INGAME:
+         case INGAME2:
+            final int shortAnimationDuration = Config.getInstance().getStageAnimationTime();
+            final View redBackgroundView = findViewById(R.id.scrolling_background_red);
+            redBackgroundView.setVisibility(View.VISIBLE);
+            redBackgroundView.setAlpha(0f);
+            redBackgroundView.animate().alpha(1f).setDuration(shortAnimationDuration)
+                .setListener(null);
+            final View backgroundView = findViewById(R.id.scrolling_background);
+            backgroundView.animate().alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                   @Override
+                   public void onAnimationEnd(Animator animation) {
+                      backgroundView.setVisibility(View.GONE);
+                   }
+                });
+            break;
+         case INGAME3:
+         default:
+            throw new IllegalArgumentException("Can only change to ingame stages!");
+      }
+   }
+
    @Override
    public boolean onTouch(final View view, final MotionEvent event) {
       // Change game state
       if (gameView.getGameState() == GameState.START) {
          gameView.setLastPointTimestamp(System.currentTimeMillis());
          gameView.setGameState(GameState.INGAME);
+         CatcherStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
       }
 
       // Set the cursors speed so that it jumps up
