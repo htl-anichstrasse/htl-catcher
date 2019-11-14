@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
       // Handling activity result request code
       if (requestCode == REQUEST_IMAGE_CAPTURE1 && resultCode == RESULT_OK) {
-         final Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+         final Bitmap scaledBitmap = getRoundedCroppedBitmap(Bitmap.createScaledBitmap(bitmap, 180, 180, false));
          imageButton.setImageBitmap(scaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me_disp.png", scaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png",
