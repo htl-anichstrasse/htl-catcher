@@ -10,7 +10,6 @@
   <string name="gameover_title">GAME OVER!</string>
   <string name="gameover_title_description">HTL Logo</string>
   <string name="generic_app_name">HTL Catcher</string>
-  <string name="instruction">You can control your player character by tapping on the display. On every tap, your character jumps up a bit but then immediately falls back down due to gravity.</string>
   <string name="instruction_title">That\'s how you play:</string>
   <string name="main_instruction_button">That\'s how you play.</string>
   <string name="main_play_button">Start game</string>
@@ -20,4 +19,5 @@
   <string name="main_title">HTL Catcher</string>
   <string name="credit_footer">Rossi N. | Winkler J. | Sammer H.</string>
   <string name="game_stage3">Sudden Death!</string>
+  <string name="instruction">You can control your avatar by tapping on the display. Upon every tap, your character jumps up a bit but then immediately falls back down due to gravitational affectation.</string>
 </resources>
