@@ -1,7 +1,5 @@
 package tirol.htlanichstrasse.htlcatcher.game;
 
-import static org.htlanich.htlcatcher.R.mipmap.htllogo_round;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,7 +19,7 @@ import android.view.View;
 import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
-import org.htlanich.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
@@ -139,7 +137,7 @@ public class GameView extends View {
 
       // initialize logo bitmap
       final Bitmap decodedResource = BitmapFactory
-          .decodeResource(context.getResources(), htllogo_round);
+          .decodeResource(context.getResources(), R.mipmap.htllogo_round);
       this.htlLogo = Bitmap.createScaledBitmap(decodedResource, logo.getRadius() * 2,
           logo.getRadius() * 2, false);
 

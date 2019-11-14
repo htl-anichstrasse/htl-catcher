@@ -16,7 +16,7 @@ import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
-import org.htlanich.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;

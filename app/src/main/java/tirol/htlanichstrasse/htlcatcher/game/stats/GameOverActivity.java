@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.MainActivity;
+import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 

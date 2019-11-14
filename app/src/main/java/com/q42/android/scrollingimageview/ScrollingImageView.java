@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import lombok.Getter;
-import org.htlanich.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.R;
 
 /**
  * From: https://github.com/Q42/AndroidScrollingImageView
