@@ -78,6 +78,11 @@ public class Config {
    private int cursorAcceleration = 5;
 
    /**
+    * Y-Velocity of the cursor in the negative direction on touch
+    */
+   private int cursorJumpSpeed = 13;
+
+   /**
     * The direction delay in the start phase in y direction
     */
    private long cursorStartChangeDelay = 1000L;

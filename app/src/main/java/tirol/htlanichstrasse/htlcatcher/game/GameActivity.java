@@ -87,11 +87,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       }
 
       // Accelerate cursor in y position
-      final Cursor gameCursor = gameView.getCursor();
-      final int cursorAcceleration = Config.getInstance().getCursorAcceleration();
-      final int acceleration =
-          gameCursor.getYVelocity() > 0 ? cursorAcceleration * 2 : cursorAcceleration;
-      gameCursor.setYVelocity(gameCursor.getYVelocity() - acceleration);
+      gameView.getCursor().setYVelocity(-Config.getInstance().getCursorJumpSpeed());
       return true;
    }
 

@@ -37,9 +37,8 @@ public class ViewPoint extends Point {
     */
    public boolean intersect(final ViewPoint point) {
       return
-          Math.pow(
-              (this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y),
-              0.5) < this.radius + point.radius;
+          ((this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y))
+              <= ((this.radius + point.radius) * (this.radius + point.radius));
    }
 
    @Override
