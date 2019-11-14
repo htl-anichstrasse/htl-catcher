@@ -28,7 +28,8 @@ public class Floor extends ScrollingImageView {
     * @return true if the cursor is collided, false otherwise
     */
    public boolean isCursorCollided(final Cursor cursor, final GameView view) {
-      return cursor.y + cursor.getRadius() > view.getHeight() - (this.getHeight() * 1.6f);
+      // cursor.y is in the top left corner, so we use the radius x2 to get the diameter
+      return cursor.y + cursor.getRadius() > view.getHeight() - this.getHeight();
    }
 
 }

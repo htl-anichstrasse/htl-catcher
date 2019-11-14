@@ -227,7 +227,8 @@ public class GameView extends View {
          cursor.setYVelocity(cursor.getYVelocity() + Config.getInstance().getCursorGravity());
       }
       // Draw player bitmap on canvas
-      canvas.drawBitmap(playerBitmap, cursor.x, cursor.y, paint);
+      canvas.drawBitmap(playerBitmap, cursor.x - cursor.getRadius(), cursor.y - cursor.getRadius(),
+          paint);
    }
 
    /**
@@ -302,7 +303,7 @@ public class GameView extends View {
          }
          logo.y += logo.isYDirection() ? -2 : 2;
          // Draw logo on canvas
-         canvas.drawBitmap(htlLogo, logo.x, logo.y, paint);
+         canvas.drawBitmap(htlLogo, logo.x - logo.getRadius(), logo.y - logo.getRadius(), paint);
       } else {
          // Spawn new logo
          if (System.currentTimeMillis() > lastLogoDied + (
