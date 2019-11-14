@@ -52,6 +52,18 @@
       android:id="@+id/gameView"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
+    <TextView
+      android:id="@+id/suddenDeath"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fontFamily="sans-serif-black"
+      android:gravity="center_vertical"
+      android:rotation="30"
+      android:text="@string/game_stage3"
+      android:textAlignment="center"
+      android:textColor="@android:color/white"
+      android:textSize="56sp"
+      android:visibility="gone" />
   </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

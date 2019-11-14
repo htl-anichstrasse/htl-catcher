@@ -3,6 +3,7 @@ package tirol.htlanichstrasse.htlcatcher.game.component;
 import android.graphics.Rect;
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.game.GameState;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
 
 /**
@@ -42,9 +43,14 @@ public final class Obstacle {
 
    /**
     * Moves this obstacle to the left on the GameView canvas
+    *
+    * @param gameState the current gameState
     */
-   public void move() {
-      final int obstacleXDelta = Config.getInstance().getObstacleXDelta();
+   public void move(final GameState gameState) {
+      int obstacleXDelta = Config.getInstance().getObstacleXDelta();
+      if (gameState == GameState.INGAME3) {
+         obstacleXDelta *= 2;
+      }
       upperPart.left -= obstacleXDelta;
       upperPart.right -= obstacleXDelta;
       lowerPart.left -= obstacleXDelta;

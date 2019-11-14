@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -115,6 +116,24 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                    @Override
                    public void onAnimationEnd(Animator animation) {
                       backgroundView.setVisibility(View.GONE);
+                   }
+                });
+            final View suddenDeathView = findViewById(R.id.suddenDeath);
+            suddenDeathView.setVisibility(View.VISIBLE);
+            suddenDeathView.setAlpha(0f);
+            suddenDeathView.animate().alpha(1f).rotation(0f).setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                   @Override
+                   public void onAnimationEnd(Animator animation) {
+                      new Handler()
+                          .postDelayed(() -> runOnUiThread(() -> suddenDeathView.animate().alpha(0f)
+                              .setDuration(shortAnimationDuration)
+                              .setListener(new AnimatorListenerAdapter() {
+                                 @Override
+                                 public void onAnimationEnd(Animator animation) {
+                                    suddenDeathView.setVisibility(View.GONE);
+                                 }
+                              })), 1000L);
                    }
                 });
             break;

@@ -23,7 +23,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.htlanich.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
-import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
@@ -178,11 +177,12 @@ public class GameView extends View {
       renderCursor(canvas);
 
       // Only execute if game has already started
-      if (gameState == GameState.INGAME || gameState == GameState.INGAME2
-          || gameState == GameState.INGAME3) {
+      if (GameState.isInGame(gameState)) {
          // Check game state
-         if (System.currentTimeMillis() > CatcherStatistics.getInstance().getGameStageChanged() + Config.getInstance().getStageTime() ) {
-            switch(gameState) {
+         if (System.currentTimeMillis()
+             > CatcherStatistics.getInstance().getGameStageChanged() + Config.getInstance()
+             .getStageTime()) {
+            switch (gameState) {
                case INGAME:
                   gameState = GameState.INGAME2;
                   break;
@@ -253,8 +253,11 @@ public class GameView extends View {
     */
    private void renderObstacle(final Canvas canvas) {
       // Spawn new obstacle
-      if (System.currentTimeMillis() > lastObstacleSpawned + Config.getInstance()
-          .getObstacleSpawnDelay()) {
+      long obstacleSpawnDelay = Config.getInstance().getObstacleSpawnDelay();
+      if (gameState == GameState.INGAME3) {
+         obstacleSpawnDelay /= 4;
+      }
+      if (System.currentTimeMillis() > lastObstacleSpawned + obstacleSpawnDelay) {
          for (Obstacle obstacle : obstacles) {
             if (!obstacle.isAlive()) {
                // respawn obstacle!
@@ -263,7 +266,8 @@ public class GameView extends View {
                    Config.getInstance().getObstacleMaxGap() - Config.getInstance()
                        .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
                obstacle.resetObstacle(this.getWidth(), this.getHeight(), topHeight,
-                   topHeight + gap > this.getHeight() - activity.getFloor().getHeight() ? gap / 2 : gap);
+                   topHeight + gap > this.getHeight() - activity.getFloor().getHeight() ? gap / 2
+                       : gap);
                break;
             }
          }
@@ -282,7 +286,7 @@ public class GameView extends View {
             final Rect lowerPart = obstacle.getLowerPart();
             lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
-            obstacle.move();
+            obstacle.move(gameState);
             if (upperPart.right < 0) {
                obstacle.setAlive(false);
             }

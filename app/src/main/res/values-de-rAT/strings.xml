@@ -19,4 +19,5 @@
   <string name="main_takephoto_toast_nophoto">Bitte zuerst ein Foto machen!</string>
   <string name="main_title">HTL Catcher</string>
   <string name="credit_footer">Rossi N. | Winkler J. | Sammer H.</string>
+  <string name="game_stage3">Mach dich gefasst!</string>
 </resources>
