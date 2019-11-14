@@ -31,10 +31,9 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
 
       // Load stats into view
       final CatcherStatistics catcherStatistics = CatcherStatistics.getInstance();
-      final LinearLayout linearLayout = currentView.findViewById(R.id.linearLayout);
+      final LinearLayout linearLayout = currentView.findViewById(R.id.scoreLinLayout);
       final TextView scoreText = new TextView(this);
-      scoreText
-          .setText(getString(R.string.gameover_score, catcherStatistics.getPoints().get()));
+      scoreText.setText(getString(R.string.gameover_score, catcherStatistics.getPoints().get()));
       scoreText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
       final TextView timeText = new TextView(this);
@@ -48,7 +47,7 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
 
       // Restart-button listener
       currentView.findViewById(R.id.restartButton).setOnClickListener(this);
-      // currentView.findViewById(R.id.backToMenu).setOnClickListener(this);
+      currentView.findViewById(R.id.backToMenu).setOnClickListener(this);
    }
 
    /**
@@ -66,7 +65,7 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
             startActivity(intent);
             break;
 
-         case R.id.backToMainMenuButton:
+         case R.id.backToMenu:
             startActivity(new Intent(this, MainActivity.class));
             break;
       }
