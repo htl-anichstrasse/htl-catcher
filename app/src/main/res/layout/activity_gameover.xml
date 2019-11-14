@@ -62,7 +62,7 @@
     android:layout_marginBottom="100dp"
     android:background="@drawable/button_game_over_design"
     android:fontFamily="sans-serif-black"
-    android:onClick="backToMainMenu"
+    android:onClick="onClick"
     android:text="@string/backToMainMenu"
     app:layout_constraintBottom_toTopOf="@+id/gameOver_footer"
     app:layout_constraintLeft_toLeftOf="parent"
