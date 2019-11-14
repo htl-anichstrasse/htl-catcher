@@ -64,7 +64,7 @@ public class CatcherStatistics {
     * @since 05.11.2019
     */
    public enum StatisticsAction {
-      SECOND(1), LOGO(5);
+      SECOND(1), LOGO(10);
 
       /**
        * Determines the worth of this action
