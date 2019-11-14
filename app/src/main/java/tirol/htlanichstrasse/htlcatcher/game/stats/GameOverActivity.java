@@ -59,18 +59,18 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
 
    @Override
    public void onClick(final View view) {
-      Intent intent = new Intent(this, GameActivity.class);
-      intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
-      startActivity(intent);
-   }
+      switch (view.getId()) {
+         case R.id.restartButton:
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
+            startActivity(intent);
+            break;
 
-   /**
-    * Called on main-menu button click to jump back to the main menu.
-    * @param view the main-menu button
-    */
+         case R.id.backToMainMenuButton:
+            startActivity(new Intent(this, MainActivity.class));
+            break;
+      }
 
-   public void backToMainMenu(final View view) {
-      startActivity(new Intent(this, MainActivity.class));
    }
 
 }
