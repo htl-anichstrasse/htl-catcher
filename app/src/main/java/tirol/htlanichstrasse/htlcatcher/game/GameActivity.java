@@ -99,7 +99,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       switch (gameStage) {
          case INGAME:
          case INGAME2:
-            final int shortAnimationDuration = Config.getInstance().getStageAnimationTime();
+            break;
+         case INGAME3:
+            final int shortAnimationDuration = getResources()
+                .getInteger(android.R.integer.config_shortAnimTime);
             final View redBackgroundView = findViewById(R.id.scrolling_background_red);
             redBackgroundView.setVisibility(View.VISIBLE);
             redBackgroundView.setAlpha(0f);
@@ -115,7 +118,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                    }
                 });
             break;
-         case INGAME3:
          default:
             throw new IllegalArgumentException("Can only change to ingame stages!");
       }

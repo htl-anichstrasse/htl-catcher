@@ -25,12 +25,7 @@ public class Config {
    /**
     * The time for a player to be in a stage for the game to become harder
     */
-   private long stageTime = 10000;
-
-   /**
-    * The time for the background transition
-    */
-   private int stageAnimationTime = 500;
+   private long stageTime = 5000;
 
    /*
       LOGO CONFIGURATION
