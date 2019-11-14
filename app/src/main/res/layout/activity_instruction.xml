@@ -58,25 +58,26 @@
     android:id="@+id/playButton"
     android:layout_width="@dimen/button_width"
     android:layout_height="@dimen/button_height"
-    android:layout_marginTop="40dp"
+    android:layout_marginTop="50dp"
     android:background="@drawable/button_main_design"
     android:contentDescription="@string/main_play_button"
     android:onClick="onClick"
-    app:layout_constraintHorizontal_bias="0.501"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@id/gameControlsDescription"
     app:srcCompat="@android:drawable/ic_media_play" />
+
   <ImageButton
     android:id="@+id/backToMainMenuButton"
     android:layout_width="@dimen/button_width"
     android:layout_height="@dimen/button_height"
-    android:layout_marginTop="10dp"
+    android:layout_marginBottom="80dp"
     android:background="@drawable/button_main_design"
     android:contentDescription="@string/main_play_button"
     android:onClick="onClick"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/playButton"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:srcCompat="@drawable/turned_play_button" />
+
 </android.support.constraint.ConstraintLayout>
