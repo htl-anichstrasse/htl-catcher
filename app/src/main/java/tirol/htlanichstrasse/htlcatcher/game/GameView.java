@@ -247,7 +247,7 @@ public class GameView extends View {
                    Config.getInstance().getObstacleMaxGap() - Config.getInstance()
                        .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
                obstacle.resetObstacle(this.getWidth(), this.getHeight(), topHeight,
-                   topHeight + gap > this.getHeight() ? gap / 2 : gap);
+                   topHeight + gap > this.getHeight() - floor.getHeight() ? gap / 2 : gap);
                break;
             }
          }

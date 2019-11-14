@@ -13,6 +13,9 @@ import tirol.htlanichstrasse.htlcatcher.game.GameView;
  */
 public class Floor extends ScrollingImageView {
 
+   /**
+    * Creates a new scrolling game floor
+    */
    public Floor(final Context context, final AttributeSet attrs) {
       super(context, attrs);
    }
