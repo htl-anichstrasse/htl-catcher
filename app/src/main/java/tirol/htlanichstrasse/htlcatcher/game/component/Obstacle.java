@@ -81,4 +81,48 @@ public final class Obstacle {
       lowerPart.bottom = screenHeight;
    }
 
+   /**
+    * Checks if the given cursor is collided with this obstacle
+    *
+    * @param cursor the cursor to check collision with
+    * @return true if the cursor is collided, false otherwise
+    */
+   public boolean isCursorCollided(final Cursor cursor) {
+      boolean collided = false;
+
+      // Upper obstacle
+      for (Rect part : new Rect[]{this.getUpperPart(), this.getLowerPart()}) {
+         // calculate edges to test
+         float testX = cursor.x;
+         float testY = cursor.y;
+
+         // x axis
+         if (cursor.x < part.left) {
+            testX = part.left;
+         } else if (cursor.x > part.right) {
+            testX = part.right;
+         }
+         // y axis
+         if (cursor.y < part.top) {
+            testY = part.top;
+         } else if (cursor.y > part.bottom) {
+            testY = part.bottom;
+         }
+
+         // calculate edge distance
+         float distX = cursor.x - testX;
+         float distY = cursor.y - testY;
+         double distance = Math.sqrt((distX * distX) + (distY * distY));
+
+         // check collision
+         if (distance < cursor.getRadius()) {
+            collided = true;
+            break;
+         }
+      }
+
+      // if ya didnt know then now u know
+      return collided;
+   }
+
 }
