@@ -73,9 +73,9 @@ public class Config {
    private int cursorGravity = 1;
 
    /**
-    * Value of cursor accelerating in negative y direction on touch
+    * Y-Velocity of the cursor in the negative direction on touch
     */
-   private int cursorAcceleration = 5;
+   private int cursorJumpSpeed = 13;
 
    /**
     * The direction delay in the start phase in y direction
