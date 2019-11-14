@@ -140,8 +140,8 @@ public class GameView extends View {
       // initialize logo bitmap
       final Bitmap decodedResource = BitmapFactory
           .decodeResource(context.getResources(), htllogo_round);
-      this.htlLogo = Bitmap.createScaledBitmap(decodedResource, this.logo.getRadius() * 2,
-          this.logo.getRadius() * 2, false);
+      this.htlLogo = Bitmap.createScaledBitmap(decodedResource, logo.getRadius() * 2,
+          logo.getRadius() * 2, false);
 
       // initialize game statistics
       CatcherStatistics.reset();
@@ -165,10 +165,10 @@ public class GameView extends View {
       // Initialize cursor and logo
       if (init) {
          cursor.x = Config.getInstance().getCursorInitialX();
-         cursor.y = this.getHeight() / 2 - cursor.getRadius();
+         cursor.y = getHeight() / 2 - cursor.getRadius();
          final int logoMargin = Config.getInstance().getLogoMargin();
-         logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
-             this.getHeight() - (logoMargin + logo.getRadius()),
+         logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
+             getHeight() - (logoMargin + logo.getRadius()),
              random);
          init = false;
       }
@@ -265,8 +265,8 @@ public class GameView extends View {
                final int gap = random.nextInt(
                    Config.getInstance().getObstacleMaxGap() - Config.getInstance()
                        .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
-               obstacle.resetObstacle(this.getWidth(), this.getHeight(), topHeight,
-                   topHeight + gap > this.getHeight() - activity.getFloor().getHeight() ? gap / 2
+               obstacle.resetObstacle(getWidth(), getHeight(), topHeight,
+                   topHeight + gap > getHeight() - activity.getFloor().getHeight() ? gap / 2
                        : gap);
                break;
             }
@@ -328,8 +328,8 @@ public class GameView extends View {
          if (System.currentTimeMillis() > lastLogoDied + (
              (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
             final int logoMargin = Config.getInstance().getLogoMargin();
-            logo.resetLogo(this.getWidth(), logoMargin + logo.getRadius(),
-                this.getHeight() - (logoMargin + logo.getRadius()),
+            logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
+                getHeight() - (logoMargin + logo.getRadius()),
                 random);
          }
       }
@@ -364,9 +364,9 @@ public class GameView extends View {
       final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
 
       // Draw text onto canvas
-      canvas.drawText(text, this.getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
+      canvas.drawText(text, getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
           textPaint);
-      canvas.drawText(text, this.getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f,
+      canvas.drawText(text, getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f,
           y + 50,
           textStrokePaint);
    }
@@ -379,11 +379,10 @@ public class GameView extends View {
     */
    public boolean lost() {
       // If cursor has left the screen
-      boolean lost = this.cursor.x < 0 || this.cursor.x > this.getWidth()
-          || this.cursor.y < 0;
+      boolean lost = cursor.x < 0 || cursor.x > getWidth() || cursor.y < 0;
 
       // Check floor collision
-      lost |= activity.getFloor().isCursorCollided(this.cursor, this);
+      lost |= activity.getFloor().isCursorCollided(cursor, this);
 
       // Don't check obstacle if player has left screen
       if (lost) {

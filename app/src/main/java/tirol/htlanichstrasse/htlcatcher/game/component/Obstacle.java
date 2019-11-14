@@ -91,7 +91,7 @@ public final class Obstacle {
       boolean collided = false;
 
       // Upper obstacle
-      for (Rect part : new Rect[]{this.getUpperPart(), this.getLowerPart()}) {
+      for (Rect part : new Rect[]{upperPart, lowerPart}) {
          // calculate edges to test
          float testX = cursor.x;
          float testY = cursor.y;
