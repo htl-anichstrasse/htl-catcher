@@ -11,7 +11,7 @@ import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 
 /**
- * Shows instructions for playing the game
+ * Shows instructions on how to play the game.
  *
  * @author Nicolaus Rossi
  * @since 31.10.2019
@@ -34,7 +34,8 @@ public class InstructionActivity extends AppCompatActivity implements OnClickLis
             intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
             startActivity(intent);
             break;
-         case R.id.backToMainMenuButton:
+
+         case R.id.backToMenu:
             startActivity(new Intent(this, MainActivity.class));
             break;
       }
