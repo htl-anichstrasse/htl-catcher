@@ -6,10 +6,11 @@
   android:layout_height="match_parent"
   android:background="@drawable/background_game_over"
   tools:context="tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity">
+
   <ImageView
     android:id="@+id/imageView"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/logo_height"
     android:layout_marginTop="65dp"
     android:contentDescription="@string/gameover_title_description"
     app:layout_constraintLeft_toLeftOf="parent"
@@ -26,6 +27,7 @@
     android:text="@string/gameover_title"
     android:textAlignment="center"
     android:textSize="36sp"
+    android:textStyle="bold"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -82,15 +84,11 @@
     android:id="@+id/creditFooter"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
     android:text="@string/credit_footer"
     android:textAlignment="center"
-    android:layout_marginBottom="20dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-
-
-
-    />
+    app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
