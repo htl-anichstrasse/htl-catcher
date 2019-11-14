@@ -2,7 +2,7 @@
 <resources>
   <string name="main_takephoto_button">Take photo</string>
   <string name="backToMainMenu">Main Menu</string>
-  <string name="gameDescription">HTlCatcher is a Flappy-Bird-inspired game where you have to navigate your player character through approaching obstacles as long as possible. The longer you manage to navigate through them, the more points you get. Additionally, you can try to catch passing HTL logos to get even more points.</string>
+  <string name="gameDescription">HTlCatcher is a Flappy-Bird-inspired game where you have to navigate your avatar through approaching obstacles as long as possible. The longer you manage to navigate through them, the more points you get. Additionally, you can try to catch passing HTL logos to acquire even more points.</string>
   <string name="gameover_footer">© HTL Anichstraße</string>
   <string name="gameover_gametime">Time: %1$d second(s)</string>
   <string name="gameover_newgame">Start new game</string>
@@ -10,7 +10,7 @@
   <string name="gameover_title">GAME OVER!</string>
   <string name="gameover_title_description">HTL Logo</string>
   <string name="generic_app_name">HTL Catcher</string>
-  <string name="instruction">You can control your player character by tapping on the display. On every tap, your character jumps up a bit but then immediately falls back down due to gravity.</string>
+  <string name="instruction">You can control your avatar by tapping on the display. Upon every tap, your character jumps up a bit but then immediately falls back down due to gravitational affectation.</string>
   <string name="instruction_title">That\'s how you play:</string>
   <string name="main_instruction_button">That\'s how you play.</string>
   <string name="main_play_button">Start game</string>
