@@ -8,7 +8,7 @@
   tools:context="tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity">
 
   <ImageView
-    android:id="@+id/imageView"
+    android:id="@+id/htlLogo"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/logo_height"
     android:layout_marginTop="65dp"
@@ -19,28 +19,28 @@
     app:srcCompat="@mipmap/ic_launcher_foreground" />
 
   <TextView
-    android:id="@+id/textView2"
+    android:id="@+id/gameOverText"
     android:layout_width="fill_parent"
     android:layout_height="50dp"
     android:layout_marginTop="20dp"
     android:fontFamily="sans-serif-black"
     android:text="@string/gameover_title"
     android:textAlignment="center"
-    android:textSize="36sp"
+    android:textSize="40sp"
     android:textStyle="bold"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    app:layout_constraintTop_toBottomOf="@+id/htlLogo" />
 
   <LinearLayout
-    android:id="@+id/linearLayout"
+    android:id="@+id/scoreLinLayout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:orientation="vertical"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+    app:layout_constraintTop_toBottomOf="@+id/gameOverText" />
 
   <Button
     android:id="@+id/restartButton"
