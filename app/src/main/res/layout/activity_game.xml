@@ -72,7 +72,11 @@
       android:textAlignment="center"
       android:textColor="@android:color/white"
       android:textSize="56sp"
-      android:visibility="gone" />
+      android:visibility="gone"
+      android:shadowColor="#000000"
+      android:shadowDx="1.5"
+      android:shadowDy="1.3"
+      android:shadowRadius="2.0"/>
   </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

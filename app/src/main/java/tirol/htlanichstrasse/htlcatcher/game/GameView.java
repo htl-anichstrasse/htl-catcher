@@ -255,6 +255,8 @@ public class GameView extends View {
       long obstacleSpawnDelay = Config.getInstance().getObstacleSpawnDelay();
       if (gameState == GameState.INGAME3) {
          obstacleSpawnDelay /= 6;
+      } else if (gameState == GameState.INGAME2) {
+         obstacleSpawnDelay /= 3;
       }
       if (System.currentTimeMillis() > lastObstacleSpawned + obstacleSpawnDelay) {
          for (Obstacle obstacle : obstacles) {

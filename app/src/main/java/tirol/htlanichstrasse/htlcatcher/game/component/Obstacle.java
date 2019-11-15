@@ -50,6 +50,8 @@ public final class Obstacle {
       int obstacleXDelta = Config.getInstance().getObstacleXDelta();
       if (gameState == GameState.INGAME3) {
          obstacleXDelta *= 4;
+      } else if (gameState == GameState.INGAME2) {
+         obstacleXDelta *= 2;
       }
       upperPart.left -= obstacleXDelta;
       upperPart.right -= obstacleXDelta;
