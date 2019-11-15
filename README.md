@@ -29,6 +29,11 @@
 ## About the project
 HTLCatcher is a Flappy-Bird-inspired Android Game developed by students of the higher technical college HTL Anichstraße in Innsbruck, Austria. The app was made for the college's open day to show potential new students what they can expect to learn in HTL Anichstraße.
 
+# Screenshots
+
+![Screenshot 1](/images/screenshot1.png)
+![Screenshot 2](/images/screenshot1.png)
+
 ## Installation
 
 If you want to tinker around with the project on your local PC, you can simply clone the project and open it in Android Studio, which will do all the setup with Gradle for you.
