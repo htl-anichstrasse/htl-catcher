@@ -23,9 +23,14 @@ public class Config {
    private static final Config instance = new Config();
 
    /**
-    * The time for a player to be in a stage for the game to become harder
+    * Time for a player to reach stage 2
     */
-   private long stageTime = 2000;
+   private long stage2Time = 30000;
+
+   /**
+    * Time for a player to reach stage 3
+    */
+   private long stage3Time = 60000;
 
    /*
       LOGO CONFIGURATION

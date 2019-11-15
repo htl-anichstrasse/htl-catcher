@@ -177,9 +177,10 @@ public class GameView extends View {
       // Only execute if game has already started
       if (GameState.isInGame(gameState)) {
          // Check game state
+         final long delay = gameState == GameState.INGAME ? Config.getInstance().getStage2Time()
+             : Config.getInstance().getStage3Time();
          if (System.currentTimeMillis()
-             > CatcherStatistics.getInstance().getGameStageChanged() + Config.getInstance()
-             .getStageTime()) {
+             > CatcherStatistics.getInstance().getGameStageChanged() + delay) {
             switch (gameState) {
                case INGAME:
                   gameState = GameState.INGAME2;
@@ -334,7 +335,7 @@ public class GameView extends View {
                 random);
             if (gameState == GameState.INGAME2) {
                logo.setSpeed(logo.getSpeed() * 2);
-            } else if(gameState == GameState.INGAME3) {
+            } else if (gameState == GameState.INGAME3) {
                logo.setSpeed(logo.getSpeed() * 3);
             }
          }
