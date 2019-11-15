@@ -126,4 +126,14 @@ public class Config {
     */
    private int obstacleWidth = 150;
 
+   /**
+    * The delay betweeen wiggle direction swaps of the obstacles
+    */
+   private long obstacleWiggleDelay = 1500L;
+
+   /**
+    * How much the obstacles wiggle in y direction
+    */
+   private int obstacleWiggleDeltaY = 1;
+
 }

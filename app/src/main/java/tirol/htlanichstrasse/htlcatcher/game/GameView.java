@@ -91,6 +91,16 @@ public class GameView extends View {
    private boolean init = true;
 
    /**
+    * UNIX timestamp determining when the wiggle direction of obstacles was swapped last
+    */
+   private long lastObstacleTurn = 0L;
+
+   /**
+    * Boolean for swapping the obstacle wiggle direction
+    */
+   private boolean obstacleTurned = false;
+
+   /**
     * Determines the current game state
     */
    @Getter
@@ -288,7 +298,22 @@ public class GameView extends View {
             final Rect lowerPart = obstacle.getLowerPart();
             lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
+            // Move to left
             obstacle.move(gameState);
+            // Wiggle in y direction
+            if (obstacle.isWiggles()) {
+               final int coefficient =
+                   Config.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1 : -1);
+               obstacle.getUpperPart().top += coefficient;
+               obstacle.getUpperPart().bottom += coefficient;
+               obstacle.getLowerPart().top -= coefficient;
+               obstacle.getLowerPart().bottom -= coefficient;
+            }
+            if (System.currentTimeMillis() > lastObstacleTurn + Config.getInstance()
+                .getObstacleWiggleDelay()) {
+               lastObstacleTurn = System.currentTimeMillis();
+               obstacleTurned = !obstacleTurned;
+            }
             if (upperPart.right < 0) {
                obstacle.setAlive(false);
             }

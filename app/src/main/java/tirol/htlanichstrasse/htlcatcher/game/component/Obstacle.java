@@ -1,6 +1,7 @@
 package tirol.htlanichstrasse.htlcatcher.game.component;
 
 import android.graphics.Rect;
+import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
@@ -24,6 +25,11 @@ public final class Obstacle {
     * The lower part of the obstacle
     */
    private Rect lowerPart;
+
+   /**
+    * true if the obstacle wiggles, false otherwise
+    */
+   private boolean wiggles = false;
 
    /**
     * Determines whether this obstacle is "alive"; it's not alive if it has reached the end of the
@@ -81,6 +87,9 @@ public final class Obstacle {
       lowerPart.top = topHeight + gap;
       lowerPart.right = screenWidth + Config.getInstance().getObstacleWidth();
       lowerPart.bottom = screenHeight;
+
+      // wiggles
+      wiggles = new Random().nextBoolean();
    }
 
    /**
