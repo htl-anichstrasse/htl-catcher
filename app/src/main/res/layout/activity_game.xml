@@ -21,6 +21,15 @@
       scrolling_image_view:speed="0.2dp"
       scrolling_image_view:src="@drawable/layer1_red" />
 
+    <!-- stage two -->
+    <com.q42.android.scrollingimageview.ScrollingImageView
+      android:id="@+id/scrolling_background_yellow"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      scrolling_image_view:speed="0.2dp"
+      scrolling_image_view:src="@drawable/layer1_yellow" />
+
     <!-- initial view -->
     <com.q42.android.scrollingimageview.ScrollingImageView
       android:id="@+id/scrolling_background"

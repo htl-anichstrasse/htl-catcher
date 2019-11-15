@@ -183,6 +183,7 @@ public class GameView extends View {
             switch (gameState) {
                case INGAME:
                   gameState = GameState.INGAME2;
+                  activity.changeGameStage(gameState);
                   break;
                case INGAME2:
                   gameState = GameState.INGAME3;

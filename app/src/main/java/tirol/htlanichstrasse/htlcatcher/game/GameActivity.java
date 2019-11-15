@@ -97,17 +97,15 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     * @throws IllegalArgumentException if provided gameStage is not an ingame stage
     */
    public void changeGameStage(final GameState gameStage) {
+      final int shortAnimationDuration = getResources()
+          .getInteger(android.R.integer.config_shortAnimTime);
       switch (gameStage) {
          case INGAME:
-         case INGAME2:
-            break;
-         case INGAME3:
-            final int shortAnimationDuration = getResources()
-                .getInteger(android.R.integer.config_shortAnimTime);
-            final View redBackgroundView = findViewById(R.id.scrolling_background_red);
-            redBackgroundView.setVisibility(View.VISIBLE);
-            redBackgroundView.setAlpha(0f);
-            redBackgroundView.animate().alpha(1f).setDuration(shortAnimationDuration)
+         case INGAME2: {
+            final View yellowBackgroundView = findViewById(R.id.scrolling_background_yellow);
+            yellowBackgroundView.setVisibility(View.VISIBLE);
+            yellowBackgroundView.setAlpha(0f);
+            yellowBackgroundView.animate().alpha(1f).setDuration(shortAnimationDuration)
                 .setListener(null);
             final View backgroundView = findViewById(R.id.scrolling_background);
             backgroundView.animate().alpha(0f)
@@ -116,6 +114,23 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                    @Override
                    public void onAnimationEnd(Animator animation) {
                       backgroundView.setVisibility(View.GONE);
+                   }
+                });
+         }
+         break;
+         case INGAME3: {
+            final View redBackgroundView = findViewById(R.id.scrolling_background_red);
+            redBackgroundView.setVisibility(View.VISIBLE);
+            redBackgroundView.setAlpha(0f);
+            redBackgroundView.animate().alpha(1f).setDuration(shortAnimationDuration)
+                .setListener(null);
+            final View yellowBackgroundView = findViewById(R.id.scrolling_background_yellow);
+            yellowBackgroundView.animate().alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                   @Override
+                   public void onAnimationEnd(Animator animation) {
+                      yellowBackgroundView.setVisibility(View.GONE);
                    }
                 });
             final View suddenDeathView = findViewById(R.id.suddenDeath);
@@ -136,7 +151,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                               })), 1000L);
                    }
                 });
-            break;
+         }
+         break;
          default:
             throw new IllegalArgumentException("Can only change to ingame stages!");
       }
