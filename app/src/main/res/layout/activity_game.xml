@@ -1,82 +1,75 @@
 <?xml version = "1.0" encoding = "utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:scrolling_image_view="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context="tirol.htlanichstrasse.htlcatcher.game.GameActivity">
 
-  <FrameLayout
+  <!-- stage three -->
+  <com.q42.android.scrollingimageview.ScrollingImageView
+    android:id="@+id/scrolling_background_red"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
-    scrolling_image_view:layout_constraintEnd_toEndOf="parent">
+    android:visibility="gone"
+    scrolling_image_view:speed="0.2dp"
+    scrolling_image_view:src="@drawable/layer1_red" />
 
-    <!-- stage three -->
-    <com.q42.android.scrollingimageview.ScrollingImageView
-      android:id="@+id/scrolling_background_red"
+  <!-- stage two -->
+  <com.q42.android.scrollingimageview.ScrollingImageView
+    android:id="@+id/scrolling_background_yellow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    scrolling_image_view:speed="0.2dp"
+    scrolling_image_view:src="@drawable/layer1_yellow" />
+
+  <!-- initial view -->
+  <com.q42.android.scrollingimageview.ScrollingImageView
+    android:id="@+id/scrolling_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    scrolling_image_view:speed="0.2dp"
+    scrolling_image_view:src="@drawable/layer1" />
+
+  <com.q42.android.scrollingimageview.ScrollingImageView
+    android:id="@+id/scrolling_clouds"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    scrolling_image_view:speed="0.4dp"
+    scrolling_image_view:src="@drawable/clouds" />
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <tirol.htlanichstrasse.htlcatcher.game.component.Floor
+      android:id="@+id/scrolling_floor"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:visibility="gone"
-      scrolling_image_view:speed="0.2dp"
-      scrolling_image_view:src="@drawable/layer1_red" />
+      scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
+      scrolling_image_view:speed="2.0dp"
+      scrolling_image_view:src="@drawable/layer2" />
+  </android.support.constraint.ConstraintLayout>
+  <tirol.htlanichstrasse.htlcatcher.game.GameView
+    android:id="@+id/gameView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+  <TextView
+    android:id="@+id/suddenDeath"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fontFamily="sans-serif-black"
+    android:gravity="center_vertical"
+    android:rotation="30"
+    android:shadowColor="#000000"
+    android:shadowDx="1.5"
+    android:shadowDy="1.3"
+    android:shadowRadius="2.0"
+    android:text="@string/game_stage3"
+    android:textAlignment="center"
+    android:textColor="@android:color/white"
+    android:textSize="56sp"
+    android:visibility="gone" />
 
-    <!-- stage two -->
-    <com.q42.android.scrollingimageview.ScrollingImageView
-      android:id="@+id/scrolling_background_yellow"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      scrolling_image_view:speed="0.2dp"
-      scrolling_image_view:src="@drawable/layer1_yellow" />
-
-    <!-- initial view -->
-    <com.q42.android.scrollingimageview.ScrollingImageView
-      android:id="@+id/scrolling_background"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      scrolling_image_view:speed="0.2dp"
-      scrolling_image_view:src="@drawable/layer1" />
-
-    <com.q42.android.scrollingimageview.ScrollingImageView
-      android:id="@+id/scrolling_clouds"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      scrolling_image_view:speed="0.4dp"
-      scrolling_image_view:src="@drawable/clouds" />
-
-    <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-      <tirol.htlanichstrasse.htlcatcher.game.component.Floor
-        android:id="@+id/scrolling_floor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
-        scrolling_image_view:speed="2.0dp"
-        scrolling_image_view:src="@drawable/layer2" />
-    </android.support.constraint.ConstraintLayout>
-    <tirol.htlanichstrasse.htlcatcher.game.GameView
-      android:id="@+id/gameView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
-    <TextView
-      android:id="@+id/suddenDeath"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fontFamily="sans-serif-black"
-      android:gravity="center_vertical"
-      android:rotation="30"
-      android:text="@string/game_stage3"
-      android:textAlignment="center"
-      android:textColor="@android:color/white"
-      android:textSize="56sp"
-      android:visibility="gone"
-      android:shadowColor="#000000"
-      android:shadowDx="1.5"
-      android:shadowDy="1.3"
-      android:shadowRadius="2.0"/>
-  </FrameLayout>
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>
