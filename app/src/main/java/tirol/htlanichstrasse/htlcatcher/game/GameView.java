@@ -332,6 +332,11 @@ public class GameView extends View {
             logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
                 getHeight() - (logoMargin + logo.getRadius()),
                 random);
+            if (gameState == GameState.INGAME2) {
+               logo.setSpeed(logo.getSpeed() * 2);
+            } else if(gameState == GameState.INGAME3) {
+               logo.setSpeed(logo.getSpeed() * 3);
+            }
          }
       }
    }
