@@ -103,13 +103,16 @@ public class MainActivity extends AppCompatActivity {
 
       // Handling activity result request code
       if (requestCode == REQUEST_IMAGE_CAPTURE1 && resultCode == RESULT_OK) {
+         final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
+             .getInstance();
          final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
          final Bitmap roundedScaledBitmap = Bitmap
-             .createScaledBitmap(roundedBitmap, 180, 180, false);
-         imageButton.setImageBitmap(roundedScaledBitmap);
-         saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedScaledBitmap);
-         saveImage(getFilesDir() + "/PHOTO", "me.png",
-             Bitmap.createScaledBitmap(roundedBitmap, 180, 180, false));
+             .createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2,
+                 config.getCursorRadius() * 2, false);
+         imageButton.setImageBitmap(roundedBitmap);
+         saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
+         saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
+         System.out.println(roundedBitmap.getHeight() + " W: " + roundedBitmap.getWidth());
       }
    }
 
@@ -215,10 +218,9 @@ public class MainActivity extends AppCompatActivity {
     */
    public Bitmap getRoundedCroppedBitmap(final Bitmap bitmap) {
       // Return bitmap
-      final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-          bitmap.getHeight(), Config.ARGB_8888);
-      final Rect rect = new Rect(0, 0, bitmap.getWidth(),
-          bitmap.getHeight());
+      final int sideLength = Math.min(bitmap.getWidth(), bitmap.getHeight());
+      final Bitmap output = Bitmap.createBitmap(sideLength, sideLength, Config.ARGB_8888);
+      final Rect rect = new Rect(0, 0, sideLength, sideLength);
 
       // Initialize canvas
       final Canvas canvas = new Canvas(output);
@@ -232,9 +234,9 @@ public class MainActivity extends AppCompatActivity {
       // Draw circle and intersect
       canvas.drawARGB(0, 0, 0, 0);
       paint.setColor(Color.parseColor("#BAB399"));
-      canvas.drawCircle(bitmap.getWidth() / 2.0f,
-          bitmap.getHeight() / 2.0f,
-          bitmap.getWidth() / 2.0f, paint);
+      canvas.drawCircle(sideLength / 2.0f,
+          sideLength / 2.0f,
+          sideLength / 2.0f, paint);
       paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
       canvas.drawBitmap(bitmap, rect, rect, paint);
 

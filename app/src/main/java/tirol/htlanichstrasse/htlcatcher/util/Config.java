@@ -70,7 +70,7 @@ public class Config {
    /**
     * Cursor radius in pixels
     */
-   private int cursorRadius = 40;
+   private int cursorRadius = 60;
 
    /**
     * Constant gravity value
