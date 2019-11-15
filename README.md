@@ -18,7 +18,7 @@
   <p align="center">
     A Flappy-Bird-inspired Android game for the HTL Anichstraße's open day 2019/2020.
     <br/>
-    <a href="#" title="Coming soon"><s>Download</s></a>
+    <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/releases/htlcatcher.apk" title="Download"><s>Download</s></a>
     ·
     <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/issues">Report Bug</a>
     ·
