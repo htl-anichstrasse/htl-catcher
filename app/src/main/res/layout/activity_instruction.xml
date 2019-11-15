@@ -68,7 +68,7 @@
     app:srcCompat="@android:drawable/ic_media_play" />
 
   <ImageButton
-    android:id="@+id/backToMainMenuButton"
+    android:id="@+id/backToMenu"
     android:layout_width="@dimen/button_width"
     android:layout_height="@dimen/button_height"
     android:layout_marginBottom="80dp"
