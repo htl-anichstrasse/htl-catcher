@@ -49,7 +49,7 @@ public final class Obstacle {
    public void move(final GameState gameState) {
       int obstacleXDelta = Config.getInstance().getObstacleXDelta();
       if (gameState == GameState.INGAME3) {
-         obstacleXDelta *= 2;
+         obstacleXDelta *= 4;
       }
       upperPart.left -= obstacleXDelta;
       upperPart.right -= obstacleXDelta;

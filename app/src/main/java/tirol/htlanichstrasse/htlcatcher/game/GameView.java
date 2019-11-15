@@ -204,11 +204,11 @@ public class GameView extends View {
             gameState = GameState.END;
          }
 
-         // Renders / moves logos on canvas
-         renderLogo(canvas);
-
          // Renders / moves obstacles on canvas
          renderObstacle(canvas);
+
+         // Renders / moves logos on canvas
+         renderLogo(canvas);
 
          // Renders statistics (point display)
          renderStatistics(canvas);
