@@ -11,16 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
+import com.q42.android.scrollingimageview.ScrollingImageView;
 import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
+import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity;
+import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
 
 /**
@@ -32,7 +36,8 @@ import tirol.htlanichstrasse.htlcatcher.util.Config;
  */
 @SuppressWarnings("FieldCanBeLocal")
 @SuppressLint("ClickableViewAccessibility")
-public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
+public class GameActivity extends AppCompatActivity implements View.OnTouchListener,
+    OnClickListener {
 
    /**
     * Static logging tag used for loggings from this class
@@ -84,8 +89,30 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             // Check loss
             if (gameView.gameState == GameState.END) {
                cancel();
-               finish();
-               startActivity(new Intent(GameActivity.this, GameOverActivity.class));
+               runOnUiThread(() -> {
+                  final int shortAnimationDuration = getResources()
+                      .getInteger(android.R.integer.config_shortAnimTime);
+                  final View gameOverView = findViewById(R.id.gameOver);
+                  gameOverView.setVisibility(View.VISIBLE);
+                  gameOverView.setAlpha(0f);
+                  gameOverView.animate().alpha(1f).setDuration(shortAnimationDuration)
+                      .setListener(null);
+                  ((ScrollingImageView) findViewById(R.id.scrolling_background)).setSpeed(0f);
+                  ((ScrollingImageView) findViewById(R.id.scrolling_background_yellow))
+                      .setSpeed(0f);
+                  ((ScrollingImageView) findViewById(R.id.scrolling_background_red)).setSpeed(0f);
+                  ((ScrollingImageView) findViewById(R.id.scrolling_floor)).setSpeed(0f);
+                  ((ScrollingImageView) findViewById(R.id.scrolling_clouds)).setSpeed(0f);
+
+                  // Load stats into view
+                  final CatcherStatistics catcherStatistics = CatcherStatistics.getInstance();
+                  ((TextView) findViewById(R.id.pointsView)).setText(
+                      getString(R.string.gameover_score, catcherStatistics.getPoints().get()));
+                  ((TextView) findViewById(R.id.timeView)).setText(
+                      getString(R.string.gameover_gametime,
+                          catcherStatistics.points.get() - (catcherStatistics.caughtLogos.get()
+                              * StatisticsAction.LOGO.getPoints())));
+               });
             }
          }
       }, 0, 50);
@@ -192,6 +219,22 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       // Set the cursors speed so that it jumps up
       gameView.getCursor().setYVelocity(-Config.getInstance().getCursorJumpSpeed());
       return true;
+   }
+
+   @Override
+   public void onClick(View view) {
+      switch (view.getId()) {
+         case R.id.restartButton:
+            finish();
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
+            startActivity(intent);
+            break;
+         case R.id.backToMenu:
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+            break;
+      }
    }
 
 }

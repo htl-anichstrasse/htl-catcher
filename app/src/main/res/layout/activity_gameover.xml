@@ -75,7 +75,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:gravity="end"
-    android:text="@string/gameover_footer"
+    android:text=""
     android:textAlignment="center"
     app:layout_constraintBottom_toTopOf="@+id/creditFooter"
     app:layout_constraintEnd_toEndOf="parent" />
@@ -85,7 +85,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
-    android:text="@string/credit_footer"
+    android:text=""
     android:textAlignment="center"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"

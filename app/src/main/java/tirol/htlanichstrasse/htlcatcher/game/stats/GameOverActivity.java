@@ -69,7 +69,6 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
             startActivity(new Intent(this, MainActivity.class));
             break;
       }
-
    }
 
 }

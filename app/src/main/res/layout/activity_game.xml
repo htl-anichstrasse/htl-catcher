@@ -1,5 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:scrolling_image_view="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -32,6 +33,7 @@
     scrolling_image_view:speed="0.2dp"
     scrolling_image_view:src="@drawable/layer1" />
 
+  <!-- awesome clouds in front of city -->
   <com.q42.android.scrollingimageview.ScrollingImageView
     android:id="@+id/scrolling_clouds"
     android:layout_width="match_parent"
@@ -39,6 +41,7 @@
     scrolling_image_view:speed="0.4dp"
     scrolling_image_view:src="@drawable/clouds" />
 
+  <!-- floor  -->
   <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -50,12 +53,16 @@
       scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
       scrolling_image_view:speed="2.0dp"
       scrolling_image_view:src="@drawable/layer2" />
+
   </android.support.constraint.ConstraintLayout>
+
+  <!-- game -->
   <tirol.htlanichstrasse.htlcatcher.game.GameView
     android:id="@+id/gameView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 
+  <!-- stage 2 -->
   <TextView
     android:id="@+id/stage2"
     android:layout_width="match_parent"
@@ -73,6 +80,7 @@
     android:translationY="-300dp"
     android:visibility="gone" />
 
+  <!-- stage 3 -->
   <TextView
     android:id="@+id/stage3"
     android:layout_width="match_parent"
@@ -89,5 +97,84 @@
     android:textColor="@android:color/white"
     android:textSize="56sp"
     android:visibility="gone" />
+
+  <!-- game over stuff -->
+  <LinearLayout
+    android:id="@+id/gameOver"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSoftBlack"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <ImageView
+      android:id="@+id/htlLogo"
+      android:layout_width="fill_parent"
+      android:layout_height="@dimen/logo_height"
+      android:layout_marginTop="20dp"
+      android:contentDescription="@string/gameover_title_description"
+      app:srcCompat="@mipmap/ic_launcher_foreground" />
+
+    <TextView
+      android:id="@+id/gameOverText"
+      android:layout_width="fill_parent"
+      android:layout_height="50dp"
+      android:layout_marginTop="10dp"
+      android:fontFamily="sans-serif-black"
+      android:text="@string/gameover_title"
+      android:textAlignment="center"
+      android:textColor="@android:color/white"
+      android:textSize="30sp"
+      android:textStyle="bold" />
+
+    <LinearLayout
+      android:id="@+id/scoreLinLayout"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="20dp"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/pointsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
+      <TextView
+        android:id="@+id/timeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <Button
+      android:id="@+id/restartButton"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="30dp"
+      android:background="@drawable/button_game_over_design"
+      android:fontFamily="sans-serif-black"
+      android:onClick="onClick"
+      android:text="@string/gameover_newgame"
+      android:textColor="@android:color/white" />
+
+    <Button
+      android:id="@+id/backToMenu"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="30dp"
+      android:background="@drawable/button_game_over_design"
+      android:fontFamily="sans-serif-black"
+      android:onClick="onClick"
+      android:text="@string/backToMainMenu"
+      android:textColor="@android:color/white" />
+
+  </LinearLayout>
 
 </FrameLayout>

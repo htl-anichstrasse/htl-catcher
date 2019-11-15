@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import lombok.Getter;
+import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
 
 /**
@@ -32,6 +33,7 @@ public class ScrollingImageView extends View {
 
    @Getter
    private List<Bitmap> bitmaps;
+   @Setter
    private float speed;
    private int[] scene;
    private int arrayIndex = 0;
