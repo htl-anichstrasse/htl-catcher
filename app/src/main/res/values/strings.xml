@@ -20,4 +20,5 @@
   <string name="credit_footer">Rossi N. | Winkler J. | Sammer H.</string>
   <string name="game_stage3">Sudden Death!</string>
   <string name="instruction">You can control your avatar by tapping on the display. Upon every tap, your character jumps up a bit but then immediately falls back down due to gravitational affectation.</string>
+  <string name="game_stage2">LEVEL UP!</string>
 </resources>

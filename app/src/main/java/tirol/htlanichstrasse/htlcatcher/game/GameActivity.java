@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
@@ -116,6 +117,26 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                       backgroundView.setVisibility(View.GONE);
                    }
                 });
+            final View stage2Text = findViewById(R.id.stage2);
+            stage2Text.setVisibility(View.VISIBLE);
+            stage2Text.setAlpha(0f);
+            stage2Text.animate().alpha(1f).translationY(0f).setDuration(shortAnimationDuration)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setListener(
+                    new AnimatorListenerAdapter() {
+                       @Override
+                       public void onAnimationEnd(Animator animation) {
+                          new Handler()
+                              .postDelayed(() -> runOnUiThread(() -> stage2Text.animate().alpha(0f)
+                                  .setDuration(shortAnimationDuration)
+                                  .setListener(new AnimatorListenerAdapter() {
+                                     @Override
+                                     public void onAnimationEnd(Animator animation) {
+                                        stage2Text.setVisibility(View.GONE);
+                                     }
+                                  })), 1000L);
+                       }
+                    });
          }
          break;
          case INGAME3: {
@@ -133,20 +154,21 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                       yellowBackgroundView.setVisibility(View.GONE);
                    }
                 });
-            final View suddenDeathView = findViewById(R.id.suddenDeath);
-            suddenDeathView.setVisibility(View.VISIBLE);
-            suddenDeathView.setAlpha(0f);
-            suddenDeathView.animate().alpha(1f).rotation(0f).setDuration(shortAnimationDuration)
+            final View stage3Text = findViewById(R.id.stage3);
+            stage3Text.setVisibility(View.VISIBLE);
+            stage3Text.setAlpha(0f);
+            stage3Text.animate().alpha(1f).rotation(0f).setDuration(shortAnimationDuration)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
                 .setListener(new AnimatorListenerAdapter() {
                    @Override
                    public void onAnimationEnd(Animator animation) {
                       new Handler()
-                          .postDelayed(() -> runOnUiThread(() -> suddenDeathView.animate().alpha(0f)
+                          .postDelayed(() -> runOnUiThread(() -> stage3Text.animate().alpha(0f)
                               .setDuration(shortAnimationDuration)
                               .setListener(new AnimatorListenerAdapter() {
                                  @Override
                                  public void onAnimationEnd(Animator animation) {
-                                    suddenDeathView.setVisibility(View.GONE);
+                                    stage3Text.setVisibility(View.GONE);
                                  }
                               })), 1000L);
                    }

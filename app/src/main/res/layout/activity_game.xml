@@ -55,8 +55,26 @@
     android:id="@+id/gameView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
+
   <TextView
-    android:id="@+id/suddenDeath"
+    android:id="@+id/stage2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fontFamily="sans-serif-black"
+    android:gravity="center_vertical"
+    android:shadowColor="#000000"
+    android:shadowDx="1.5"
+    android:shadowDy="1.3"
+    android:shadowRadius="2.0"
+    android:text="@string/game_stage2"
+    android:textAlignment="center"
+    android:textColor="@android:color/white"
+    android:textSize="56sp"
+    android:translationY="-300dp"
+    android:visibility="gone" />
+
+  <TextView
+    android:id="@+id/stage3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fontFamily="sans-serif-black"

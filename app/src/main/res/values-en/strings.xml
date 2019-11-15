@@ -20,4 +20,5 @@
   <string name="main_title">HTL Catcher</string>
   <string name="credit_footer">Rossi N. | Winkler J. | Sammer H.</string>
   <string name="game_stage3">Sudden Death!</string>
+  <string name="game_stage2">LEVEL UP!</string>
 </resources>
