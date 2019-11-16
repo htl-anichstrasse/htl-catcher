@@ -18,7 +18,7 @@
   <p align="center">
     A Flappy-Bird-inspired Android game for the HTL Anichstraße's open day 2019/2020.
     <br/>
-    <a href="#" title="Coming soon"><s>Download</s></a>
+    <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/releases/tag/1.0/htlcatcher.apk">Download</a>
     ·
     <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/issues">Report Bug</a>
     ·
@@ -28,6 +28,11 @@
 
 ## About the project
 HTLCatcher is a Flappy-Bird-inspired Android Game developed by students of the higher technical college HTL Anichstraße in Innsbruck, Austria. The app was made for the college's open day to show potential new students what they can expect to learn in HTL Anichstraße.
+
+# Screenshots
+
+![Screenshot 1](/images/screenshot1.png)
+![Screenshot 2](/images/screenshot2.png)
 
 ## Installation
 

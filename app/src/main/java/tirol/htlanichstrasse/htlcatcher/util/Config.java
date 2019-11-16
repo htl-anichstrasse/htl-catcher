@@ -104,7 +104,7 @@ public class Config {
    /**
     * Minimum gap between two obstacles in pixels
     */
-   private int obstacleMinGap = 350;
+   private int obstacleMinGap = 400;
 
    /**
     * Maximum gap between two obstacles in pixels
