@@ -18,7 +18,7 @@
   <p align="center">
     A Flappy-Bird-inspired Android game for the HTL Anichstraße's open day 2019/2020.
     <br/>
-    <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/releases/tag/1.0/htlcatcher.apk">Download</a>
+    <a href="https://play.google.com/store/apps/details?id=tirol.htlanichstrasse.htlcatcher">Download</a>
     ·
     <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/issues">Report Bug</a>
     ·
