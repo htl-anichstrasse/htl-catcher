@@ -124,31 +124,6 @@ public class MainActivity extends AppCompatActivity {
          System.out.println(roundedBitmap.getHeight() + " W: " + roundedBitmap.getWidth());
       }
    }
-
-   /**
-    * Creates the dialog to choose between device camera and local gallery to set avatar image.
-    */
-   private void showSelectionDialog() {
-      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
-      AlertDialog alertDialog = dialogBuilder.create();
-      alertDialog.setTitle("Select Action:");
-      alertDialog.setMessage("Choose how to set your avatar!");
-
-      alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Select photo from gallery",
-          (dialogInterface, id) -> {
-             dispatchPickGalleryPictureIntent(REQUEST_GALLERY_CAPTURE);
-             dialogInterface.dismiss();
-          });
-
-      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Take photo via camera",
-          (dialogInterface, id) -> {
-             dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
-             dialogInterface.dismiss();
-          });
-      alertDialog.show();
-   }
-
-
    /**
     * Creates the dialog to choose between device camera and local gallery to set avatar image.
     */
