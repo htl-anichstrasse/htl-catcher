@@ -126,16 +126,6 @@ public class MainActivity extends AppCompatActivity {
    }
 
    /**
-    * Click handler for image button in main activity
-    *
-    * @param view the clicked button
-    */
-   public void onImageButtonClicked(final View view) {
-      dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
-   }
-
-
-   /**
     * Creates the dialog to choose between device camera and local gallery to set avatar image.
     */
    private void showSelectionDialog() {
