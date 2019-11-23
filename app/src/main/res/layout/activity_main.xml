@@ -33,7 +33,7 @@
     app:layout_constraintTop_toBottomOf="@+id/title" />
 
   <ImageButton
-    android:id="@+id/takePhotoButton"
+    android:id="@+id/setPhotoButton"
     android:layout_width="@dimen/button_width"
     android:layout_height="@dimen/button_height"
     android:layout_marginTop="45dp"
@@ -56,7 +56,7 @@
     android:onClick="onInstructionsButtonClicked"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/takePhotoButton"
+    app:layout_constraintTop_toBottomOf="@+id/setPhotoButton"
     app:srcCompat="@drawable/instructions" />
 
   <ImageButton

@@ -1,7 +1,9 @@
 package tirol.htlanichstrasse.htlcatcher;
 
 import android.Manifest.permission;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,7 +15,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
       setContentView(R.layout.activity_main);
 
       // get imageButton for game start
-      imageButton = findViewById(R.id.takePhotoButton);
-
+      imageButton = findViewById(R.id.setPhotoButton);
+      imageButton.setOnClickListener(view -> showSelectionDialog());
       // load saved image if already taken before
       final File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
       if (img.exists()) {
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
       // Handling activity result request code
-      if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+      if (requestCode == REQUEST_IMAGE_CAPTURE || requestCode == REQUEST_GALLERY_CAPTURE && resultCode == RESULT_OK) {
          final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
              .getInstance();
          final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
@@ -134,6 +134,30 @@ public class MainActivity extends AppCompatActivity {
       dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
    }
 
+
+   /**
+    * Creates the dialog to choose between device camera and local gallery to set avatar image.
+    */
+   private void showSelectionDialog() {
+      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+      AlertDialog alertDialog = dialogBuilder.create();
+      alertDialog.setTitle("Select Action:");
+      alertDialog.setMessage("Choose how to set your avatar!");
+
+      alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Select photo from gallery",
+          (dialogInterface, id) -> {
+             dispatchPickGalleryPictureIntent(REQUEST_GALLERY_CAPTURE);
+             dialogInterface.dismiss();
+          });
+
+      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Take photo via camera",
+          (dialogInterface, id) -> {
+             dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
+             dialogInterface.dismiss();
+          });
+      alertDialog.show();
+   }
+
    /**
     * Click handler for play button in main activity
     *
@@ -153,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
    /**
     * Switches to instruction view, which provides a description of the game and explains how to
-    * play the game.
+    * play it.
     *
     * @param view the clicked button
     */
@@ -172,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
       if (VERSION.SDK_INT >= VERSION_CODES.M) {
          if (checkSelfPermission(permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{permission.CAMERA}, requestId);
-            return;
          }
       }
 
@@ -182,6 +205,30 @@ public class MainActivity extends AppCompatActivity {
          startActivityForResult(takePictureIntent, requestId);
       }
    }
+
+
+   /**
+    * Attempts to start a new gallery activity in which the user has to choose a local picture,
+    * which is then returned to the app and set as avatar as well as icon of the image button in
+    * the main activity.
+    *
+    * @param requestId id for request permission to start new gallery activity.
+    */
+   private void dispatchPickGalleryPictureIntent(int requestId) {
+      // Check permission and request if required:
+      if (VERSION.SDK_INT >= VERSION_CODES.M) {
+         if (checkSelfPermission(permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{permission.READ_EXTERNAL_STORAGE}, requestId);
+         }
+      }
+
+      // Starts the gallery intent:
+      final Intent pickPictureFromGallery = new Intent(Intent.ACTION_PICK, Media.EXTERNAL_CONTENT_URI);
+      if (pickPictureFromGallery.resolveActivity((getPackageManager())) != null) {
+         startActivityForResult(pickPictureFromGallery, requestId);
+      }
+   }
+
 
    /**
     * Saves an image to the host's file system
