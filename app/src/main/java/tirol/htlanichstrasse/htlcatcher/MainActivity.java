@@ -22,8 +22,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -126,10 +129,8 @@ public class MainActivity extends AppCompatActivity {
     * Creates the dialog to choose between device camera and local gallery to set avatar image.
     */
    private void showSelectionDialog() {
-      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
-      AlertDialog alertDialog = dialogBuilder.create();
-      alertDialog.setTitle("Select Action:");
-      alertDialog.setMessage("Choose how to set your avatar!");
+      final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+      final AlertDialog alertDialog = dialogBuilder.create();
 
       alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Select photo from gallery",
           (dialogInterface, id) -> {
@@ -137,12 +138,22 @@ public class MainActivity extends AppCompatActivity {
              dialogInterface.dismiss();
           });
 
-      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Take photo via camera",
+      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Take photo using camera",
           (dialogInterface, id) -> {
              dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
              dialogInterface.dismiss();
           });
       alertDialog.show();
+
+      final Button buttonGallery = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+      final Button buttonCamera = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+      LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) buttonGallery.getLayoutParams();
+      layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+
+      buttonGallery.setLayoutParams(layoutParams);
+      buttonCamera.setLayoutParams(layoutParams);
+
    }
 
    /**
