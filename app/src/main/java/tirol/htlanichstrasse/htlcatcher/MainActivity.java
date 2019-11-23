@@ -1,6 +1,7 @@
 package tirol.htlanichstrasse.htlcatcher;
 
 import android.Manifest.permission;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,11 +13,15 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -45,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
    /**
     * Static unique request code for camera access & permission request
     */
-   private static final int REQUEST_IMAGE_CAPTURE1 = 1;
+   private static final int REQUEST_IMAGE_CAPTURE = 1;
+
+   /**
+    * Static unique request code for gallery access & permission request
+    */
+   private static final int REQUEST_GALLERY_CAPTURE = 2;
 
    /**
     * Reference to image button for taking a picture (used as game cursor)
@@ -72,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
    public void onRequestPermissionsResult(final int requestCode,
        @NonNull final String[] permissions,
        @NonNull final int[] grantResults) {
-      if (requestCode == REQUEST_IMAGE_CAPTURE1) {
+      if (requestCode == REQUEST_IMAGE_CAPTURE) {
          // Check if users has declined camera permissions
          if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // Dispatch picture request to camera
@@ -85,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
          }
       }
    }
-
    @Override
    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
       Log.d(LOG_TAG, "Received activity result code " + resultCode);
@@ -102,13 +111,38 @@ public class MainActivity extends AppCompatActivity {
       }
 
       // Handling activity result request code
-      if (requestCode == REQUEST_IMAGE_CAPTURE1 && resultCode == RESULT_OK) {
+      /*
+      if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
          final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
              .getInstance();
          final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
          final Bitmap roundedScaledBitmap = Bitmap
              .createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2,
                  config.getCursorRadius() * 2, false);
+         imageButton.setImageBitmap(roundedBitmap);
+         saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
+         saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
+         System.out.println(roundedBitmap.getHeight() + " W: " + roundedBitmap.getWidth());
+      }
+      */
+
+      final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config.getInstance();
+
+      switch(requestCode) {
+         case REQUEST_IMAGE_CAPTURE:
+            handleActivityRequestCode(resultCode, bitmap, config);
+            break;
+
+         case REQUEST_GALLERY_CAPTURE:
+            handleActivityRequestCode(resultCode, bitmap, config);
+            break;
+      }
+   }
+
+   private void handleActivityRequestCode(int resultCode, Bitmap bitmap, final tirol.htlanichstrasse.htlcatcher.util.Config config) {
+      if (resultCode == RESULT_OK) {
+         final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
+         final Bitmap roundedScaledBitmap = Bitmap.createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2, config.getCursorRadius() * 2, false);
          imageButton.setImageBitmap(roundedBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
@@ -122,7 +156,26 @@ public class MainActivity extends AppCompatActivity {
     * @param view the clicked button
     */
    public void onImageButtonClicked(final View view) {
-      dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE1);
+      // dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
+
+      AlertDialog.Builder builder = new Builder(this);
+      builder.setTitle("Choose how to set avatar image:");
+
+      builder.setPositiveButton(
+          "Camera",
+          (dialogInterface, id) -> {
+             // startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE);
+             dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
+             dialogInterface.cancel();
+          });
+
+      builder.setNegativeButton(
+          "Gallery",
+          (dialogInterface, id) -> {
+             // startActivityForResult(new Intent(Intent.ACTION_PICK, Media.EXTERNAL_CONTENT_URI), REQUEST_GALLERY_CAPTURE);
+             dispatchTakePictureIntent(REQUEST_GALLERY_CAPTURE);
+             dialogInterface.cancel();
+          });
    }
 
    /**
