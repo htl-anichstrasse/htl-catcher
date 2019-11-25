@@ -4,15 +4,18 @@ import android.Manifest.permission;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -31,6 +34,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
@@ -112,18 +116,44 @@ public class MainActivity extends AppCompatActivity {
          return;
       }
 
-      // Handling activity result request code
-      if ((requestCode == REQUEST_IMAGE_CAPTURE || requestCode == REQUEST_GALLERY_CAPTURE) && resultCode == RESULT_OK) {
-         final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
+      // Handling activity result request code on IMAGE_CAPTURE_REQUEST
+      try {
+         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
+                .getInstance();
+            final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
+            final Bitmap roundedScaledBitmap = Bitmap
+                .createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2,
+                    config.getCursorRadius() * 2, false);
+            imageButton.setImageBitmap(roundedBitmap);
+            saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
+            saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
+            System.out.println(roundedBitmap.getHeight() + " W: " + roundedBitmap.getWidth());
+         }
+      }
+      catch (Exception exception) {
+         Log.e(LOG_TAG, "Image Capture Error", exception);
+      }
+
+      // Handling activity result code on GALLERY_CAPTURE_REQUEST
+      try {
+         if (requestCode == REQUEST_GALLERY_CAPTURE && resultCode == RESULT_OK) {
+            final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
              .getInstance();
-         final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
-         final Bitmap roundedScaledBitmap = Bitmap
-             .createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2,
-                 config.getCursorRadius() * 2, false);
-         imageButton.setImageBitmap(roundedBitmap);
-         saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
-         saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
-         System.out.println(roundedBitmap.getHeight() + " W: " + roundedBitmap.getWidth());
+            final InputStream inputStream = getContentResolver().openInputStream(data.getData());
+            final Bitmap decodedInputStreamBitmap = BitmapFactory.decodeStream(inputStream);
+            final Bitmap roundedBitmap = getRoundedCroppedBitmap(decodedInputStreamBitmap);
+            final Bitmap roundedScaledBitmap = Bitmap
+                .createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2,
+                    config.getCursorRadius() * 2, false);
+            imageButton.setImageBitmap(roundedBitmap);
+            saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
+            saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedScaledBitmap);
+            System.out.println(roundedBitmap.getHeight() + " W: " + roundedBitmap.getHeight());
+         }
+      }
+      catch (Exception exception) {
+         Log.e(LOG_TAG, "File Selcection Error", exception);
       }
    }
    /**
