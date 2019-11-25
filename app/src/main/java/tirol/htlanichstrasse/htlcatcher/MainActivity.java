@@ -134,13 +134,13 @@ public class MainActivity extends AppCompatActivity {
       final AlertDialog alertDialog = dialogBuilder.create();
 
       // creates the dialog with two options
-      alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Select photo from gallery",
+      alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getText(R.string.pick_picture_from_gallery),
           (dialogInterface, id) -> {
              dispatchPickGalleryPictureIntent(REQUEST_GALLERY_CAPTURE);
              dialogInterface.dismiss();
           });
 
-      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Take photo using camera",
+      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getText(R.string.take_picture_using_camera),
           (dialogInterface, id) -> {
              dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
              dialogInterface.dismiss();
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
       alertDialog.getButton(alertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
       alertDialog.getButton(alertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
 
-      LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) buttonGallery.getLayoutParams();
+      final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) buttonGallery.getLayoutParams();
       layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
 
       buttonGallery.setLayoutParams(layoutParams);

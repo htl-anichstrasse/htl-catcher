@@ -19,4 +19,6 @@
   <string name="main_title">HTL Catcher</string>
   <string name="game_stage3">Sudden Death!</string>
   <string name="game_stage2">LEVEL UP!</string>
+  <string name="pick_picture_from_gallery">Foto aus Galerie auswählen</string>
+  <string name="take_picture_using_camera">Foto mit Kamera aufnehmen</string>
 </resources>
