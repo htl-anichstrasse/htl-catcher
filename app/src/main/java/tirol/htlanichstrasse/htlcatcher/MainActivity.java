@@ -151,10 +151,12 @@ public class MainActivity extends AppCompatActivity {
       final Button buttonGallery = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
       final Button buttonCamera = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
+      // sets dialog background to black; sets button font colour to white
       Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.background_dark);
       alertDialog.getButton(alertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
       alertDialog.getButton(alertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
 
+      // centers button alignment
       final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) buttonGallery.getLayoutParams();
       layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
 
