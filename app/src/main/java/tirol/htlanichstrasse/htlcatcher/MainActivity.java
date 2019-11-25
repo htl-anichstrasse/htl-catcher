@@ -31,6 +31,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
 
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
       // Handling activity result request code
-      if (requestCode == REQUEST_IMAGE_CAPTURE || requestCode == REQUEST_GALLERY_CAPTURE && resultCode == RESULT_OK) {
+      if ((requestCode == REQUEST_IMAGE_CAPTURE || requestCode == REQUEST_GALLERY_CAPTURE) && resultCode == RESULT_OK) {
          final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
              .getInstance();
          final Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
       final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
       final AlertDialog alertDialog = dialogBuilder.create();
 
+      // creates the dialog with two options
       alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Select photo from gallery",
           (dialogInterface, id) -> {
              dispatchPickGalleryPictureIntent(REQUEST_GALLERY_CAPTURE);
@@ -145,15 +147,19 @@ public class MainActivity extends AppCompatActivity {
           });
       alertDialog.show();
 
+      // layout changes to set button alignment to 'centered'
       final Button buttonGallery = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
       final Button buttonCamera = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+      Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.background_dark);
+      alertDialog.getButton(alertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+      alertDialog.getButton(alertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
 
       LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) buttonGallery.getLayoutParams();
       layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
 
       buttonGallery.setLayoutParams(layoutParams);
       buttonCamera.setLayoutParams(layoutParams);
-
    }
 
    /**
