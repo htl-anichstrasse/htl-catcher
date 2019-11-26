@@ -41,8 +41,9 @@ import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
 /**
  * Main activity executed on app launch
  *
- * @author Albert Greinöcker
  * @author Nicolaus Rossi
+ * @author Joshua Winkler
+ * @author Albert Greinöcker
  * @since 31.10.2019
  */
 public class MainActivity extends AppCompatActivity {
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                // Dispatch picture request to camera
                dispatchPickGalleryPictureIntent(requestCode);
             } else {
-               // App has no permission for using camera
+               // App has no permission for using gallery
                Toast.makeText(this, getString(R.string.main_pickphoto_toast_nopermission),
                    Toast.LENGTH_LONG)
                    .show();
