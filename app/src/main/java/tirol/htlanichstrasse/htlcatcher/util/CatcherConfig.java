@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Config class holding general application constants for the HTL Catcher game
+ * CatcherConfig class holding general application constants for the HTL Catcher game
  *
  * @author Joshua Winkler
  * @since 02.11.19
@@ -14,13 +14,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Config {
+public class CatcherConfig {
 
    /**
     * Application-wide config instance (singleton)
     */
    @Getter
-   private static final Config instance = new Config();
+   private static final CatcherConfig instance = new CatcherConfig();
 
    /**
     * Time for a player to reach stage 2

@@ -39,6 +39,7 @@
     android:layout_marginTop="45dp"
     android:background="@drawable/button_main_design"
     android:contentDescription="@string/main_takephoto_button"
+    android:onClick="onImageSelectionButtonClicked"
     android:text="@string/main_takephoto_toast_nopermission"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"

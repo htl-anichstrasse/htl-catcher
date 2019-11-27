@@ -25,7 +25,7 @@ import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
+import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
  * Manages game controls
@@ -217,7 +217,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       }
 
       // Set the cursors speed so that it jumps up
-      gameView.getCursor().setYVelocity(-Config.getInstance().getCursorJumpSpeed());
+      gameView.getCursor().setYVelocity(-CatcherConfig.getInstance().getCursorJumpSpeed());
       return true;
    }
 

@@ -44,9 +44,13 @@ git clone https://github.com/htl-anichstrasse/HTLCatcher.git
 
 ## Built with
 
+Thanks to all the peeps who create useful libraries and make them available for use to everyone. :heart:
+
 - [The Android SDK (Android Studio)](https://developer.android.com/studio/)
 - [Lombok](https://projectlombok.org/)
-- [Q42 Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
+- [Q42 - Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
+- [Dhaval2404 - Image Picker](https://github.com/Dhaval2404/ImagePicker)
+- [florent37 - InlineActivityResult](https://github.com/florent37/InlineActivityResult)
 - [Gradle](https://gradle.org/)
 
 ## Graphics

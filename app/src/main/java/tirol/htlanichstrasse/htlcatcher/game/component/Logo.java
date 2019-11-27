@@ -3,7 +3,7 @@ package tirol.htlanichstrasse.htlcatcher.game.component;
 import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
+import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 
 /**
@@ -54,7 +54,7 @@ public class Logo extends ViewPoint {
        final Random random) {
       this.x = screenWidth;
       this.y = random.nextInt(maxY - minY) + minY;
-      this.speed = random.nextInt(3) + Config.getInstance().getLogoMinSpeed();
+      this.speed = random.nextInt(3) + CatcherConfig.getInstance().getLogoMinSpeed();
       this.alive = true;
    }
 

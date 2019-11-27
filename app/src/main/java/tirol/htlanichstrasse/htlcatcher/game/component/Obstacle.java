@@ -5,7 +5,7 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
+import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
  * Represents an obstacle in the game's view
@@ -53,7 +53,7 @@ public final class Obstacle {
     * @param gameState the current gameState
     */
    public void move(final GameState gameState) {
-      int obstacleXDelta = Config.getInstance().getObstacleXDelta();
+      int obstacleXDelta = CatcherConfig.getInstance().getObstacleXDelta();
       if (gameState == GameState.INGAME3) {
          obstacleXDelta *= 4;
       } else if (gameState == GameState.INGAME2) {
@@ -79,13 +79,13 @@ public final class Obstacle {
       // reset upper part
       upperPart.left = screenWidth;
       upperPart.top = 0;
-      upperPart.right = screenWidth + Config.getInstance().getObstacleWidth();
+      upperPart.right = screenWidth + CatcherConfig.getInstance().getObstacleWidth();
       upperPart.bottom = topHeight;
 
       // reset lower part
       lowerPart.left = screenWidth;
       lowerPart.top = topHeight + gap;
-      lowerPart.right = screenWidth + Config.getInstance().getObstacleWidth();
+      lowerPart.right = screenWidth + CatcherConfig.getInstance().getObstacleWidth();
       lowerPart.bottom = screenHeight;
 
       // wiggles

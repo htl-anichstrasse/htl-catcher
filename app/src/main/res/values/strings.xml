@@ -14,12 +14,10 @@
   <string name="main_play_button">Start game</string>
   <string name="main_takephoto_button_description">Take a photo and get started!</string>
   <string name="main_takephoto_toast_nopermission">(The app needs access to your camera for this)</string>
-  <string name="main_takephoto_toast_nophoto">Please take a photo first!</string>
+  <string name="main_takephoto_toast_nophoto">Please choose a photo first!</string>
   <string name="main_title">HTL Catcher</string>
   <string name="game_stage3">Sudden Death!</string>
   <string name="instruction">You can control your avatar by tapping on the display. Upon every tap, your character jumps up a bit but then immediately falls back down due to gravitational affectation.</string>
   <string name="game_stage2">LEVEL UP!</string>
-  <string name="pick_picture_from_gallery">Pick photo from gallery</string>
-  <string name="take_picture_using_camera">Pick photo from gallery</string>
   <string name="main_pickphoto_toast_nopermission">(The app needs access to your gallery for this)</string>
 </resources>
