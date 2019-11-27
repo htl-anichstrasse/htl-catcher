@@ -20,6 +20,6 @@
   <string name="instruction">You can control your avatar by tapping on the display. Upon every tap, your character jumps up a bit but then immediately falls back down due to gravitational affectation.</string>
   <string name="game_stage2">LEVEL UP!</string>
   <string name="pick_picture_from_gallery">Pick photo from gallery</string>
-  <string name="take_picture_using_camera">Foto mit Kamera aufnehmen</string>
+  <string name="take_picture_using_camera">Pick photo from gallery</string>
   <string name="main_pickphoto_toast_nopermission">(The app needs access to your gallery for this)</string>
 </resources>
