@@ -20,11 +20,11 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
+import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -152,7 +152,7 @@ public class GameView extends View {
           logo.getRadius() * 2, false);
 
       // initialize game statistics
-      CatcherStatistics.reset();
+      GameStatistics.reset();
 
       // initialize obstacles
       for (int i = 0; i < obstacles.length; i++) {
@@ -191,7 +191,7 @@ public class GameView extends View {
              gameState == GameState.INGAME ? CatcherConfig.getInstance().getStage2Time()
                  : CatcherConfig.getInstance().getStage3Time();
          if (System.currentTimeMillis()
-             > CatcherStatistics.getInstance().getGameStageChanged() + delay) {
+             > GameStatistics.getInstance().getGameStageChanged() + delay) {
             switch (gameState) {
                case INGAME:
                   gameState = GameState.INGAME2;
@@ -202,12 +202,12 @@ public class GameView extends View {
                   activity.changeGameStage(gameState);
                   break;
             }
-            CatcherStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
+            GameStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
          }
 
          // Award point
          if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
-            CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
+            GameStatistics.getInstance().increase(StatisticsAction.SECOND);
             lastPointTimestamp = System.currentTimeMillis();
          }
 
@@ -341,7 +341,7 @@ public class GameView extends View {
          if (cursor.intersect(logo)) {
             logo.setAlive(false);
             lastLogoDied = System.currentTimeMillis();
-            CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
+            GameStatistics.getInstance().increase(StatisticsAction.LOGO);
          }
          // Wiggle logo a bit
          if (System.currentTimeMillis() > logo.getLastTurn() + CatcherConfig.getInstance()
@@ -395,7 +395,7 @@ public class GameView extends View {
       final FontMetrics metric = textPaint.getFontMetrics();
       final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
       final int y = (int) (textHeight - metric.descent);
-      final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
+      final String text = String.valueOf(GameStatistics.getInstance().getPoints().get());
 
       // Draw text onto canvas
       canvas.drawText(text, getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,

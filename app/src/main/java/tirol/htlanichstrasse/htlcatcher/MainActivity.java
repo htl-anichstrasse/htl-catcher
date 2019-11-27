@@ -23,8 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
-import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
+import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
+import tirol.htlanichstrasse.htlcatcher.game.activity.InstructionActivity;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
