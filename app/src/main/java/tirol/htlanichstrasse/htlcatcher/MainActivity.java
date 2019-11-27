@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,19 +78,14 @@ public class MainActivity extends AppCompatActivity {
          final CatcherConfig catcherConfig = CatcherConfig.getInstance();
 
          // Extract bitmap from activity return data
-         final Uri uriData = data.getData();
-         if (uriData == null) {
-            Log.e(LOG_TAG, "Could not fetch activity URI data");
+         final Bitmap extractedBitmap;
+         try (final InputStream imageStream = new FileInputStream(
+             ImagePicker.Companion.getFile(data))) {
+            extractedBitmap = BitmapFactory.decodeStream(imageStream);
+         } catch (IOException ex) {
+            Log.e(LOG_TAG, "Could not fetch selected file from intent data: " + ex.getMessage());
             return;
          }
-         final InputStream imageStream;
-         try {
-            imageStream = getContentResolver().openInputStream(data.getData());
-         } catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, "Could not fetch selected file from intent data: FileNotFound");
-            return;
-         }
-         final Bitmap extractedBitmap = BitmapFactory.decodeStream(imageStream);
 
          // check successful extraction
          if (extractedBitmap == null) {
@@ -107,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
          imageButton.setImageBitmap(roundedBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
+      }
+
+      // handle error
+      if (resultCode == ImagePicker.RESULT_ERROR) {
+         Toast.makeText(this, ImagePicker.Companion.getError(data), Toast.LENGTH_SHORT).show();
       }
    }
 
