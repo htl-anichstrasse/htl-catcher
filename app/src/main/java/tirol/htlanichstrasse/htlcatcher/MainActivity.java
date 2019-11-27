@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+      super.onActivityResult(requestCode, resultCode, data);
       Log.d(LOG_TAG, "Received activity request code " + resultCode);
 
       // Check for correct request code
