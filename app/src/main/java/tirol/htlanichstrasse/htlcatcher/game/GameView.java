@@ -187,8 +187,9 @@ public class GameView extends View {
       // Only execute if game has already started
       if (GameState.isInGame(gameState)) {
          // Check game state
-         final long delay = gameState == GameState.INGAME ? CatcherConfig.getInstance().getStage2Time()
-             : CatcherConfig.getInstance().getStage3Time();
+         final long delay =
+             gameState == GameState.INGAME ? CatcherConfig.getInstance().getStage2Time()
+                 : CatcherConfig.getInstance().getStage3Time();
          if (System.currentTimeMillis()
              > CatcherStatistics.getInstance().getGameStageChanged() + delay) {
             switch (gameState) {
@@ -249,7 +250,8 @@ public class GameView extends View {
       } else {
          // Velocity / gravity calculation
          cursor.y += cursor.getYVelocity();
-         cursor.setYVelocity(cursor.getYVelocity() + CatcherConfig.getInstance().getCursorGravity());
+         cursor
+             .setYVelocity(cursor.getYVelocity() + CatcherConfig.getInstance().getCursorGravity());
       }
       // Draw player bitmap on canvas
       canvas.drawBitmap(playerBitmap, cursor.x - cursor.getRadius(), cursor.y - cursor.getRadius(),
@@ -273,13 +275,12 @@ public class GameView extends View {
          for (Obstacle obstacle : obstacles) {
             if (!obstacle.isAlive()) {
                // respawn obstacle!
-               final int topHeight = random.nextInt(255) + 55;
-               final int gap = random.nextInt(
-                   CatcherConfig.getInstance().getObstacleMaxGap() - CatcherConfig.getInstance()
-                       .getObstacleMinGap() + 1) + CatcherConfig.getInstance().getObstacleMinGap();
-               obstacle.resetObstacle(getWidth(), getHeight(), topHeight,
-                   topHeight + gap > getHeight() - activity.getFloor().getHeight() ? gap / 2
-                       : gap);
+               final int topHeight = random.nextInt(this.getHeight() / 6) + 50;
+               final int gap =
+                   random.nextInt(this.getHeight() / 6) + topHeight + CatcherConfig.getInstance()
+                       .getObstacleMinGap();
+
+               obstacle.resetObstacle(getWidth(), getHeight(), topHeight, gap);
                break;
             }
          }
@@ -303,7 +304,8 @@ public class GameView extends View {
             // Wiggle in y direction
             if (obstacle.isWiggles()) {
                final int coefficient =
-                   CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1 : -1);
+                   CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
+                       : -1);
                obstacle.getUpperPart().top += coefficient;
                obstacle.getUpperPart().bottom += coefficient;
                obstacle.getLowerPart().top -= coefficient;

@@ -51,7 +51,7 @@ public class CatcherConfig {
    /**
     * Logo radius in pixels
     */
-   private int logoRadius = 70;
+   private int logoRadius = 50;
 
    /**
     * The minimum delay between 2 logos spawning on the screen in seconds
@@ -104,12 +104,7 @@ public class CatcherConfig {
    /**
     * Minimum gap between two obstacles in pixels
     */
-   private int obstacleMinGap = 400;
-
-   /**
-    * Maximum gap between two obstacles in pixels
-    */
-   private int obstacleMaxGap = 550;
+   private int obstacleMinGap = 275;
 
    /**
     * Delay in milliseconds between two obstacles spawning
