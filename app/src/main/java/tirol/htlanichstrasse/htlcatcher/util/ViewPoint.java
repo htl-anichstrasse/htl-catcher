@@ -2,6 +2,7 @@ package tirol.htlanichstrasse.htlcatcher.util;
 
 import android.graphics.Point;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a point in the HTL Catcher GameView canvas
@@ -41,6 +42,7 @@ public class ViewPoint extends Point {
               <= ((this.radius + point.radius) * (this.radius + point.radius));
    }
 
+   @NotNull
    @Override
    public String toString() {
       return "ViewPoint{x=" + x + ", y=" + y + "}";
