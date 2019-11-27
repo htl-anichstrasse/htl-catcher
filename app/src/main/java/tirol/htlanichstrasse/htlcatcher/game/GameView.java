@@ -20,11 +20,11 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
-import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
