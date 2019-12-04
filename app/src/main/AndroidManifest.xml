@@ -15,7 +15,7 @@
     android:theme="@style/AppTheme">
 
     <activity
-      android:name="tirol.htlanichstrasse.htlcatcher.MainActivity"
+      android:name="tirol.htlanichstrasse.htlcatcher.game.activity.MainActivity"
       android:configChanges="orientation|keyboardHidden"
       android:screenOrientation="portrait">
       <intent-filter>

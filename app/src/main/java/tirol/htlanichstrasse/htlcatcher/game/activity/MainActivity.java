@@ -1,4 +1,4 @@
-package tirol.htlanichstrasse.htlcatcher;
+package tirol.htlanichstrasse.htlcatcher.game.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.activity.InstructionActivity;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
