@@ -26,6 +26,7 @@ import tirol.htlanichstrasse.htlcatcher.game.GameState;
 import tirol.htlanichstrasse.htlcatcher.game.GameStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
+import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageThree;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
 
 import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
@@ -60,9 +61,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    private Floor floor;
 
    /**
-    * GameStage and therefore Difficulty level: 2
+    * GameStage and therefore difficulty level: '2'
     */
    private GameStageTwo gameStageTwo = new GameStageTwo(this);
+
+   /**
+    * GameStage and therefore difficulty level: '3'
+    */
+   private GameStageThree gameStageThree = new GameStageThree(this);
 
    @Override
    public void onCreate(Bundle savedInstanceState) {
@@ -134,49 +140,16 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     * @throws IllegalArgumentException if provided gameStage is not an ingame stage
     */
    public void changeGameStage(final GameState gameStage) {
-      final int shortAnimationDuration = getResources()
-          .getInteger(android.R.integer.config_shortAnimTime);
+
       switch (gameStage) {
          case INGAME2:
             gameStageTwo.onStage(GameState.INGAME2);
             break;
 
-         case INGAME3: {
-            final View redBackgroundView = findViewById(R.id.scrolling_background_red);
-            redBackgroundView.setVisibility(View.VISIBLE);
-            redBackgroundView.setAlpha(0f);
-            redBackgroundView.animate().alpha(1f).setDuration(shortAnimationDuration)
-                .setListener(null);
-            final View yellowBackgroundView = findViewById(R.id.scrolling_background_yellow);
-            yellowBackgroundView.animate().alpha(0f)
-                .setDuration(shortAnimationDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                   @Override
-                   public void onAnimationEnd(Animator animation) {
-                      yellowBackgroundView.setVisibility(View.GONE);
-                   }
-                });
-            final View stage3Text = findViewById(R.id.stage3);
-            stage3Text.setVisibility(View.VISIBLE);
-            stage3Text.setAlpha(0f);
-            stage3Text.animate().alpha(1f).rotation(0f).setDuration(shortAnimationDuration)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setListener(new AnimatorListenerAdapter() {
-                   @Override
-                   public void onAnimationEnd(Animator animation) {
-                      new Handler()
-                          .postDelayed(() -> runOnUiThread(() -> stage3Text.animate().alpha(0f)
-                              .setDuration(shortAnimationDuration)
-                              .setListener(new AnimatorListenerAdapter() {
-                                 @Override
-                                 public void onAnimationEnd(Animator animation) {
-                                    stage3Text.setVisibility(View.GONE);
-                                 }
-                              })), 1000L);
-                   }
-                });
-         }
-         break;
+         case INGAME3:
+            gameStageThree.onStage(GameState.INGAME3);
+            break;
+
          default:
             throw new IllegalArgumentException("Can only change to ingame stages!");
       }
@@ -213,3 +186,4 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    }
 
 }
+

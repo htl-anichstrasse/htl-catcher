@@ -3,7 +3,6 @@ package tirol.htlanichstrasse.htlcatcher.game.stage;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -22,11 +21,6 @@ public class GameStageTwo implements GameStage {
     * outside of an activity class.
     */
    private Activity activity;
-
-   /**
-    *
-    */
-   private Context currentContext;
 
    public GameStageTwo(final Activity activity) {
       this.activity = activity;
