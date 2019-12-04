@@ -26,15 +26,10 @@ import tirol.htlanichstrasse.htlcatcher.game.GameState;
 import tirol.htlanichstrasse.htlcatcher.game.GameStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
-<<<<<<< HEAD:app/src/main/java/tirol/htlanichstrasse/htlcatcher/game/GameActivity.java
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
-=======
+
 import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
->>>>>>> 3701a1c98188ce3021c317e4f1cf5ccb5cda5b9e:app/src/main/java/tirol/htlanichstrasse/htlcatcher/game/activity/GameActivity.java
 
 /**
  * Manages game controls
