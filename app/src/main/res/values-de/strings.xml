@@ -15,11 +15,9 @@
   <string name="main_play_button">Spiel starten</string>
   <string name="main_takephoto_button_description">Mach ein Foto und leg los!</string>
   <string name="main_takephoto_toast_nopermission">(Die App benötigt dafür Zugriff auf deine Kamera)</string>
-  <string name="main_takephoto_toast_nophoto">Bitte zuerst ein Foto machen!</string>
+  <string name="main_takephoto_toast_nophoto">Bitte zuerst ein Foto auswählen!</string>
   <string name="main_title">HTL Catcher</string>
   <string name="game_stage3">Sudden Death!</string>
   <string name="game_stage2">LEVEL UP!</string>
-  <string name="pick_picture_from_gallery">Foto aus Galerie auswählen</string>
-  <string name="take_picture_using_camera">Foto mit Kamera aufnehmen</string>
   <string name="main_pickphoto_toast_nopermission">(Die App benötigt Zugriff auf deine Galerie dafür)</string>
 </resources>

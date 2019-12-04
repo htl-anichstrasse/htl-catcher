@@ -1,4 +1,4 @@
-package tirol.htlanichstrasse.htlcatcher.game;
+package tirol.htlanichstrasse.htlcatcher.game.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -22,11 +22,19 @@ import java.util.TimerTask;
 import lombok.Getter;
 import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.game.GameState;
+import tirol.htlanichstrasse.htlcatcher.game.GameStatistics;
+import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
+<<<<<<< HEAD:app/src/main/java/tirol/htlanichstrasse/htlcatcher/game/GameActivity.java
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
+=======
+import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
+import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
+>>>>>>> 3701a1c98188ce3021c317e4f1cf5ccb5cda5b9e:app/src/main/java/tirol/htlanichstrasse/htlcatcher/game/activity/GameActivity.java
 
 /**
  * Manages game controls
@@ -111,12 +119,12 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                   ((ScrollingImageView) findViewById(R.id.scrolling_clouds)).setSpeed(0f);
 
                   // Load stats into view
-                  final CatcherStatistics catcherStatistics = CatcherStatistics.getInstance();
+                  final GameStatistics gameStatistics = GameStatistics.getInstance();
                   ((TextView) findViewById(R.id.pointsView)).setText(
-                      getString(R.string.gameover_score, catcherStatistics.getPoints().get()));
+                      getString(R.string.gameover_score, gameStatistics.getPoints().get()));
                   ((TextView) findViewById(R.id.timeView)).setText(
                       getString(R.string.gameover_gametime,
-                          catcherStatistics.points.get() - (catcherStatistics.caughtLogos.get()
+                          gameStatistics.points.get() - (gameStatistics.caughtLogos.get()
                               * StatisticsAction.LOGO.getPoints())));
                });
             }
@@ -185,11 +193,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       if (gameView.getGameState() == GameState.START) {
          gameView.setLastPointTimestamp(System.currentTimeMillis());
          gameView.setGameState(GameState.INGAME);
-         CatcherStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
+         GameStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
       }
 
       // Set the cursors speed so that it jumps up
-      gameView.getCursor().setYVelocity(-Config.getInstance().getCursorJumpSpeed());
+      gameView.getCursor().setYVelocity(-CatcherConfig.getInstance().getCursorJumpSpeed());
       return true;
    }
 

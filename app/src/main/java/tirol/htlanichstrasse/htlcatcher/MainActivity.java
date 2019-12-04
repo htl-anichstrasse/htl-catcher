@@ -1,9 +1,6 @@
 package tirol.htlanichstrasse.htlcatcher;
 
-import android.Manifest.permission;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -13,30 +10,21 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.net.Uri;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Media;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
-import tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity;
+import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
+import tirol.htlanichstrasse.htlcatcher.game.activity.InstructionActivity;
+import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
  * Main activity executed on app launch
@@ -54,14 +42,9 @@ public class MainActivity extends AppCompatActivity {
    private static String LOG_TAG = "MAIN_ACTIVITY";
 
    /**
-    * Static unique request code for camera access & permission request
+    * Static unique request code for image picker
     */
-   private static final int REQUEST_IMAGE_CAPTURE = 1;
-
-   /**
-    * Static unique request code for gallery access & permission request
-    */
-   private static final int REQUEST_GALLERY_CAPTURE = 2;
+   private static final int REQUEST_IMAGE_PICKER = 2;
 
    /**
     * Reference to image button for taking a picture (used as game cursor)
@@ -71,135 +54,37 @@ public class MainActivity extends AppCompatActivity {
    @Override
    public void onCreate(final Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+
       // link xml
       setContentView(R.layout.activity_main);
 
-      // get imageButton for game start
+      // reference to image button for choosing game cursor
       imageButton = findViewById(R.id.setPhotoButton);
-      imageButton.setOnClickListener(this::showSelectionDialog);
 
       // load saved image if already taken before
-      final File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
+      final File img = new File(getFilesDir() + "/PHOTO", "me.png");
       if (img.exists()) {
          imageButton.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
       }
    }
 
-   /**
-    * Tries to start a new camera activity which then returns the taken picture to the app, the
-    * picture is then used as an image for the image button
-    *
-    * @param requestId id for request permission to camera & camera activity
-    */
-   private void dispatchTakePictureIntent(int requestId) {
-      // Check permission and request if needed
-      if (VERSION.SDK_INT >= VERSION_CODES.M) {
-         if (checkSelfPermission(permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{permission.CAMERA}, requestId);
-            return;
-         }
-      }
-
-      // Start camera intent
-      final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-      if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-         startActivityForResult(takePictureIntent, requestId);
-      }
-   }
-
-
-   /**
-    * Triesto start a new gallery activity in which the user has to choose a local picture, which is
-    * then returned to the app and set as avatar as well as icon of the image button in the main
-    * activity.
-    *
-    * @param requestId id for request permission to camera & camera activity
-    */
-   private void dispatchPickGalleryPictureIntent(int requestId) {
-      // Check permission and request if required:
-      if (VERSION.SDK_INT >= VERSION_CODES.M) {
-         if (checkSelfPermission(permission.READ_EXTERNAL_STORAGE)
-             != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{permission.READ_EXTERNAL_STORAGE}, requestId);
-         }
-      }
-
-      // Starts the gallery intent:
-      final Intent pickPictureFromGallery = new Intent(Intent.ACTION_PICK,
-          Media.EXTERNAL_CONTENT_URI);
-      if (pickPictureFromGallery.resolveActivity((getPackageManager())) != null) {
-         startActivityForResult(pickPictureFromGallery, requestId);
-      }
-   }
-
-   @Override
-   public void onRequestPermissionsResult(final int requestCode,
-       @NonNull final String[] permissions,
-       @NonNull final int[] grantResults) {
-      Log.d(LOG_TAG, "Received permission result with request code " + requestCode);
-      switch (requestCode) {
-         case REQUEST_IMAGE_CAPTURE:
-            // Check if users has declined camera permissions
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               // Dispatch picture request to camera
-               dispatchTakePictureIntent(requestCode);
-            } else {
-               // App has no permission for using camera
-               Toast.makeText(this, getString(R.string.main_takephoto_toast_nopermission),
-                   Toast.LENGTH_LONG)
-                   .show();
-            }
-            break;
-         case REQUEST_GALLERY_CAPTURE:
-            // Check if users has declined gallery permissions
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               // Dispatch picture request to camera
-               dispatchPickGalleryPictureIntent(requestCode);
-            } else {
-               // App has no permission for using gallery
-               Toast.makeText(this, getString(R.string.main_pickphoto_toast_nopermission),
-                   Toast.LENGTH_LONG)
-                   .show();
-            }
-            break;
-      }
-   }
-
    @Override
    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+      super.onActivityResult(requestCode, resultCode, data);
       Log.d(LOG_TAG, "Received activity request code " + resultCode);
 
-      if ((requestCode == REQUEST_IMAGE_CAPTURE || requestCode == REQUEST_GALLERY_CAPTURE)
-          && resultCode == RESULT_OK) {
-         final tirol.htlanichstrasse.htlcatcher.util.Config config = tirol.htlanichstrasse.htlcatcher.util.Config
-             .getInstance();
+      // Check for correct request code
+      if (requestCode == REQUEST_IMAGE_PICKER && resultCode == RESULT_OK) {
+         final CatcherConfig catcherConfig = CatcherConfig.getInstance();
 
          // Extract bitmap from activity return data
-         Bitmap extractedBitmap = null;
-         switch (requestCode) {
-            case REQUEST_GALLERY_CAPTURE:
-               final Uri uriData = data.getData();
-               if (uriData == null) {
-                  Log.e(LOG_TAG, "Could not fetch activity URI data");
-                  return;
-               }
-               final InputStream imageStream;
-               try {
-                  imageStream = getContentResolver().openInputStream(data.getData());
-               } catch (FileNotFoundException e) {
-                  Log.e(LOG_TAG, "Could not fetch selected file from intent data: FileNotFound");
-                  return;
-               }
-               extractedBitmap = BitmapFactory.decodeStream(imageStream);
-               break;
-            case REQUEST_IMAGE_CAPTURE:
-               final Bundle extras = data.getExtras();
-               if (extras == null) {
-                  Log.e(LOG_TAG, "Could not fetch activity result extras bundle");
-                  return;
-               }
-               extractedBitmap = (Bitmap) extras.get("data");
-               break;
+         final Bitmap extractedBitmap;
+         try (final InputStream imageStream = new FileInputStream(
+             ImagePicker.Companion.getFile(data))) {
+            extractedBitmap = BitmapFactory.decodeStream(imageStream);
+         } catch (IOException ex) {
+            Log.e(LOG_TAG, "Could not fetch selected file from intent data: " + ex.getMessage());
+            return;
          }
 
          // check successful extraction
@@ -209,61 +94,45 @@ public class MainActivity extends AppCompatActivity {
          }
 
          // adapt and save extracted bitmap to filesystem
-         final Bitmap roundedBitmap = getRoundedCroppedBitmap(extractedBitmap);
          final Bitmap roundedScaledBitmap = Bitmap
-             .createScaledBitmap(roundedBitmap, config.getCursorRadius() * 2,
-                 config.getCursorRadius() * 2, false);
-         imageButton.setImageBitmap(roundedBitmap);
-         saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
+             .createScaledBitmap(getRoundedCroppedBitmap(extractedBitmap),
+                 catcherConfig.getCursorRadius() * 2,
+                 catcherConfig.getCursorRadius() * 2, false);
+         imageButton.setImageBitmap(roundedScaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
       }
-   }
 
-   /**
-    * Creates the dialog to choose between device camera and local gallery to set avatar image
-    *
-    * @param view the view which triggered the selection dialog
-    */
-   private void showSelectionDialog(final View view) {
-      final AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create();
-
-      // creates the dialog with two options
-      alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-          getResources().getText(R.string.pick_picture_from_gallery),
-          (dialogInterface, id) -> {
-             dispatchPickGalleryPictureIntent(REQUEST_GALLERY_CAPTURE);
-             dialogInterface.dismiss();
-          });
-      alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,
-          getResources().getText(R.string.take_picture_using_camera),
-          (dialogInterface, id) -> {
-             dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE);
-             dialogInterface.dismiss();
-          });
-      alertDialog.show();
-
-      // layout changes to set button alignment to 'centered'
-      final Button buttonGallery = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-      final Button buttonCamera = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-
-      // sets dialog background to black; sets button font color to white
-      final Window alertDialogWindow = alertDialog.getWindow();
-      if (alertDialogWindow != null) {
-         alertDialogWindow.setBackgroundDrawableResource(android.R.color.background_dark);
-         alertDialog.getButton(alertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-         alertDialog.getButton(alertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+      // handle error
+      if (resultCode == ImagePicker.RESULT_ERROR) {
+         Toast.makeText(this, ImagePicker.Companion.getError(data), Toast.LENGTH_SHORT).show();
       }
-
-      // centers button alignment
-      final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) buttonGallery
-          .getLayoutParams();
-      layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-      buttonGallery.setLayoutParams(layoutParams);
-      buttonCamera.setLayoutParams(layoutParams);
    }
 
    /**
-    * Click handler for play button in main activity
+    * Click handler for image selection button
+    *
+    * @param view the clicked button
+    */
+   public void onImageSelectionButtonClicked(final View view) {
+      final int logoLength = CatcherConfig.getInstance().getLogoRadius() * 2;
+      ImagePicker.Companion.with(this)
+          .cropSquare()
+          .compress(1024)
+          .maxResultSize(logoLength, logoLength)
+          .start(REQUEST_IMAGE_PICKER);
+   }
+
+   /**
+    * Click handler for instruction activity button
+    *
+    * @param view the clicked button
+    */
+   public void onInstructionsButtonClicked(final View view) {
+      startActivity(new Intent(this, InstructionActivity.class));
+   }
+
+   /**
+    * Click handler for play button
     *
     * @param view the clicked button
     */
@@ -277,16 +146,6 @@ public class MainActivity extends AppCompatActivity {
          Toast.makeText(this, getString(R.string.main_takephoto_toast_nophoto), Toast.LENGTH_LONG)
              .show();
       }
-   }
-
-   /**
-    * Switches to instruction view, which provides a description of the game and explains how to
-    * play it.
-    *
-    * @param view the clicked button
-    */
-   public void onInstructionsButtonClicked(final View view) {
-      startActivity(new Intent(this, InstructionActivity.class));
    }
 
    /**

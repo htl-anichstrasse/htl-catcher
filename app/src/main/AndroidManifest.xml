@@ -8,10 +8,12 @@
 
   <application
     android:allowBackup="true"
+    android:fullBackupContent="true"
     android:icon="@drawable/ic_launcher"
     android:label="@string/generic_app_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
+
     <activity
       android:name="tirol.htlanichstrasse.htlcatcher.MainActivity"
       android:configChanges="orientation|keyboardHidden"
@@ -21,18 +23,19 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity
-      android:name="tirol.htlanichstrasse.htlcatcher.game.GameActivity"
-      android:configChanges="orientation|keyboardHidden"
-      android:screenOrientation="landscape" />
 
     <activity
-      android:name="tirol.htlanichstrasse.htlcatcher.game.stats.GameOverActivity"
+      android:name="tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity"
       android:configChanges="orientation|keyboardHidden"
-      android:screenOrientation="portrait" />
+      android:screenOrientation="landscape">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
 
     <activity
-      android:name="tirol.htlanichstrasse.htlcatcher.game.instruction.InstructionActivity"
+      android:name="tirol.htlanichstrasse.htlcatcher.game.activity.InstructionActivity"
       android:configChanges="orientation|keyboardHidden"
       android:screenOrientation="portrait" />
   </application>

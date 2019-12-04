@@ -20,12 +20,12 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
+import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
+import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
-import tirol.htlanichstrasse.htlcatcher.util.Config;
+import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
  * Manages the game's display, calculations for rendering take place here
@@ -78,12 +78,12 @@ public class GameView extends View {
     */
    @Getter
    @Setter
-   private Cursor cursor = new Cursor(0, 0, Config.getInstance().getCursorRadius());
+   private Cursor cursor = new Cursor(0, 0, CatcherConfig.getInstance().getCursorRadius());
 
    /**
     * Holds logo currently on the canvas
     */
-   private Logo logo = new Logo(-999, -999, Config.getInstance().getLogoRadius());
+   private Logo logo = new Logo(-999, -999, CatcherConfig.getInstance().getLogoRadius());
 
    /**
     * Determines whether this is the first draw on the screen
@@ -116,7 +116,7 @@ public class GameView extends View {
    /**
     * Holds a list of all obstacles currently on the screen
     */
-   private Obstacle[] obstacles = new Obstacle[Config.getInstance().getObstaclesMaxAmount()];
+   private Obstacle[] obstacles = new Obstacle[CatcherConfig.getInstance().getObstaclesMaxAmount()];
 
    /**
     * Timestamp when the last obstacle was spawned
@@ -152,7 +152,7 @@ public class GameView extends View {
           logo.getRadius() * 2, false);
 
       // initialize game statistics
-      CatcherStatistics.reset();
+      GameStatistics.reset();
 
       // initialize obstacles
       for (int i = 0; i < obstacles.length; i++) {
@@ -172,9 +172,9 @@ public class GameView extends View {
 
       // Initialize cursor and logo
       if (init) {
-         cursor.x = Config.getInstance().getCursorInitialX();
+         cursor.x = CatcherConfig.getInstance().getCursorInitialX();
          cursor.y = getHeight() / 2 - cursor.getRadius();
-         final int logoMargin = Config.getInstance().getLogoMargin();
+         final int logoMargin = CatcherConfig.getInstance().getLogoMargin();
          logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
              getHeight() - (logoMargin + logo.getRadius()),
              random);
@@ -187,10 +187,11 @@ public class GameView extends View {
       // Only execute if game has already started
       if (GameState.isInGame(gameState)) {
          // Check game state
-         final long delay = gameState == GameState.INGAME ? Config.getInstance().getStage2Time()
-             : Config.getInstance().getStage3Time();
+         final long delay =
+             gameState == GameState.INGAME ? CatcherConfig.getInstance().getStage2Time()
+                 : CatcherConfig.getInstance().getStage3Time();
          if (System.currentTimeMillis()
-             > CatcherStatistics.getInstance().getGameStageChanged() + delay) {
+             > GameStatistics.getInstance().getGameStageChanged() + delay) {
             switch (gameState) {
                case INGAME:
                   gameState = GameState.INGAME2;
@@ -201,12 +202,12 @@ public class GameView extends View {
                   activity.changeGameStage(gameState);
                   break;
             }
-            CatcherStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
+            GameStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
          }
 
          // Award point
          if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
-            CatcherStatistics.getInstance().increase(StatisticsAction.SECOND);
+            GameStatistics.getInstance().increase(StatisticsAction.SECOND);
             lastPointTimestamp = System.currentTimeMillis();
          }
 
@@ -240,7 +241,7 @@ public class GameView extends View {
    private void renderCursor(final Canvas canvas) {
       if (gameState == GameState.START) {
          // Swap direction
-         if (System.currentTimeMillis() > cursor.getStartLastTurn() + Config.getInstance()
+         if (System.currentTimeMillis() > cursor.getStartLastTurn() + CatcherConfig.getInstance()
              .getCursorStartChangeDelay()) {
             cursor.setStartDirection(!cursor.isStartDirection());
             cursor.setStartLastTurn(System.currentTimeMillis());
@@ -249,7 +250,8 @@ public class GameView extends View {
       } else {
          // Velocity / gravity calculation
          cursor.y += cursor.getYVelocity();
-         cursor.setYVelocity(cursor.getYVelocity() + Config.getInstance().getCursorGravity());
+         cursor
+             .setYVelocity(cursor.getYVelocity() + CatcherConfig.getInstance().getCursorGravity());
       }
       // Draw player bitmap on canvas
       canvas.drawBitmap(playerBitmap, cursor.x - cursor.getRadius(), cursor.y - cursor.getRadius(),
@@ -263,7 +265,7 @@ public class GameView extends View {
     */
    private void renderObstacle(final Canvas canvas) {
       // Spawn new obstacle
-      long obstacleSpawnDelay = Config.getInstance().getObstacleSpawnDelay();
+      long obstacleSpawnDelay = CatcherConfig.getInstance().getObstacleSpawnDelay();
       if (gameState == GameState.INGAME3) {
          obstacleSpawnDelay /= 8;
       } else if (gameState == GameState.INGAME2) {
@@ -273,13 +275,12 @@ public class GameView extends View {
          for (Obstacle obstacle : obstacles) {
             if (!obstacle.isAlive()) {
                // respawn obstacle!
-               final int topHeight = random.nextInt(255) + 55;
-               final int gap = random.nextInt(
-                   Config.getInstance().getObstacleMaxGap() - Config.getInstance()
-                       .getObstacleMinGap() + 1) + Config.getInstance().getObstacleMinGap();
-               obstacle.resetObstacle(getWidth(), getHeight(), topHeight,
-                   topHeight + gap > getHeight() - activity.getFloor().getHeight() ? gap / 2
-                       : gap);
+               final int topHeight = random.nextInt(this.getHeight() / 6) + 50;
+               final int gap =
+                   random.nextInt(this.getHeight() / 6) + topHeight + CatcherConfig.getInstance()
+                       .getObstacleMinGap();
+
+               obstacle.resetObstacle(getWidth(), getHeight(), topHeight, gap);
                break;
             }
          }
@@ -303,13 +304,14 @@ public class GameView extends View {
             // Wiggle in y direction
             if (obstacle.isWiggles()) {
                final int coefficient =
-                   Config.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1 : -1);
+                   CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
+                       : -1);
                obstacle.getUpperPart().top += coefficient;
                obstacle.getUpperPart().bottom += coefficient;
                obstacle.getLowerPart().top -= coefficient;
                obstacle.getLowerPart().bottom -= coefficient;
             }
-            if (System.currentTimeMillis() > lastObstacleTurn + Config.getInstance()
+            if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
                 .getObstacleWiggleDelay()) {
                lastObstacleTurn = System.currentTimeMillis();
                obstacleTurned = !obstacleTurned;
@@ -339,10 +341,10 @@ public class GameView extends View {
          if (cursor.intersect(logo)) {
             logo.setAlive(false);
             lastLogoDied = System.currentTimeMillis();
-            CatcherStatistics.getInstance().increase(StatisticsAction.LOGO);
+            GameStatistics.getInstance().increase(StatisticsAction.LOGO);
          }
          // Wiggle logo a bit
-         if (System.currentTimeMillis() > logo.getLastTurn() + Config.getInstance()
+         if (System.currentTimeMillis() > logo.getLastTurn() + CatcherConfig.getInstance()
              .getCursorStartChangeDelay()) {
             logo.setYDirection(!logo.isYDirection());
             logo.setLastTurn(System.currentTimeMillis());
@@ -353,8 +355,8 @@ public class GameView extends View {
       } else {
          // Spawn new logo
          if (System.currentTimeMillis() > lastLogoDied + (
-             (Config.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
-            final int logoMargin = Config.getInstance().getLogoMargin();
+             (CatcherConfig.getInstance().getLogoMinDelay() + random.nextInt(3)) * 1000L)) {
+            final int logoMargin = CatcherConfig.getInstance().getLogoMargin();
             logo.resetLogo(getWidth(), logoMargin + logo.getRadius(),
                 getHeight() - (logoMargin + logo.getRadius()),
                 random);
@@ -393,7 +395,7 @@ public class GameView extends View {
       final FontMetrics metric = textPaint.getFontMetrics();
       final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
       final int y = (int) (textHeight - metric.descent);
-      final String text = String.valueOf(CatcherStatistics.getInstance().getPoints().get());
+      final String text = String.valueOf(GameStatistics.getInstance().getPoints().get());
 
       // Draw text onto canvas
       canvas.drawText(text, getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,

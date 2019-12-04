@@ -1,4 +1,4 @@
-package tirol.htlanichstrasse.htlcatcher.game.instruction;
+package tirol.htlanichstrasse.htlcatcher.game.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.game.GameActivity;
 
 /**
  * Shows instructions on how to play the game.

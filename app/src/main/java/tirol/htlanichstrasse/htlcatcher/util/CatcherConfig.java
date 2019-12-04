@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Config class holding general application constants for the HTL Catcher game
+ * CatcherConfig class holding general application constants for the HTL Catcher game
  *
  * @author Joshua Winkler
  * @since 02.11.19
@@ -14,13 +14,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Config {
+public class CatcherConfig {
 
    /**
     * Application-wide config instance (singleton)
     */
    @Getter
-   private static final Config instance = new Config();
+   private static final CatcherConfig instance = new CatcherConfig();
 
    /**
     * Time for a player to reach stage 2
@@ -51,7 +51,7 @@ public class Config {
    /**
     * Logo radius in pixels
     */
-   private int logoRadius = 70;
+   private int logoRadius = 60;
 
    /**
     * The minimum delay between 2 logos spawning on the screen in seconds
@@ -75,7 +75,7 @@ public class Config {
    /**
     * Cursor radius in pixels
     */
-   private int cursorRadius = 60;
+   private int cursorRadius = 70;
 
    /**
     * Constant gravity value
@@ -104,12 +104,7 @@ public class Config {
    /**
     * Minimum gap between two obstacles in pixels
     */
-   private int obstacleMinGap = 400;
-
-   /**
-    * Maximum gap between two obstacles in pixels
-    */
-   private int obstacleMaxGap = 550;
+   private int obstacleMinGap = 275;
 
    /**
     * Delay in milliseconds between two obstacles spawning
