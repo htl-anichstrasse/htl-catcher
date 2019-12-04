@@ -51,7 +51,7 @@ public class CatcherConfig {
    /**
     * Logo radius in pixels
     */
-   private int logoRadius = 50;
+   private int logoRadius = 60;
 
    /**
     * The minimum delay between 2 logos spawning on the screen in seconds
@@ -75,7 +75,7 @@ public class CatcherConfig {
    /**
     * Cursor radius in pixels
     */
-   private int cursorRadius = 60;
+   private int cursorRadius = 70;
 
    /**
     * Constant gravity value

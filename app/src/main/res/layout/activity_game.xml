@@ -132,8 +132,8 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginTop="20dp"
-      android:layout_marginBottom="20dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginBottom="5dp"
       android:orientation="vertical">
       <TextView
         android:id="@+id/pointsView"
@@ -154,9 +154,9 @@
     <Button
       android:id="@+id/restartButton"
       android:layout_width="200dp"
-      android:layout_height="wrap_content"
+      android:layout_height="40dp"
       android:layout_gravity="center"
-      android:layout_marginBottom="30dp"
+      android:layout_marginBottom="10dp"
       android:background="@drawable/button_game_over_design"
       android:fontFamily="sans-serif-black"
       android:onClick="onClick"
@@ -166,9 +166,9 @@
     <Button
       android:id="@+id/backToMenu"
       android:layout_width="200dp"
-      android:layout_height="wrap_content"
+      android:layout_height="40dp"
       android:layout_gravity="center"
-      android:layout_marginBottom="30dp"
+      android:layout_marginBottom="5dp"
       android:background="@drawable/button_game_over_design"
       android:fontFamily="sans-serif-black"
       android:onClick="onClick"

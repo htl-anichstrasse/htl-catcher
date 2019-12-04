@@ -72,9 +72,16 @@ public final class Obstacle {
     * @param topHeight the height of the upper obstacle part
     * @param gap the gap between the top obstacles
     */
-   public void resetObstacle(final int screenWidth, final int screenHeight, final int topHeight,
-       final int gap) {
+   public void resetObstacle(final int screenWidth, final int screenHeight, int topHeight,
+       int gap) {
       alive = true;
+
+      // wiggles (move top obstacle a bit to avoid)
+      wiggles = new Random().nextBoolean();
+      if (wiggles) {
+         gap += 50;
+         topHeight += 50;
+      }
 
       // reset upper part
       upperPart.left = screenWidth;
@@ -87,9 +94,6 @@ public final class Obstacle {
       lowerPart.top = topHeight + gap;
       lowerPart.right = screenWidth + CatcherConfig.getInstance().getObstacleWidth();
       lowerPart.bottom = screenHeight;
-
-      // wiggles
-      wiggles = new Random().nextBoolean();
    }
 
    /**

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
       imageButton = findViewById(R.id.setPhotoButton);
 
       // load saved image if already taken before
-      final File img = new File(getFilesDir() + "/PHOTO", "me_disp.png");
+      final File img = new File(getFilesDir() + "/PHOTO", "me.png");
       if (img.exists()) {
          imageButton.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
       }
@@ -94,12 +94,11 @@ public class MainActivity extends AppCompatActivity {
          }
 
          // adapt and save extracted bitmap to filesystem
-         final Bitmap roundedBitmap = getRoundedCroppedBitmap(extractedBitmap);
          final Bitmap roundedScaledBitmap = Bitmap
-             .createScaledBitmap(roundedBitmap, catcherConfig.getCursorRadius() * 2,
+             .createScaledBitmap(getRoundedCroppedBitmap(extractedBitmap),
+                 catcherConfig.getCursorRadius() * 2,
                  catcherConfig.getCursorRadius() * 2, false);
-         imageButton.setImageBitmap(roundedBitmap);
-         saveImage(getFilesDir() + "/PHOTO", "me_disp.png", roundedBitmap);
+         imageButton.setImageBitmap(roundedScaledBitmap);
          saveImage(getFilesDir() + "/PHOTO", "me.png", roundedScaledBitmap);
       }
 
