@@ -1,12 +1,9 @@
 package tirol.htlanichstrasse.htlcatcher.game.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,13 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import com.q42.android.scrollingimageview.ScrollingImageView;
 import java.util.Timer;
 import java.util.TimerTask;
 import lombok.Getter;
-import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
 import tirol.htlanichstrasse.htlcatcher.game.GameStatistics;
@@ -142,6 +137,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    public void changeGameStage(final GameState gameStage) {
 
       switch (gameStage) {
+         case INGAME:
+            break;
+
          case INGAME2:
             gameStageTwo.onStage(GameState.INGAME2);
             break;
