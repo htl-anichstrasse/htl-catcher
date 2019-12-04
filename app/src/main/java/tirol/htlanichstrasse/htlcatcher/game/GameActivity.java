@@ -23,6 +23,7 @@ import lombok.Getter;
 import tirol.htlanichstrasse.htlcatcher.MainActivity;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
+import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.CatcherStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.Config;
@@ -54,6 +55,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     */
    @Getter
    private Floor floor;
+
+   /**
+    * GameStage and therefore Difficulty level: 2
+    */
+   private GameStageTwo gameStageTwo = new GameStageTwo(this);
 
    @Override
    public void onCreate(Bundle savedInstanceState) {
@@ -128,44 +134,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       final int shortAnimationDuration = getResources()
           .getInteger(android.R.integer.config_shortAnimTime);
       switch (gameStage) {
-         case INGAME:
-         case INGAME2: {
-            final View yellowBackgroundView = findViewById(R.id.scrolling_background_yellow);
-            yellowBackgroundView.setVisibility(View.VISIBLE);
-            yellowBackgroundView.setAlpha(0f);
-            yellowBackgroundView.animate().alpha(1f).setDuration(shortAnimationDuration)
-                .setListener(null);
-            final View backgroundView = findViewById(R.id.scrolling_background);
-            backgroundView.animate().alpha(0f)
-                .setDuration(shortAnimationDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                   @Override
-                   public void onAnimationEnd(Animator animation) {
-                      backgroundView.setVisibility(View.GONE);
-                   }
-                });
-            final View stage2Text = findViewById(R.id.stage2);
-            stage2Text.setVisibility(View.VISIBLE);
-            stage2Text.setAlpha(0f);
-            stage2Text.animate().alpha(1f).translationY(0f).setDuration(shortAnimationDuration)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setListener(
-                    new AnimatorListenerAdapter() {
-                       @Override
-                       public void onAnimationEnd(Animator animation) {
-                          new Handler()
-                              .postDelayed(() -> runOnUiThread(() -> stage2Text.animate().alpha(0f)
-                                  .setDuration(shortAnimationDuration)
-                                  .setListener(new AnimatorListenerAdapter() {
-                                     @Override
-                                     public void onAnimationEnd(Animator animation) {
-                                        stage2Text.setVisibility(View.GONE);
-                                     }
-                                  })), 1000L);
-                       }
-                    });
-         }
-         break;
+         case INGAME2:
+            gameStageTwo.onStage(GameState.INGAME2);
+            break;
+
          case INGAME3: {
             final View redBackgroundView = findViewById(R.id.scrolling_background_red);
             redBackgroundView.setVisibility(View.VISIBLE);
