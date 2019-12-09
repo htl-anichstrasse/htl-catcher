@@ -1,8 +1,8 @@
 <!-- shields -->
-[![](https://img.shields.io/github/issues/htl-anichstrasse/HTLCatcher)](https://github.com/htl-anichstrasse/HTLCatcher/issues)
-[![](https://img.shields.io/github/stars/htl-anichstrasse/HTLCatcher)](https://github.com/htl-anichstrasse/HTLCatcher/stargazers)
-[![](https://tokei.rs/b1/github/htl-anichstrasse/HTLCatcher?category=code)](https://github.com/XAMPPRocky/tokei)
-[![](https://img.shields.io/github/license/htl-anichstrasse/HTLCatcher)](https://github.com/htl-anichstrasse/HTLCatcher/blob/master/LICENSE)
+[![](https://img.shields.io/github/issues/htl-anichstrasse/htl-catcher)](https://github.com/htl-anichstrasse/htl-catcher/issues)
+[![](https://img.shields.io/github/stars/htl-anichstrasse/htl-catcher)](https://github.com/htl-anichstrasse/htl-catcher/stargazers)
+[![](https://tokei.rs/b1/github/htl-anichstrasse/htl-catcher?category=code)](https://github.com/XAMPPRocky/tokei)
+[![](https://img.shields.io/github/license/htl-anichstrasse/htl-catcher)](https://github.com/htl-anichstrasse/htl-catcher/blob/master/LICENSE)
 
 # HTL Catcher
 
@@ -20,14 +20,14 @@
     <br/>
     <a href="https://play.google.com/store/apps/details?id=tirol.htlanichstrasse.htlcatcher">Download</a>
     ·
-    <a href="https://github.com/htl-anichstrasse/HTLCatcher/issues">Report Bug</a>
+    <a href="https://github.com/htl-anichstrasse/htl-catcher/issues">Report Bug</a>
     ·
-    <a href="https://github.com/htl-anichstrasse/HTLCatcher/issues">Request Feature</a>
+    <a href="https://github.com/htl-anichstrasse/htl-catcher/issues">Request Feature</a>
   </p>
 </p>
 
 ## About the project
-HTLCatcher is a Flappy-Bird-inspired Android Game developed by students of the higher technical college HTL Anichstraße in Innsbruck, Austria. The app was made for the college's open day to show potential new students what they can expect to learn at HTL Anichstraße.
+HTL Catcher is a Flappy-Bird-inspired Android Game developed by students of the higher technical college HTL Anichstraße in Innsbruck, Austria. The app was made for the college's open day to show potential new students what they can expect to learn at HTL Anichstraße.
 
 # Screenshots
 
@@ -39,7 +39,7 @@ HTLCatcher is a Flappy-Bird-inspired Android Game developed by students of the h
 If you want to tinker around with the project on your local PC, you can simply clone the project and open it in Android Studio, which will do all the setup with Gradle for you.
 
 ```
-git clone https://github.com/htl-anichstrasse/HTLCatcher.git
+git clone https://github.com/htl-anichstrasse/htl-catcher.git
 ```
 
 ## Built with
