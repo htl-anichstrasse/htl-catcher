@@ -1,8 +1,8 @@
 <!-- shields -->
-[![](https://img.shields.io/github/issues/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/issues)
-[![](https://img.shields.io/github/stars/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/stargazers)
-[![](https://tokei.rs/b1/github/EverythingUnderCTRL/HTLCatcher?category=code)](https://github.com/XAMPPRocky/tokei)
-[![](https://img.shields.io/github/license/EverythingUnderCTRL/HTLCatcher)](https://github.com/EverythingUnderCTRL/HTLCatcher/blob/master/LICENSE)
+[![](https://img.shields.io/github/issues/htl-anichstrasse/HTLCatcher)](https://github.com/htl-anichstrasse/HTLCatcher/issues)
+[![](https://img.shields.io/github/stars/htl-anichstrasse/HTLCatcher)](https://github.com/htl-anichstrasse/HTLCatcher/stargazers)
+[![](https://tokei.rs/b1/github/htl-anichstrasse/HTLCatcher?category=code)](https://github.com/XAMPPRocky/tokei)
+[![](https://img.shields.io/github/license/htl-anichstrasse/HTLCatcher)](https://github.com/htl-anichstrasse/HTLCatcher/blob/master/LICENSE)
 
 # HTL Catcher
 
@@ -20,9 +20,9 @@
     <br/>
     <a href="https://play.google.com/store/apps/details?id=tirol.htlanichstrasse.htlcatcher">Download</a>
     ·
-    <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/issues">Report Bug</a>
+    <a href="https://github.com/htl-anichstrasse/HTLCatcher/issues">Report Bug</a>
     ·
-    <a href="https://github.com/EverythingUnderCTRL/HTLCatcher/issues">Request Feature</a>
+    <a href="https://github.com/htl-anichstrasse/HTLCatcher/issues">Request Feature</a>
   </p>
 </p>
 
