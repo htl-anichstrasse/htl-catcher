@@ -10,3 +10,6 @@ app/release/
 /.idea/caches/
 /captures/
 .externalNativeBuild
+.project
+.settings
+.vscode

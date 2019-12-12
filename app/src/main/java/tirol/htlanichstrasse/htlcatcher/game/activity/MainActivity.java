@@ -23,8 +23,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import tirol.htlanichstrasse.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
-import tirol.htlanichstrasse.htlcatcher.game.activity.InstructionActivity;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -191,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     * @param image the Bitmap object of the image
     * @return true if saving the image was successful, false otherwise
     */
-   @SuppressWarnings("UnusedReturnValue")
+   @SuppressWarnings({"UnusedReturnValue", "SameParameterValue"})
    private boolean saveImage(final String path, final String fileName, final Bitmap image) {
       // Prepare directory
       final File saveDirectory = new File(path);
