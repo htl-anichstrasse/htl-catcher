@@ -18,13 +18,12 @@ import java.util.TimerTask;
 import lombok.Getter;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
-import tirol.htlanichstrasse.htlcatcher.game.GameStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageThree;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
-
-import tirol.htlanichstrasse.htlcatcher.game.GameStatistics.StatisticsAction;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -120,12 +119,16 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                       getString(R.string.gameover_score, gameStatistics.getPoints().get()));
                   ((TextView) findViewById(R.id.timeView)).setText(
                       getString(R.string.gameover_gametime,
-                          gameStatistics.points.get() - (gameStatistics.caughtLogos.get()
+                          gameStatistics.points.get() - (gameStatistics.logos.get()
                               * StatisticsAction.LOGO.getPoints())));
                });
             }
          }
       }, 0, 50);
+   }
+
+   private void handleGameTick() {
+
    }
 
    /**
@@ -135,23 +138,23 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     * @throws IllegalArgumentException if provided gameStage is not an ingame stage
     */
    public void changeGameStage(final GameState gameStage) {
-
       switch (gameStage) {
          case INGAME:
             break;
-
          case INGAME2:
             gameStageTwo.onStage(GameState.INGAME2);
             break;
-
          case INGAME3:
             gameStageThree.onStage(GameState.INGAME3);
             break;
-
          default:
             throw new IllegalArgumentException("Can only change to ingame stages!");
       }
    }
+
+   /*
+    * Event handlers come after this
+    */
 
    @Override
    public boolean onTouch(final View view, final MotionEvent event) {
@@ -171,12 +174,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    public void onClick(View view) {
       switch (view.getId()) {
          case R.id.restartButton:
+            // restart the game activity (this one)
             finish();
             Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
             startActivity(intent);
             break;
          case R.id.backToMenu:
+            // go back to the main activity
             finish();
             startActivity(new Intent(this, MainActivity.class));
             break;

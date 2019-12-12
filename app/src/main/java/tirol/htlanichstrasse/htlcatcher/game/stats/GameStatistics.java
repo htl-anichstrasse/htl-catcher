@@ -1,6 +1,7 @@
-package tirol.htlanichstrasse.htlcatcher.game;
+package tirol.htlanichstrasse.htlcatcher.game.stats;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import lombok.Setter;
  * @since 24.10.19
  */
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GameStatistics {
 
    /**
@@ -24,7 +25,7 @@ public class GameStatistics {
    /**
     * Statically resets the singleton instance, resetting every game
     */
-   static void reset() {
+   public static void reset() {
       GameStatistics.instance = new GameStatistics();
    }
 
@@ -43,18 +44,18 @@ public class GameStatistics {
    /**
     * Holds the total amount of caught logos
     */
-   public AtomicInteger caughtLogos = new AtomicInteger(0);
+   public AtomicInteger logos = new AtomicInteger(0);
 
    /**
     * Increases the amount of points accordingly to the fulfilled action
     *
     * @param action the fulfilled action awarding the player points
     */
-   void increase(final StatisticsAction action) {
+   public void increase(final StatisticsAction action) {
       if (action == StatisticsAction.LOGO) {
-         caughtLogos.incrementAndGet();
+         logos.incrementAndGet();
       }
-      this.points.addAndGet(action.getPoints());
+      points.addAndGet(action.getPoints());
    }
 
    /**
