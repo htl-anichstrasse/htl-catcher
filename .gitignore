@@ -13,3 +13,8 @@ app/release/
 .project
 .settings
 .vscode
+
+# server
+server/env
+**/__pycache__/*
+server/users.json
