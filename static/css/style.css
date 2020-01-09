@@ -1,7 +1,11 @@
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
+
 .base_background {
     background-image: linear-gradient(to bottom, #29ffc6, #20e3b2, #0cebeb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-repeat: no-repeat;
-    height: 100%;
 }
 
 .container {
