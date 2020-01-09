@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" style="height: 100%;">
 
 <head>
     <meta charset="utf-8" />
@@ -17,10 +17,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 
-<body>
-    <div class="container">
-        <img class="htllogo" src="{{ url_for('static', filename='img/htl.png') }}" width="100px"/>
-        <h1>Es rappelt im Karton.</h1>
+<body class="base_background">
+    <div class="row">
+        <div class="container">
+            <img class="htllogo" src="{{ url_for('static', filename='img/htl_header.png') }}" width="450px" />
+            <h1>OFFICIAL LEADERBOARD OF HTL CATCHER</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container col-lg-12 offset-lg-4">
+            <div class="box_view">
+                <h1>HALL OF FAME</h1>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap core JavaScript -->
@@ -33,7 +42,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>
