@@ -9,9 +9,7 @@ from .resources.add import add
 
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
-# TODO: find a cleverer way to define paths?
-leaderboard = LeaderboardManager(os.path.join(
-    str(Path(os.path.dirname(os.path.abspath(__file__))).parents[0]), 'leaderboard.json'))
+leaderboard = LeaderboardManager(Path('./server/static/leaderboard.json'))
 
 
 @api_bp.route('/')

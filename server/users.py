@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+
 from jsonschema import validate
 
 # expected json schema of user file
@@ -21,13 +23,13 @@ class UserManager:
 
     # TODO: please don't store user passwords in plaintext
 
-    path: str
+    path: Path
     user_data: str
 
-    def __init__(self, path="users.json"):
+    def __init__(self, path: Path):
         self.path = path
 
-        with open(path) as json_file:
+        with open(path.resolve()) as json_file:
             self.user_data = json.load(json_file)
 
         # validate json data

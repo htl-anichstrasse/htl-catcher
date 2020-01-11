@@ -1,6 +1,7 @@
 import json
 import os
 import threading
+from pathlib import Path
 
 from jsonschema import validate
 
@@ -23,15 +24,15 @@ class LeaderboardManager:
     """ Manager class holding the leaderboard data. This class also manages access
     to the leaderboard JSON file."""
 
-    path: str
+    path: Path
     leaderboard_data: list
     lock = threading.Lock()  # lock used for write operations on the file
 
-    def __init__(self, path: str):
+    def __init__(self, path: Path):
         self.path = path
 
-        if (os.path.exists(path)):
-            with open(path) as json_file:
+        if (path.exists()):
+            with open(path.resolve()) as json_file:
                 self.leaderboard_data = json.load(json_file)
 
             # validate json data

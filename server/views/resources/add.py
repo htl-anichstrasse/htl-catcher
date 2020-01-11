@@ -13,8 +13,7 @@ from ...leaderboard import LeaderboardManager
 class add(Resource):
 
     # TODO: find a cleverer way to define paths?
-    user_manager = UserManager(os.path.join(
-        str(Path(os.path.dirname(os.path.abspath(__file__))).parents[1]), 'users.json'))
+    user_manager = UserManager(Path('./server/static/users.json'))
     leaderboard: LeaderboardManager
 
     def __init__(self, leaderboard: LeaderboardManager):
