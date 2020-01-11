@@ -18,7 +18,7 @@ cd htl-catcher/server
 pip install -r requirements.txt
 ```
 
-3. Create a user account for the API. Add a `users.json` file to the directory root and add at least one user account using the following format:
+3. Create a user account for the API. Add a `users.json` file to /static/users.json and add at least one user account using the following format:
 ```json
 [
     {
