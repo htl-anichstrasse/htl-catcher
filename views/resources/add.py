@@ -12,7 +12,6 @@ from ...leaderboard import LeaderboardManager
 
 class add(Resource):
 
-    # TODO: find a cleverer way to define paths?
     user_manager = UserManager(Path('./server/static/users.json'))
     leaderboard: LeaderboardManager
 
