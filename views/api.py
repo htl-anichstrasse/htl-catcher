@@ -18,4 +18,5 @@ def route_api():
 
 
 # register resources
-api.add_resource(add, '/add', resource_class_kwargs={'leaderboard': leaderboard})
+api.add_resource(
+    add, '/add', resource_class_kwargs={'leaderboard': leaderboard})

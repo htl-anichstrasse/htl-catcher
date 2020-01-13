@@ -6,8 +6,8 @@ from pathlib import Path
 
 from flask_restful import Resource, reqparse, request
 
-from ...users import UserManager
 from ...leaderboard import LeaderboardManager
+from ...users import UserManager
 
 
 class add(Resource):
@@ -43,12 +43,16 @@ class add(Resource):
         the response for this request."""
 
         parser = reqparse.RequestParser()
-        parser.add_argument('name', type=str, required=True) # the player's (user)name
-        parser.add_argument('score', type=int, required=True) # the player's reached score
-        parser.add_argument('message', type=str) # players can append an optional message displayed on screen
+        # the player's (user)name
+        parser.add_argument('name', type=str, required=True)
+        # the player's reached score
+        parser.add_argument('score', type=int, required=True)
+        # players can append an optional message displayed on screen
+        parser.add_argument('message', type=str)
 
         args = parser.parse_args()
-        self.leaderboard.add(args['name'], args['score'], args['message'] if args['message'] else "")
+        self.leaderboard.add(args['name'], args['score'],
+                             args['message'] if args['message'] else "")
         # TODO: send change to front end
 
         return {'message': 'Successfully added new leaderboard entry.'}

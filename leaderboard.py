@@ -41,7 +41,7 @@ class LeaderboardManager:
         else:
             with open(path, "w+") as file:
                 file.write("[]")
-                leaderboard_data = []
+                self.leaderboard_data = []
 
     def add(self, name, score, message="") -> None:
         """ Adds a leaderboard entry to the leaderboard data and writes it to the disk"""
