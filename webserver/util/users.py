@@ -1,10 +1,11 @@
+import base64
 import json
 from pathlib import Path
 
 from jsonschema import validate
 
 # expected json schema of user file
-json_schema = {
+JSON_SCHEMA = {
     "type": "array",
     "contains": {
         "type": "object",
@@ -33,7 +34,7 @@ class UserManager:
             self.user_data = json.load(json_file)
 
         # validate json data
-        validate(instance=self.user_data, schema=json_schema)
+        validate(instance=self.user_data, schema=JSON_SCHEMA)
 
     def validate_user(self, username: str, password: str) -> bool:
         """ Quickly checks if user credentials are correct or not, please
@@ -48,3 +49,14 @@ class UserManager:
                 break
 
         return user_valid
+
+    def check(self, authorization_header: str) -> bool:
+        """ Checks the authorization header using the user manager. Returns true
+        if the user + password in the header is valid, false otherwise.
+
+        Please note that the authorization must be encoded in Base64 as per RFC 2617"""
+
+        decoded_username_password = base64.b64decode(
+            authorization_header.split()[-1].encode('ascii')).decode('ascii')
+        username_password_split = decoded_username_password.split(':')
+        return self.validate_user(username_password_split[0], username_password_split[1])
