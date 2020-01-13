@@ -6,16 +6,15 @@ from pathlib import Path
 
 from flask_restful import Resource, reqparse, request
 
-from views.home import add_entry, home
-
-from ...leaderboard import LeaderboardManager
-from ...users import UserManager
+from webserver.definitions import ROOT_DIR
+from webserver.util import LeaderboardManager, UserManager
+from webserver.views.home import add_entry, home
 
 
 class add(Resource):
     """ REST node for adding new leaderboard entries"""
 
-    user_manager = UserManager(Path('./server/static/users.json'))
+    user_manager = UserManager(Path(os.path.join(ROOT_DIR, "./static/users.json")))
     leaderboard_manager: LeaderboardManager
 
     def __init__(self, leaderboard: LeaderboardManager):
@@ -57,7 +56,7 @@ class add(Resource):
         # add parsed information to leaderboard manager
         args = parser.parse_args()
         self.leaderboard_manager.add(args['name'], args['score'],
-                             args['message'] if args['message'] else "")
+                                     args['message'] if args['message'] else "")
 
         # send event to front end
         add_entry(self.leaderboard_manager)

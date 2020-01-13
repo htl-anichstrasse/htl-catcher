@@ -30,6 +30,9 @@ pip install -r requirements.txt
 
 4. Run the server module
 ```
-cd ..
-python -m server
+python -m webserver
 ```
+
+## License
+
+The [license file](https://github.com/htl-anichstrasse/htl-catcher/blob/master/LICENSE) in the root directory of this repository applies.
