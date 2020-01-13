@@ -6,17 +6,20 @@ from pathlib import Path
 
 from flask_restful import Resource, reqparse, request
 
+from views.home import add_entry, home
+
 from ...leaderboard import LeaderboardManager
 from ...users import UserManager
 
 
 class add(Resource):
+    """ REST node for adding new leaderboard entries"""
 
     user_manager = UserManager(Path('./server/static/users.json'))
-    leaderboard: LeaderboardManager
+    leaderboard_manager: LeaderboardManager
 
     def __init__(self, leaderboard: LeaderboardManager):
-        self.leaderboard = leaderboard
+        self.leaderboard_manager = leaderboard
 
     def check(self, authorization_header: str) -> bool:
         """ Checks the authorization header using the user manager. Returns true
@@ -30,6 +33,7 @@ class add(Resource):
         return self.user_manager.validate_user(username_password_split[0], username_password_split[1])
 
     def post(self):
+        # process the request if the authentication header is valid
         authorization_header = request.headers.get('Authorization')
         if authorization_header and self.check(authorization_header):
             return self.process_request()
@@ -50,9 +54,13 @@ class add(Resource):
         # players can append an optional message displayed on screen
         parser.add_argument('message', type=str)
 
+        # add parsed information to leaderboard manager
         args = parser.parse_args()
-        self.leaderboard.add(args['name'], args['score'],
+        self.leaderboard_manager.add(args['name'], args['score'],
                              args['message'] if args['message'] else "")
-        # TODO: send change to front end
 
+        # send event to front end
+        add_entry(self.leaderboard_manager)
+
+        # reply with success message
         return {'message': 'Successfully added new leaderboard entry.'}
