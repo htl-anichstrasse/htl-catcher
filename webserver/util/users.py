@@ -2,12 +2,9 @@ import base64
 import binascii
 import hashlib
 import json
-import os
 from pathlib import Path
-from typing import functools
 
 import flask_restful
-from flask.globals import request
 from jsonschema import validate
 
 # expected json schema of user file
@@ -40,7 +37,7 @@ class UserManager:
         # validate json data
         validate(instance=self.user_data, schema=JSON_SCHEMA)
 
-    def verify_password(self, stored_password: str, provided_password: str) -> bool:
+    def _verify_password(self, stored_password: str, provided_password: str) -> bool:
         """Verify a stored password against one provided by user, returns true if the passwords
         match, false otherwise"""
         salt = stored_password[:64]  # salt is first 64 chars
@@ -60,7 +57,7 @@ class UserManager:
         user_valid = False
 
         for user in self.user_data:
-            if user['name'] == username and self.verify_password(user['password_hash'], password):
+            if user['name'] == username and self._verify_password(user['password_hash'], password):
                 user_valid = True
                 break
 

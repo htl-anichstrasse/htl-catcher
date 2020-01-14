@@ -1,6 +1,3 @@
-from venv import logger
-
-from flask import app
 from flask_restful import Resource, reqparse, request
 
 from webserver.util import LeaderboardManager, UserManager
