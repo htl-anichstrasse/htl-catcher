@@ -23,9 +23,14 @@ pip install -r requirements.txt
 [
     {
         "name": "foo",
-        "password": "bar"
+        "password_hash": "bar"
     }
 ]
+```
+You can create the salted hash for the `password_hash` field using the `generate_hash.py` script
+
+```
+py generate_hash.py <password>
 ```
 
 4. Run the server module

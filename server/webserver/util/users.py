@@ -1,5 +1,8 @@
 import base64
+import binascii
+import hashlib
 import json
+import os
 from pathlib import Path
 from typing import functools
 
@@ -14,7 +17,7 @@ JSON_SCHEMA = {
         "type": "object",
         "properties": {
             "name": {"type": "string"},
-            "password": {"type": "string"}
+            "password_hash": {"type": "string"}
 
         }
     }
@@ -22,10 +25,8 @@ JSON_SCHEMA = {
 
 
 class UserManager:
-    """ User manager for Basic API authentication, reads user data
+    """User manager for Basic API authentication, reads user data
     from a local JSON file, storing usernames and passwords for Basic auth user accounts"""
-
-    # TODO: please don't store user passwords in plaintext
 
     path: Path
     user_data: str
@@ -39,15 +40,27 @@ class UserManager:
         # validate json data
         validate(instance=self.user_data, schema=JSON_SCHEMA)
 
+    def verify_password(self, stored_password: str, provided_password: str) -> bool:
+        """Verify a stored password against one provided by user, returns true if the passwords
+        match, false otherwise"""
+        salt = stored_password[:64]  # salt is first 64 chars
+        stored_password = stored_password[64:]
+        pwdhash = hashlib.pbkdf2_hmac('sha512',
+                                      provided_password.encode('utf-8'),
+                                      salt.encode('ascii'),
+                                      100000)
+        pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+        return pwdhash == stored_password
+
     def validate_user(self, username: str, password: str) -> bool:
-        """ Quickly checks if user credentials are correct or not, please
+        """Quickly checks if user credentials are correct or not, please
         note that this method is insecure and should be rewritten to not work
         with plaintext passwords anymore."""
 
         user_valid = False
 
         for user in self.user_data:
-            if user['name'] == username and user['password'] == password:
+            if user['name'] == username and self.verify_password(user['password_hash'], password):
                 user_valid = True
                 break
 
