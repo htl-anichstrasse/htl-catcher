@@ -38,6 +38,10 @@ py generate_hash.py <password>
 python -m webserver
 ```
 
+## How to use the API
+
+If you are looking for the API documentation, please see the [README in webserver/views/resources](webserver/views/resources/README.md).
+
 ## License
 
 The [license file](https://github.com/htl-anichstrasse/htl-catcher/blob/master/LICENSE) in the root directory of this repository applies.
