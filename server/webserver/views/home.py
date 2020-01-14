@@ -15,3 +15,9 @@ def add_entry(leaderboard_manager: LeaderboardManager):
     """ Fired when a new entry is added via the /add REST node"""
     # TODO: Implement method
     pass
+
+
+def remove_entry(leaderboard_manager: LeaderboardManager):
+    """ Fired when a entry is removed from the leaderboard via the /remove REST node"""
+    # TODO: Implement method
+    pass
