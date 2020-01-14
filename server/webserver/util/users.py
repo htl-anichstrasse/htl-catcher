@@ -1,7 +1,10 @@
 import base64
 import json
 from pathlib import Path
+from typing import functools
 
+import flask_restful
+from flask.globals import request
 from jsonschema import validate
 
 # expected json schema of user file
@@ -50,13 +53,18 @@ class UserManager:
 
         return user_valid
 
-    def check(self, authorization_header: str) -> bool:
-        """ Checks the authorization header using the user manager. Returns true
-        if the user + password in the header is valid, false otherwise.
+    def check(self, authorization_header: str) -> None:
+        """ Checks the authorization header using the user manager. Aborts the current
+        request if the authorization header is invalid.
 
         Please note that the authorization must be encoded in Base64 as per RFC 2617"""
 
-        decoded_username_password = base64.b64decode(
-            authorization_header.split()[-1].encode('ascii')).decode('ascii')
-        username_password_split = decoded_username_password.split(':')
-        return self.validate_user(username_password_split[0], username_password_split[1])
+        if authorization_header:
+            decoded_username_password = base64.b64decode(
+                authorization_header.split()[-1].encode('ascii')).decode('ascii')
+            username_password_split = decoded_username_password.split(':')
+            if self.validate_user(username_password_split[0], username_password_split[1]):
+                return
+
+        flask_restful.abort(
+            400, message="You need to be authorized to perform this action.")
