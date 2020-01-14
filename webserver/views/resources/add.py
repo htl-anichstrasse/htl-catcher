@@ -20,28 +20,23 @@ class Add(Resource):
     def post(self):
         """ Processes a POST HTTP reques to this resource"""
         # process the request if the authentication header is valid
-        authorization_header = request.headers.get('Authorization')
-        if authorization_header and self.user_manager.check(authorization_header):
-            # authorization successful, parse request ...
-            parser = reqparse.RequestParser()
-            # the player's (user)name
-            parser.add_argument('name', type=str, required=True)
-            # the player's reached score
-            parser.add_argument('score', type=int, required=True)
-            # players can append an optional message displayed on screen
-            parser.add_argument('message', type=str)
+        self.user_manager.check(request.headers.get('Authorization'))
+        # authorization successful, parse request ...
+        parser = reqparse.RequestParser()
+        # the player's (user)name
+        parser.add_argument('name', type=str, required=True)
+        # the player's reached score
+        parser.add_argument('score', type=int, required=True)
+        # players can append an optional message displayed on screen
+        parser.add_argument('message', type=str)
 
-            # add parsed information to leaderboard manager
-            args = parser.parse_args()
-            self.leaderboard_manager.add(
-                args['name'], args['score'], args['message'] if args['message'] else "")
+        # add parsed information to leaderboard manager
+        args = parser.parse_args()
+        self.leaderboard_manager.add(
+            args['name'], args['score'], args['message'] if args['message'] else "")
 
-            # send event to front end
-            add_entry(self.leaderboard_manager)
+        # send event to front end
+        add_entry(self.leaderboard_manager)
 
-            # reply with success message
-            return {'message': 'Successfully added new leaderboard entry.'}
-
-        # authorization failed
-        # abort, user is not authenticated
-        return {'message': 'You need to be authorized to perform this action.'}, 401
+        # reply with success message
+        return {'message': 'Successfully added new leaderboard entry.'}
