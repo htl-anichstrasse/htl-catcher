@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/logo.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
@@ -37,8 +35,8 @@
     </div>
     <div class="container col-lg-9" style="margin-top: 10px;">
         <div class="row">
-            <table id=" leaderboard" class="table text-center">
-                <thead class="thead-dark">
+            <table id="leaderboard" class="table text-center">
+                <thead class="thead-dark" id="leaderboard_head">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Spieler</th>
@@ -46,7 +44,7 @@
                         <th scope="col">Nachricht</th>
                     </tr>
                 </thead>
-                <tbody class="table table-striped leaderboard_row">
+                <tbody class="table table-striped leaderboard_row" id="leaderboard_body">
                     {% for entry in data[:10] %}
                     {% if loop.index == 1 %}
                     <tr class="first_place">
