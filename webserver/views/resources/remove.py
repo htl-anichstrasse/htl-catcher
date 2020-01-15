@@ -15,7 +15,7 @@ class Remove(Resource):
         self.user_manager = kwargs['user_manager']
 
     def post(self):
-        """ Processes a POST HTTP reques to this resource"""
+        """ Processes a POST HTTP request to this resource"""
         # process the request if the authentication header is valid
         self.user_manager.check(request.headers.get('Authorization'))
         # authorization successful, parse request ...
