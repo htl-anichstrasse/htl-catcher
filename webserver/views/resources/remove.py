@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse, request
 
 from webserver.util import LeaderboardManager, UserManager
-from webserver.views.home import remove_entry
 
 
 class Remove(Resource):
@@ -26,9 +25,6 @@ class Remove(Resource):
         # add parsed information to leaderboard manager
         args = parser.parse_args()
         self.leaderboard_manager.remove(args['name'])
-
-        # send event to front end
-        remove_entry(self.leaderboard_manager)
 
         # reply with success message
         return {'message': 'Successfully removed leaderboard entry / entries.'}
