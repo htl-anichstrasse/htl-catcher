@@ -4,6 +4,8 @@ This is the [Flask](http://flask.palletsprojects.com/en/1.1.x/) leaderboard serv
 
 Using a projector and a computer at the open day, visitors will be able to see their high score pop up on the projector's image as soon as they click the submit button (if they made it in the top 10 ...)
 
+Please note that the Play Store version of the app will never be able to send leaderboard data accross the internet to a remote server. This feature is exclusively for the demonstration version on the open day. The Play Store version gets a local leaderboard instead.
+
 ## Installation
 
 1. Clone the library and navigate into the server directory
