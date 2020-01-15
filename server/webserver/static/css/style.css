@@ -3,10 +3,6 @@ html {
     overflow-x: hidden;
 }
 
-.base_background {
-    
-}
-
 .container {
     width: 100%;
     margin-top: 15px;
@@ -62,3 +58,45 @@ body h1 {
 .third_place {
     background-color: silver;
 }
+
+td, th {
+    padding: 5px;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.hexagon {
+    position: relative;
+    width: 150px; 
+    height: 86.60px;
+    background-color: orange;
+    margin: 43.30px 0;
+  }
+  
+  .hexagon:before,
+  .hexagon:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+  }
+  
+  .hexagon:before {
+    bottom: 100%;
+    border-bottom: 43.30px solid orange;
+  }
+  
+  .hexagon:after {
+    top: 100%;
+    width: 0;
+    border-top: 43.30px solid orange;
+  }
+
+  .hexagon h1 {
+      font-size: 60px;
+      color: white;
+      font-weight: bold;
+  }
