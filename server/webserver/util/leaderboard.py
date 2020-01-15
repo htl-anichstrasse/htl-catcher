@@ -3,6 +3,7 @@ import threading
 from pathlib import Path
 
 from jsonschema import validate
+from operator import itemgetter
 
 # expected json schema of leaderboard file
 JSON_SCHEMA = {
@@ -20,7 +21,7 @@ JSON_SCHEMA = {
 
 
 class LeaderboardManager:
-    """ Manager class holding the leaderboard data. This class also manages access
+    """Manager class holding the leaderboard data. This class also manages access
     to the leaderboard JSON file."""
 
     path: Path
@@ -43,12 +44,17 @@ class LeaderboardManager:
                 self.leaderboard_data = []
 
     def write(self) -> None:
-        """ Writes the current version of `leaderboard_data` to the disk """
+        """Writes the current version of `leaderboard_data` to the disk """
         with open(self.path, "w+") as file:
             json.dump(self.leaderboard_data, file, indent=4, sort_keys=True)
 
+    def get_ranked_entry(self, position: int) -> dict:
+        """Gets a ranked entry in the leaderboard by the provided position"""
+        sorted_data = sorted(self.leaderboard_data, key=itemgetter('score'), reverse=True)
+        return sorted_data[position]
+
     def add(self, name, score, message="") -> None:
-        """ Adds a leaderboard entry to the leaderboard data and writes it to the disk"""
+        """Adds a leaderboard entry to the leaderboard data and writes it to the disk"""
         self.lock.acquire()
         self.leaderboard_data.append(
             {"name": name, "score": score, "message": message})  # append ram data
@@ -59,7 +65,7 @@ class LeaderboardManager:
         self.lock.release()
 
     def remove(self, name) -> None:
-        """ Removes all leaderboard entries with the provided name"""
+        """Removes all leaderboard entries with the provided name"""
         self.lock.acquire()
         self.leaderboard_data = [value for value in self.leaderboard_data if value['name'] != name]
 

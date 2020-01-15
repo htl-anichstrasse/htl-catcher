@@ -146,6 +146,50 @@ user@pc:~$ curl --location --request POST '/api/remove' \
     "name": "Freddie Mercury"
 }'
 ```
+
+### Fetch
+
+Queries the remote leaderboard data by position. Lowest position = player with the highest score
+
+    GET /fetch
+
+**Requires Authorization:** No
+
+**Headers**
+
+```
+Content-Type: application/json
+```
+
+**Payload**
+
+* `position: integer` — required
+
+```json
+{
+    "position": 0
+}
+```
+
+**Success response**
+```json
+{
+    "message": "Don't stop me now",
+    "name": "Freddie Mercury",
+    "score": 1970
+}
+```
+
+**Example call**
+
+```console
+user@pc:~$ curl --location --request POST '/api/remove' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "position": 0
+}'
+```
+
 ## Contribute
 
 Documentation is important. If you contribute to this project and want to add a new API node / resource, please add appropriate documentation for it to this file.
