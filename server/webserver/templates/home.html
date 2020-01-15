@@ -41,21 +41,22 @@
                     </tr>
                 </thead>
                 <tbody class="table table-striped leaderboard_row">
-                    {% for entry in data %}
-                        {% if loop.index == 1 %}
-                            <tr class="first_place">
+                    {% for entry in data[:10] %}
+
+                    {% if loop.index == 1 %}
+                    <tr class="first_place">
                         {% elif loop.index == 2 %}
-                            <tr class="second_place">
+                    <tr class="second_place">
                         {% elif loop.index == 3 %}
-                            <tr class="third_place">
+                    <tr class="third_place">
                         {% else %}
-                            <tr>
+                    <tr>
                         {% endif %}
-                                <th scope="row">{{ loop.index }}#</th>
-                                <td>{{ entry['name'] }}</td>
-                                <td>{{ entry['score'] }}</td>
-                                <td>{{ entry['message'] }}</td>
-                            </tr>
+                        <th scope="row">{{ loop.index }}#</th>
+                        <td>{{ entry['name'] }}</td>
+                        <td>{{ entry['score'] }}</td>
+                        <td>{{ entry['message'] }}</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
