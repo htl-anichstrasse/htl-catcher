@@ -1,9 +1,11 @@
 import os
 import sys
+from copyreg import add_extension
 
 from flask import Flask
 
 from webserver.definitions import ROOT_DIR
+from webserver.util import LeaderboardManager
 from webserver.views import api_bp, home
 
 # fix import

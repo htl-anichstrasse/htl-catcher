@@ -150,7 +150,7 @@ user@pc:~$ curl --location --request POST '/api/remove' \
 
 ### Fetch
 
-Queries the remote leaderboard data by position. Lowest position = player with the highest score
+Queries the remote leaderboard data by position. Lowest position = player with the highest score. If no argument is provided, the API sends the first 10 leaderboard entries
 
     GET /fetch
 
@@ -164,7 +164,7 @@ Content-Type: application/json
 
 **Payload**
 
-* `position: integer` — required
+* `position: integer`
 
 ```json
 {
