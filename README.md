@@ -62,6 +62,10 @@ Special thanks to all those amazing graphic designers out there who create free 
 - [Background and floor sprite by bevoiliin.com](https://opengameart.org/content/bevouliin-free-game-background-for-game-developers)
 - [Obstacle sprites made by Joshua Winkler](https://github.com/bemoty)
 
+## Server
+
+For information about the HTL Catcher webserver for leaderboard hosting, please see [server/README.md](/server/README.md).
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
