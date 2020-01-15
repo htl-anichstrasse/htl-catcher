@@ -1,3 +1,4 @@
+let sceneSize = 50;
 let isSpinning = true;
 
 let illo = new Zdog.Illustration({
@@ -8,6 +9,9 @@ let illo = new Zdog.Illustration({
   onDragStart: function () {
     isSpinning = false;
   },
+  onResize: function( width, height ) {
+    this.zoom = Math.floor( Math.min( width, height ) / sceneSize );
+  }
 });
 
 // Green Box
