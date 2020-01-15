@@ -4,8 +4,7 @@ html {
 }
 
 .base_background {
-    background-image: linear-gradient(to bottom, #29ffc6, #20e3b2, #0cebeb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background-repeat: no-repeat;
+    
 }
 
 .container {
@@ -26,9 +25,7 @@ body h1 {
 }
 
 .box_view {
-    position: absolute;
     height: 400px;
-    width: 600px;
     background-color: #3B3B3D;
     box-shadow: 10px -10px #8c8c8c;
 }
@@ -40,4 +37,28 @@ body h1 {
     text-shadow: 3px -3px gray;
     font-size: 60px;
     text-decoration: underline;
+}
+
+.header_bar {
+    background: black;
+    height: 150px;
+}
+
+.header_bar h1 {
+    font-weight: bold;
+    font-size: 60px;
+    color: white;
+    margin-top: 30px;
+}
+
+.first_place {
+    background-color: orange;
+}
+
+.second_place {
+    background-color: dimgray;
+}
+
+.third_place {
+    background-color: silver;
 }
