@@ -11,6 +11,7 @@ All API URLs are prefixed with `/api/`. Due to the fact that this project is a v
 * [Nodes](#nodes)
     * [Add](#add)
     * [Remove](#remove)
+    * [Fetch](#fetch)
 * [Contribute](#contribute)
 
 ---
