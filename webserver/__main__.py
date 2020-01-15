@@ -1,5 +1,6 @@
 import os
 import sys
+from copyreg import add_extension
 
 from flask import Flask
 
