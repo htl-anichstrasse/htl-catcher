@@ -53,9 +53,9 @@
                     <tr>
                         {% endif %}
                         <th scope="row">{{ loop.index }}#</th>
-                        <td>{{ entry['name'] }}</td>
+                        <td>{{ entry['name']|truncate(50, True) }}</td>
                         <td>{{ entry['score'] }}</td>
-                        <td>{{ entry['message'] }}</td>
+                        <td>{{ entry['message']|truncate(110, False) }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
