@@ -48,10 +48,9 @@ class LeaderboardManager:
         with open(self.path, "w+") as file:
             json.dump(self.leaderboard_data, file, indent=4, sort_keys=True)
 
-    def get_ranked_entry(self, position: int) -> dict:
-        """Gets a ranked entry in the leaderboard by the provided position"""
-        sorted_data = sorted(self.leaderboard_data, key=itemgetter('score'), reverse=True)
-        return sorted_data[position]
+    def get_sorted_data(self) -> list:
+        """Returns leaderboard data sorted by score, highest score = first index"""
+        return sorted(self.leaderboard_data, key=itemgetter('score'), reverse=True)
 
     def add(self, name: str, score: int, message="") -> None:
         """Adds a leaderboard entry to the leaderboard data and writes it to the disk"""
@@ -67,7 +66,8 @@ class LeaderboardManager:
     def remove(self, name: str) -> None:
         """Removes all leaderboard entries with the provided name"""
         self.lock.acquire()
-        self.leaderboard_data = [value for value in self.leaderboard_data if value['name'] != name]
+        self.leaderboard_data = [
+            value for value in self.leaderboard_data if value['name'] != name]
 
         # write changes to disk
         self.write()

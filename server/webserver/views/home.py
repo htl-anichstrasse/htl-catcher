@@ -1,5 +1,3 @@
-from operator import itemgetter
-
 from flask import Blueprint, render_template
 
 from webserver.util.leaderboard import LeaderboardManager
@@ -11,7 +9,7 @@ home = Blueprint('home', __name__)
 @home.route('/')
 def route_home():
     """ Renders the default page of the webserver, the leaderboard display"""
-    return render_template("home.html", data=sorted(leaderboard_manager.leaderboard_data, key=itemgetter('score'), reverse=True))
+    return render_template("home.html", data=leaderboard_manager.get_sorted_data())
 
 
 def add_entry(leaderboard_manager: LeaderboardManager):
