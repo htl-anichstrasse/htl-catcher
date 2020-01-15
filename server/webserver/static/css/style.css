@@ -77,34 +77,37 @@ table {
 
 .hexagon {
   position: relative;
-  width: 150px;
-  height: 86.6px;
+  z-index: 1;
+  width: 200px;
+  height: 120px;
   background-color: orange;
-  margin: 43.3px 0;
+  margin: 60px 0;
 }
 
 .hexagon:before,
 .hexagon:after {
   content: "";
   position: absolute;
+  z-index: 1;
   width: 0;
-  border-left: 75px solid transparent;
-  border-right: 75px solid transparent;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
 }
 
 .hexagon:before {
   bottom: 100%;
-  border-bottom: 43.3px solid orange;
+  border-bottom: 60px solid orange;
 }
 
 .hexagon:after {
   top: 100%;
   width: 0;
-  border-top: 43.3px solid orange;
+  border-top: 60px solid orange;
 }
 
-.hexagon h1 {
-  font-size: 60px;
-  color: white;
-  font-weight: bold;
+.zdoglogo {
+    position: absolute;
+    background: orange;
+    cursor: move;
+    z-index: 3;
 }
