@@ -41,24 +41,22 @@
                     </tr>
                 </thead>
                 <tbody class="table table-striped leaderboard_row">
-                    <tr class="first_place">
-                        <th scope="row">1#</th>
-                        <td>Nico</td>
-                        <td>999</td>
-                        <td>LMAO</td>
-                    </tr>
-                    <tr class="second_place">
-                        <th scope="row">2#</th>
-                        <td>Josh</td>
-                        <td>998</td>
-                        <td>LOL</td>
-                    </tr>
-                    <tr class="third_place">
-                        <th scope="row">3#</th>
-                        <td>Luca</td>
-                        <td>899</td>
-                        <td>ROFL</td>
-                    </tr>
+                    {% for entry in data %}
+                        {% if loop.index == 1 %}
+                            <tr class="first_place">
+                        {% elif loop.index == 2 %}
+                            <tr class="second_place">
+                        {% elif loop.index == 3 %}
+                            <tr class="third_place">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                                <th scope="row">{{ loop.index }}#</th>
+                                <td>{{ entry['name'] }}</td>
+                                <td>{{ entry['score'] }}</td>
+                                <td>{{ entry['message'] }}</td>
+                            </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
