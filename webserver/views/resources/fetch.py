@@ -16,18 +16,23 @@ class Fetch(Resource):
         # authorization successful, parse request ...
         parser = reqparse.RequestParser()
         # the player's (user)name
-        parser.add_argument('position', type=int, required=True)
+        parser.add_argument('position', type=int)
 
         # add parsed information to leaderboard manager
         args = parser.parse_args()
 
-        # get position from leaderboard manager
-        position = int(args['position'])
+        # get sorted leaderboard data
+        data = self.leaderboard_manager.get_sorted_data()
 
-        if position < len(self.leaderboard_manager.leaderboard_data):
-            entry = self.leaderboard_manager.get_ranked_entry(position)
+        # return all data or the requested position
+        if args['position'] != None:
+            position = int(args['position'])
+            if position < len(data):
+                entry = data[position]
+            else:
+                return {'message': 'Invalid position'}
         else:
-            return {'message': 'Invalid position'}
+            return data[:10]
 
         # reply with success message
         return entry

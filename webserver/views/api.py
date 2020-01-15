@@ -4,14 +4,13 @@ from pathlib import Path
 from flask import Blueprint
 from flask_restful import Api
 
+from webserver import leaderboard_manager
 from webserver.definitions import ROOT_DIR
-from webserver.util import LeaderboardManager, UserManager
-from webserver.views.resources import Add, Remove, Fetch
+from webserver.util import UserManager
+from webserver.views.resources import Add, Fetch, Remove
 
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
-leaderboard_manager = LeaderboardManager(
-    Path(os.path.join(ROOT_DIR, './static/leaderboard.json')))
 user_manager = UserManager(Path(os.path.join(ROOT_DIR, './static/users.json')))
 
 

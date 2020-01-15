@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse, request
 
 from webserver.util import LeaderboardManager, UserManager
-from webserver.views.home import add_entry
 
 
 class Add(Resource):
@@ -31,9 +30,6 @@ class Add(Resource):
         args = parser.parse_args()
         self.leaderboard_manager.add(
             args['name'], args['score'], args['message'] if args['message'] else "")
-
-        # send event to front end
-        add_entry(self.leaderboard_manager)
 
         # reply with success message
         return {'message': 'Successfully added new leaderboard entry.'}
