@@ -38,6 +38,17 @@ py generate_hash.py <password>
 python -m webserver
 ```
 
+## Built with
+
+The webserver uses multiple different libraries and tools in order to work correctly. Thanks to every open source developer who made this project possible with their generous work!
+
+- [Flask](https://github.com/pallets/flask)
+- [flask-restful](https://github.com/flask-restful/flask-restful)
+- [jsonschema](https://github.com/Julian/jsonschema)
+- [jQuery](https://github.com/jquery/jquery)
+- [Bootstrap](https://github.com/twbs/bootstrap)
+- [zdog](https://github.com/metafizzy/zdog)
+
 ## How to use the API
 
 If you are looking for the API documentation, please see the [README in webserver/views/resources](webserver/views/resources/README.md).
