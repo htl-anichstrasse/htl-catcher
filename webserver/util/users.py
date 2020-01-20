@@ -77,4 +77,4 @@ class UserManager:
                 return
 
         flask_restful.abort(
-            400, message="You need to be authorized to perform this action.")
+            401, message="You need to be authorized to perform this action.")
