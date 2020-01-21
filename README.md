@@ -24,7 +24,7 @@
     ·
     <a href="https://github.com/htl-anichstrasse/htl-catcher/issues">Request Feature</a>
     ·
-    <a href="https://www.dropbox.com/home/htl_catcher_functional_specifications?preview=functional_specification_document_htlcatcher_v1_2.pdf">Functional Specification Document</a>
+    <a href="https://www.dropbox.com/s/6ugs70bn8bza0qc/functional_specification_document_htlcatcher_v1_2.pdf?dl=0">Functional Specification Document</a>
   </p>
 </p>
 
