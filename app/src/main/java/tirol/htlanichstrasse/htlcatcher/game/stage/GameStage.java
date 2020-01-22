@@ -4,6 +4,6 @@ import tirol.htlanichstrasse.htlcatcher.game.GameState;
 
 public interface GameStage {
 
-   public void onStage(final GameState gameStage);
+   void onStage(final GameState gameStage);
 
 }

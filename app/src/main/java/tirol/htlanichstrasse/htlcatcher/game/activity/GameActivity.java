@@ -127,10 +127,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       }, 0, 50);
    }
 
-   private void handleGameTick() {
-
-   }
-
    /**
     * Changes the game stage to another ingame stage
     *
