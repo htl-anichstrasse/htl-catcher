@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/htl-catcher.iml" filepath="$PROJECT_DIR$/htl-catcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/htl-catcher-app.iml" filepath="$PROJECT_DIR$/app/htl-catcher-app.iml" />
     </modules>
   </component>
 </project>

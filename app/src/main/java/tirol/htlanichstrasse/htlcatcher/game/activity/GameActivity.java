@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.q42.android.scrollingimageview.ScrollingImageView;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
@@ -90,6 +91,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
          Log.e(LOG_TAG, "Could not fetch intent extras bundle");
       }
       gameView.setOnTouchListener(this);
+
+      // Randomisation of stage timers to add some more dynamic gameplay
+      CatcherConfig.getInstance().setStage2Time(ThreadLocalRandom.current().nextLong(15000, 30000));
+      CatcherConfig.getInstance().setStage3Time(ThreadLocalRandom.current().nextLong(45000, 60000));
 
       // Register game timer
       new Timer().schedule(new TimerTask() {
