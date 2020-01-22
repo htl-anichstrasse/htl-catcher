@@ -9,7 +9,7 @@ import tirol.htlanichstrasse.htlcatcher.util.ViewPoint;
 /**
  * Represents a logo on the GameView canvas
  *
- * @author Nicolaus Rossi
+ * @author Joshua Winkler
  * @since 02.11.2019
  */
 @Getter

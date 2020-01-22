@@ -92,6 +92,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       }
       gameView.setOnTouchListener(this);
 
+      // Randomisation of stage timers to add some more dynamic gameplay
       CatcherConfig.getInstance().setStage2Time(ThreadLocalRandom.current().nextLong(15000, 30000));
       CatcherConfig.getInstance().setStage3Time(ThreadLocalRandom.current().nextLong(45000, 60000));
 
