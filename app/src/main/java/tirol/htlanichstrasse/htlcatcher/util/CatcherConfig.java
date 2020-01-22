@@ -25,12 +25,12 @@ public class CatcherConfig {
    /**
     * Time for a player to reach stage 2
     */
-   private long stage2Time = 30000;
+   private long stage2Time;
 
    /**
     * Time for a player to reach stage 3
     */
-   private long stage3Time = 60000;
+   private long stage3Time;
 
    /*
       LOGO CONFIGURATION
