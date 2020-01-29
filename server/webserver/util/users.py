@@ -2,6 +2,7 @@ import base64
 import binascii
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import flask_restful
@@ -31,11 +32,15 @@ class UserManager:
     def __init__(self, path: Path):
         self.path = path
 
-        with open(path.resolve()) as json_file:
-            self.user_data = json.load(json_file)
+        if not (os.environ.get('HEROKUAPP_ACTIVE')):
+            self.user_data = [{'name': os.environ.get(
+                'HEROKUAPP_USERNAME'), 'password_hash': os.environ.get('HEROKUAPP_PWDH')}]
+        else:
+            with open(path.resolve()) as json_file:
+                self.user_data = json.load(json_file)
 
-        # validate json data
-        validate(instance=self.user_data, schema=JSON_SCHEMA)
+            # validate json data
+            validate(instance=self.user_data, schema=JSON_SCHEMA)
 
     def _verify_password(self, stored_password: str, provided_password: str) -> bool:
         """Verify a stored password against one provided by user, returns true if the passwords
