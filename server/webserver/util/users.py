@@ -32,7 +32,7 @@ class UserManager:
     def __init__(self, path: Path):
         self.path = path
 
-        if not (os.environ.get('HEROKUAPP_ACTIVE')):
+        if not (os.environ.get('HEROKUAPP_ACTIVE') == 'active'):
             self.user_data = [{'name': os.environ.get(
                 'HEROKUAPP_USERNAME'), 'password_hash': os.environ.get('HEROKUAPP_PWDH')}]
         else:
