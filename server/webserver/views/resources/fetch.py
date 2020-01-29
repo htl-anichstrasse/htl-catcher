@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse, request
+from flask_restful import Resource, reqparse
 
 from webserver.util import LeaderboardManager
 
