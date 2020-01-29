@@ -14,20 +14,25 @@ sys.path.insert(0, ROOT_DIR)
 # initialize flask app
 app = Flask(__name__)
 
-
+# start the app if in main module
 if __name__ == '__main__':
+    main()
+
+# handle errors
+@app.errorhandler(404)
+def page_not_found(error):
+    """ Handles 404 errors by simply just returning the code and no page rendering"""
+    return "", 404
+
+
+def main():
+
     # register blueprints
     app.register_blueprint(home)
     app.register_blueprint(api_bp, url_prefix='/api')
 
     # set config
     app.config.from_pyfile('config.py', silent=True)
-
-    # handle errors
-    @app.errorhandler(404)
-    def page_not_found(error):
-        """ Handles 404 errors by simply just returning the code and no page rendering"""
-        return "", 404
 
     # run application
     app.run()
