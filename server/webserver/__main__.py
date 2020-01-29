@@ -11,10 +11,11 @@ from webserver.views import api_bp, home
 # fix import
 sys.path.insert(0, ROOT_DIR)
 
+# initialize flask app
+app = Flask(__name__)
+
 
 if __name__ == '__main__':
-    app = Flask(__name__)
-
     # register blueprints
     app.register_blueprint(home)
     app.register_blueprint(api_bp, url_prefix='/api')
