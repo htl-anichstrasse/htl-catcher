@@ -323,6 +323,10 @@ public class GameView extends View {
             logo.setYDirection(!logo.isYDirection());
             logo.setLastTurn(System.currentTimeMillis());
          }
+         // Move upwards as long as logo is below floor
+         if (logo.y + logo.getRadius() > this.getHeight() - activity.getFloor().getHeight()) {
+            logo.setYDirection(true);
+         }
          logo.y += logo.isYDirection() ? -2 : 2;
          // Draw logo on canvas
          canvas.drawBitmap(htlLogo, logo.x - logo.getRadius(), logo.y - logo.getRadius(), paint);
