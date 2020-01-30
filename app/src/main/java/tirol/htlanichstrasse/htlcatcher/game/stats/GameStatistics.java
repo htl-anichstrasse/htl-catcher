@@ -37,6 +37,12 @@ public class GameStatistics {
    private long gameStageChanged = 0L;
 
    /**
+    * Holds a UNIX timestamp of the game's start
+    */
+   @Setter
+   private long gameStarted = 0L;
+
+   /**
     * Holds the total amount of points collected during gameplay
     */
    public AtomicInteger points = new AtomicInteger(0);
@@ -65,7 +71,7 @@ public class GameStatistics {
     * @since 05.11.2019
     */
    public enum StatisticsAction {
-      SECOND(1), LOGO(10);
+      OBSTACLE(1), LOGO(10);
 
       /**
        * Determines the worth of this action

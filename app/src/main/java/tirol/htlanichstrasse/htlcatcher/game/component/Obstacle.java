@@ -40,6 +40,12 @@ public final class Obstacle {
    private boolean alive = false;
 
    /**
+    * Determines whether the player has already received a point by dodging this obstacle
+    */
+   @Setter
+   private boolean done = false;
+
+   /**
     * Creates a new dead obstacle on the GameView canvas
     */
    public Obstacle() {
@@ -66,7 +72,7 @@ public final class Obstacle {
    }
 
    /**
-    * Resets ("revives") this obstacle with given properties
+    * Resets ("revives") this obstacle with given properties (no new instance, saves RAM)
     *
     * @param screenWidth the width of the viewport
     * @param topHeight the height of the upper obstacle part
@@ -75,6 +81,7 @@ public final class Obstacle {
    public void resetObstacle(final int screenWidth, final int screenHeight, int topHeight,
        int gap) {
       alive = true;
+      done = false;
 
       // wiggles (move top obstacle a bit to avoid)
       wiggles = new Random().nextBoolean();
@@ -138,6 +145,16 @@ public final class Obstacle {
 
       // if ya didnt know then now u know
       return collided;
+   }
+
+   /**
+    * Checks if the player has successfully dodged this obstacle
+    *
+    * @param cursor the player cursor
+    * @return true if the player has dodged this obstacle, false otherwise
+    */
+   public boolean isPlayerThrough(final Cursor cursor) {
+      return cursor.x > this.upperPart.centerX();
    }
 
 }

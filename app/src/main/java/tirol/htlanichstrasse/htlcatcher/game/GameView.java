@@ -20,12 +20,12 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -107,12 +107,6 @@ public class GameView extends View {
    @Getter
    @Setter
    public GameState gameState = GameState.START;
-
-   /**
-    * Timestamp when the last point for surviving was awarded
-    */
-   @Setter
-   private long lastPointTimestamp = 0L;
 
    /**
     * Holds a list of all obstacles currently on the screen
@@ -206,12 +200,6 @@ public class GameView extends View {
             GameStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
          }
 
-         // Award point
-         if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
-            GameStatistics.getInstance().increase(StatisticsAction.SECOND);
-            lastPointTimestamp = System.currentTimeMillis();
-         }
-
          // Check lose
          if (lost()) {
             gameState = GameState.END;
@@ -302,6 +290,11 @@ public class GameView extends View {
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
             // Move to left
             obstacle.move(gameState);
+            // Check if obstacle has passed player
+            if (!obstacle.isDone() && obstacle.isPlayerThrough(this.cursor)) {
+               obstacle.setDone(true);
+               GameStatistics.getInstance().increase(StatisticsAction.OBSTACLE);
+            }
             // Wiggle in y direction
             if (obstacle.isWiggles()) {
                final int coefficient =
