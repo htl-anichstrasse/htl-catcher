@@ -407,7 +407,11 @@ public class GameView extends View {
     */
    public boolean lost() {
       // If cursor has left the screen
-      boolean lost = cursor.x < 0 || cursor.x > getWidth() || cursor.y < 0;
+      final int cusorRadius = CatcherConfig.getInstance().getCursorRadius();
+      boolean lost = cursor.x - cusorRadius < 0
+          || cursor.x + cusorRadius > getWidth()
+          || cursor.y - cusorRadius < 0
+          || cursor.y + cusorRadius > getHeight();
 
       // Check floor collision
       lost |= activity.getFloor().isCursorCollided(cursor, this);
