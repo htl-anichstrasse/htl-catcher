@@ -284,7 +284,7 @@ public class GameView extends View {
             lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
             // Move to left
-            obstacle.move(gameState);
+            obstacle.move(gameState, this);
             // Check if obstacle has passed player
             if (!obstacle.isDone() && obstacle.isPlayerThrough(this.cursor)) {
                obstacle.setDone(true);

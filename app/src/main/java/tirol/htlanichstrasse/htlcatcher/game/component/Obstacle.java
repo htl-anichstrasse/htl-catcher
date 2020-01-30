@@ -5,6 +5,7 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
+import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -72,8 +73,9 @@ public final class Obstacle {
     * Moves this obstacle to the left on the GameView canvas
     *
     * @param gameState the current gameState
+    * @param gameView the current gameView
     */
-   public void move(final GameState gameState) {
+   public void move(final GameState gameState, final GameView gameView) {
       int obstacleXDelta = CatcherConfig.getInstance().getObstacleXDelta();
       if (gameState == GameState.INGAME3) {
          obstacleXDelta *= 4;
@@ -94,8 +96,11 @@ public final class Obstacle {
       lowerPart.top -= coefficient;
       lowerPart.bottom -= coefficient;
 
-      // change wiggle direction
-      if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
+      // change wiggle direction if we hit rock bottom or time is over
+      if (upperPart.bottom <= 75
+          || lowerPart.top >= gameView.getHeight() - 75
+          || (lowerPart.top - upperPart.bottom) <= CatcherConfig.getInstance().getObstacleMinGap()
+          || System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
           .getObstacleWiggleDelay()) {
          lastObstacleTurn = System.currentTimeMillis();
          obstacleTurned = !obstacleTurned;
