@@ -125,7 +125,7 @@ public class CatcherConfig {
    /**
     * Minimum gap between two obstacles in pixels
     */
-   private int obstacleMinGap = 275;
+   private int obstacleMinGap = 290;
 
    /**
     * Delay in milliseconds between two obstacles spawning

@@ -92,11 +92,6 @@ public class GameView extends View {
    private boolean init = true;
 
    /**
-    * UNIX timestamp determining when the wiggle direction of obstacles was swapped last
-    */
-   private long lastObstacleTurn = 0L;
-
-   /**
     * Determines the current game state
     */
    @Getter
@@ -284,7 +279,7 @@ public class GameView extends View {
             lowerPart.bottom = lowerPart.top + obstacleBitmap.getHeight(); // no vert scale
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
             // Move to left
-            obstacle.move(gameState, this);
+            obstacle.move(gameState);
             // Check if obstacle has passed player
             if (!obstacle.isDone() && obstacle.isPlayerThrough(this.cursor)) {
                obstacle.setDone(true);

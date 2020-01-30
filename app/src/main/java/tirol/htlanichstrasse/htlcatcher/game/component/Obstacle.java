@@ -73,9 +73,8 @@ public final class Obstacle {
     * Moves this obstacle to the left on the GameView canvas
     *
     * @param gameState the current gameState
-    * @param gameView the current gameView
     */
-   public void move(final GameState gameState, final GameView gameView) {
+   public void move(final GameState gameState) {
       int obstacleXDelta = CatcherConfig.getInstance().getObstacleXDelta();
       if (gameState == GameState.INGAME3) {
          obstacleXDelta *= 4;
@@ -88,6 +87,11 @@ public final class Obstacle {
       lowerPart.right -= obstacleXDelta;
 
       // wiggle for wiggling obstacles
+      if (!wiggles) {
+         return;
+      }
+
+      // lets go wiggling
       final int coefficient =
           CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
               : -1);
@@ -96,11 +100,8 @@ public final class Obstacle {
       lowerPart.top -= coefficient;
       lowerPart.bottom -= coefficient;
 
-      // change wiggle direction if we hit rock bottom or time is over
-      if (upperPart.bottom <= 75
-          || lowerPart.top >= gameView.getHeight() - 75
-          || (lowerPart.top - upperPart.bottom) <= CatcherConfig.getInstance().getObstacleMinGap()
-          || System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
+      // change wiggle direction if time is over
+      if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
           .getObstacleWiggleDelay()) {
          lastObstacleTurn = System.currentTimeMillis();
          obstacleTurned = !obstacleTurned;
