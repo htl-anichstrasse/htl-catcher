@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,900&display=swap");
 
 /*
@@ -54,6 +55,10 @@ body h1 {
 
 .third_place {
   background-color: peru;
+}
+
+.outOfTopThree_place {
+  background-color: #d3d3d3;
 }
 
 td,
