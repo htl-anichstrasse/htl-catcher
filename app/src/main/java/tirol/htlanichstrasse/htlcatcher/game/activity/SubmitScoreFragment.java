@@ -1,7 +1,7 @@
 package tirol.htlanichstrasse.htlcatcher.game.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
@@ -31,35 +32,57 @@ import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
  */
 public class SubmitScoreFragment extends DialogFragment {
 
+   /**
+    * Submit score fragment context
+    */
+   private Context context;
+
+   @Override
+   public void onAttach(Context context) {
+      this.context = context;
+      super.onAttach(context);
+   }
+
    @NonNull
    @Override
-   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+   public AlertDialog onCreateDialog(@Nullable Bundle savedInstanceState) {
       final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
       builder.setView(View.inflate(getContext(), R.layout.activity_submit_score, null))
-          .setPositiveButton(R.string.submitscore_submit, (dialog, id) -> {
-             // Send score to remote server
-             final String nameText = ((EditText) Objects.requireNonNull(this.getDialog())
-                 .findViewById(R.id.name)).getText().toString().trim();
-             final String messageText = ((EditText) Objects.requireNonNull(this.getDialog())
-                 .findViewById(R.id.message)).getText().toString().trim();
-
-             if (nameText.length() == 0) {
-                Toast.makeText(this.getContext(), getString(R.string.submitscore_error_noname),
-                    Toast.LENGTH_SHORT).show();
-             } else {
-                if (isNetworkAvailable()) {
-                   sendScore(nameText, GameStatistics.getInstance().getPoints().get(), messageText);
-                } else {
-                   // no network connection
-                   Toast.makeText(this.getContext(), getString(R.string.submitscore_error_noname),
-                       Toast.LENGTH_SHORT).show();
-                }
-             }
-          })
+          .setPositiveButton(R.string.submitscore_submit, null) // handle in onclick
           .setNegativeButton(R.string.submitscore_cancel,
               (dialog, id) -> SubmitScoreFragment.this.getDialog().cancel());
-      return builder.create();
+
+      final AlertDialog dialog = builder.create();
+
+      // add click events
+      dialog.setOnShowListener(dialogInterface -> {
+         final Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+         positiveButton.setOnClickListener(view -> {
+            // Send score to remote server
+            final String nameText = ((EditText) Objects.requireNonNull(this.getDialog())
+                .findViewById(R.id.name)).getText().toString().trim();
+            final String messageText = ((EditText) Objects.requireNonNull(this.getDialog())
+                .findViewById(R.id.message)).getText().toString().trim();
+
+            if (nameText.length() == 0) {
+               Toast.makeText(this.getContext(), getString(R.string.submitscore_error_noname),
+                   Toast.LENGTH_SHORT).show();
+            } else {
+               if (isNetworkAvailable()) {
+                  sendScore(nameText, GameStatistics.getInstance().getPoints().get(), messageText);
+               } else {
+                  // no network connection
+                  Toast.makeText(this.getContext(),
+                      getString(R.string.submitscore_error_noconnection),
+                      Toast.LENGTH_SHORT).show();
+               }
+            }
+         });
+      });
+
+      return dialog;
    }
 
    /**
@@ -84,17 +107,22 @@ public class SubmitScoreFragment extends DialogFragment {
       client.post(config.getAddAPIURL(), requestParams, new JsonHttpResponseHandler() {
          @Override
          public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            if (statusCode == 200) {
-               Toast.makeText(SubmitScoreFragment.this.getContext(),
-                   getString(R.string.submitscore_submitted), Toast.LENGTH_SHORT).show();
-            } else {
-               Toast.makeText(SubmitScoreFragment.this.getContext(),
-                   getString(R.string.submitscore_error_conn, statusCode), Toast.LENGTH_SHORT)
-                   .show();
+            if (isAdded()) {
+               final Activity activity = getActivity();
+               if (activity != null) {
+                  activity.startActivity(new Intent(context, MainActivity.class));
+                  activity.finish();
+               }
+               if (statusCode == 200) {
+                  Toast.makeText(context, getString(R.string.submitscore_submitted),
+                      Toast.LENGTH_SHORT)
+                      .show();
+               } else {
+                  Toast.makeText(context, getString(R.string.submitscore_error_conn, statusCode),
+                      Toast.LENGTH_SHORT)
+                      .show();
+               }
             }
-
-            // Start main activity
-            startActivity(new Intent(SubmitScoreFragment.this.getContext(), MainActivity.class));
          }
       });
    }

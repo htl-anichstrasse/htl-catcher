@@ -41,7 +41,7 @@ public class CatcherConfig {
    /**
     * The absolute URL to the Add API node of the webserver
     */
-   private String addAPIURL = "http://127.0.0.1:5000/api/add";
+   private String addAPIURL = "https://htl-catcher-leaderboard.herokuapp.com//api/add";
 
    /**
     * The configured username of the webserver for basic auth
@@ -51,7 +51,7 @@ public class CatcherConfig {
    /**
     * The configured password of the webserver for basic auth
     */
-   private String APIPassword = "password";
+   private String APIPassword = "yeet";
 
    /*
       LOGO CONFIGURATION
