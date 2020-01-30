@@ -97,11 +97,6 @@ public class GameView extends View {
    private long lastObstacleTurn = 0L;
 
    /**
-    * Boolean for swapping the obstacle wiggle direction
-    */
-   private boolean obstacleTurned = false;
-
-   /**
     * Determines the current game state
     */
    @Getter
@@ -294,21 +289,6 @@ public class GameView extends View {
             if (!obstacle.isDone() && obstacle.isPlayerThrough(this.cursor)) {
                obstacle.setDone(true);
                GameStatistics.getInstance().increase(StatisticsAction.OBSTACLE);
-            }
-            // Wiggle in y direction
-            if (obstacle.isWiggles()) {
-               final int coefficient =
-                   CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
-                       : -1);
-               obstacle.getUpperPart().top += coefficient;
-               obstacle.getUpperPart().bottom += coefficient;
-               obstacle.getLowerPart().top -= coefficient;
-               obstacle.getLowerPart().bottom -= coefficient;
-            }
-            if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
-                .getObstacleWiggleDelay()) {
-               lastObstacleTurn = System.currentTimeMillis();
-               obstacleTurned = !obstacleTurned;
             }
             if (upperPart.right < 0) {
                obstacle.setAlive(false);

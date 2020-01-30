@@ -17,6 +17,11 @@ import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 public final class Obstacle {
 
    /**
+    * Obstacle random
+    */
+   private static Random random = new Random();
+
+   /**
     * The upper part of the obstacle
     */
    private Rect upperPart;
@@ -30,6 +35,16 @@ public final class Obstacle {
     * true if the obstacle wiggles, false otherwise
     */
    private boolean wiggles = false;
+
+   /**
+    * UNIX timestamp of the last wiggle direction change
+    */
+   private long lastObstacleTurn = 0L;
+
+   /**
+    * Boolean for wiggle direction
+    */
+   private boolean obstacleTurned = false;
 
    /**
     * Determines whether this obstacle is "alive"; it's not alive if it has reached the end of the
@@ -69,6 +84,22 @@ public final class Obstacle {
       upperPart.right -= obstacleXDelta;
       lowerPart.left -= obstacleXDelta;
       lowerPart.right -= obstacleXDelta;
+
+      // wiggle for wiggling obstacles
+      final int coefficient =
+          CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
+              : -1);
+      upperPart.top += coefficient;
+      upperPart.bottom += coefficient;
+      lowerPart.top -= coefficient;
+      lowerPart.bottom -= coefficient;
+
+      // change wiggle direction
+      if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
+          .getObstacleWiggleDelay()) {
+         lastObstacleTurn = System.currentTimeMillis();
+         obstacleTurned = !obstacleTurned;
+      }
    }
 
    /**
@@ -80,15 +111,14 @@ public final class Obstacle {
     */
    public void resetObstacle(final int screenWidth, final int screenHeight, int topHeight,
        int gap) {
+      // status
       alive = true;
       done = false;
 
       // wiggles (move top obstacle a bit to avoid)
-      wiggles = new Random().nextBoolean();
-      if (wiggles) {
-         gap += 50;
-         topHeight += 50;
-      }
+      wiggles = random.nextBoolean();
+      obstacleTurned = false;
+      lastObstacleTurn = 0L;
 
       // reset upper part
       upperPart.left = screenWidth;
