@@ -20,4 +20,13 @@
   <string name="game_stage3">Sudden Death!</string>
   <string name="game_stage2">LEVEL UP!</string>
   <string name="main_pickphoto_toast_nopermission">(Die App benötigt Zugriff auf deine Galerie dafür)</string>
+  <string name="gameover_leaderboard_icon">Leaderboard-Button</string>
+  <string name="submitscore_submit">Senden</string>
+  <string name="submitscore_cancel">Abbrechen</string>
+  <string name="submitscore_hint_name">Name eingeben</string>
+  <string name="submit_hint_message">Nachricht eingeben (optional)</string>
+  <string name="submitscore_error_noname">Bitte gib einen Namen ein</string>
+  <string name="submitscore_error_noconnection">Keine Internetverbindung gefunden</string>
+  <string name="submitscore_error_conn">Fehler: HTTP Code %1$d</string>
+  <string name="submitscore_submitted">Deine Punkte wurden erfolgreich übertragen!</string>
 </resources>

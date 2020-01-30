@@ -32,6 +32,27 @@ public class CatcherConfig {
     */
    private long stage3Time;
 
+   /**
+    * True if this version is used for presentation at the open day, false otherwise
+    * -> Toggles local / remote leaderboard
+    */
+   private boolean openDayVersion = true;
+
+   /**
+    * The absolute URL to the Add API node of the webserver
+    */
+   private String addAPIURL = "https://htl-catcher-leaderboard.herokuapp.com//api/add";
+
+   /**
+    * The configured username of the webserver for basic auth
+    */
+   private String APIUser = "root";
+
+   /**
+    * The configured password of the webserver for basic auth
+    */
+   private String APIPassword = "yeet";
+
    /*
       LOGO CONFIGURATION
     */

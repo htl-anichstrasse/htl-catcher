@@ -151,18 +151,34 @@
         android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <Button
-      android:id="@+id/restartButton"
-      android:layout_width="200dp"
-      android:layout_height="40dp"
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginBottom="10dp"
-      android:background="@drawable/button_game_over_design"
-      android:fontFamily="sans-serif-black"
-      android:onClick="onClick"
-      android:text="@string/gameover_newgame"
-      android:textColor="@android:color/white" />
-
+      android:orientation="horizontal">
+      <Button
+        android:id="@+id/restartButton"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_game_over_design"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onClick"
+        android:text="@string/gameover_newgame"
+        android:textColor="@android:color/white" />
+      <ImageButton
+        android:id="@+id/leaderbordButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_game_over_design"
+        android:contentDescription="@string/gameover_leaderboard_icon"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onClick"
+        android:src="@drawable/ic_emoji_events"
+        android:tint="#FFFFFF" />
+    </LinearLayout>
     <Button
       android:id="@+id/backToMenu"
       android:layout_width="200dp"

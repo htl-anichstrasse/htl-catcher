@@ -20,4 +20,13 @@
   <string name="instruction">You can control your avatar by tapping on the display. Upon every tap, your character jumps up a bit but then immediately falls back down due to gravitational affectation.</string>
   <string name="game_stage2">LEVEL UP!</string>
   <string name="main_pickphoto_toast_nopermission">(The app needs access to your gallery for this)</string>
+  <string name="gameover_leaderboard_icon">Leaderboard Button</string>
+  <string name="submitscore_submit">Submit</string>
+  <string name="submitscore_cancel">Cancel</string>
+  <string name="submitscore_hint_name">Enter name</string>
+  <string name="submit_hint_message">Enter message (optional)</string>
+  <string name="submitscore_error_noname">Please enter a name</string>
+  <string name="submitscore_error_noconnection">No connection to the internet</string>
+  <string name="submitscore_error_conn">Error: HTTP Code %1$d</string>
+  <string name="submitscore_submitted">Your score was submitted successfully!</string>
 </resources>

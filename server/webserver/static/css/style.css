@@ -106,8 +106,8 @@ table {
 }
 
 .zdoglogo {
-    position: absolute;
-    background: orange;
-    cursor: move;
-    z-index: 3;
+  position: absolute;
+  background: orange;
+  cursor: move;
+  z-index: 3;
 }

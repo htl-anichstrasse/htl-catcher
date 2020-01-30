@@ -186,6 +186,15 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             finish();
             startActivity(new Intent(this, MainActivity.class));
             break;
+         case R.id.leaderbordButton:
+            if (CatcherConfig.getInstance().isOpenDayVersion()) {
+               // Open day version, use remote leaderboard
+               new SubmitScoreFragment().show(getSupportFragmentManager(), "SubmitScore");
+            } else {
+               // Not open day version, use local leaderboard
+               // TODO: Implement local leaderboard
+            }
+            break;
       }
    }
 
