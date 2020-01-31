@@ -24,7 +24,6 @@ import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageThree;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -124,8 +123,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                       getString(R.string.gameover_score, gameStatistics.getPoints().get()));
                   ((TextView) findViewById(R.id.timeView)).setText(
                       getString(R.string.gameover_gametime,
-                          gameStatistics.points.get() - (gameStatistics.logos.get()
-                              * StatisticsAction.LOGO.getPoints())));
+                          (System.currentTimeMillis() - gameStatistics.getGameStarted()) / 1000L));
                });
             }
          }
@@ -161,8 +159,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
    public boolean onTouch(final View view, final MotionEvent event) {
       // Change game state
       if (gameView.getGameState() == GameState.START) {
-         gameView.setLastPointTimestamp(System.currentTimeMillis());
          gameView.setGameState(GameState.INGAME);
+         GameStatistics.getInstance().setGameStarted(System.currentTimeMillis());
          GameStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
       }
 

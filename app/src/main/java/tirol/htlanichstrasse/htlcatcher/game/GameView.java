@@ -20,12 +20,12 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
-import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.game.activity.GameActivity;
 import tirol.htlanichstrasse.htlcatcher.game.component.Cursor;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.component.Obstacle;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -92,27 +92,11 @@ public class GameView extends View {
    private boolean init = true;
 
    /**
-    * UNIX timestamp determining when the wiggle direction of obstacles was swapped last
-    */
-   private long lastObstacleTurn = 0L;
-
-   /**
-    * Boolean for swapping the obstacle wiggle direction
-    */
-   private boolean obstacleTurned = false;
-
-   /**
     * Determines the current game state
     */
    @Getter
    @Setter
    public GameState gameState = GameState.START;
-
-   /**
-    * Timestamp when the last point for surviving was awarded
-    */
-   @Setter
-   private long lastPointTimestamp = 0L;
 
    /**
     * Holds a list of all obstacles currently on the screen
@@ -206,12 +190,6 @@ public class GameView extends View {
             GameStatistics.getInstance().setGameStageChanged(System.currentTimeMillis());
          }
 
-         // Award point
-         if (System.currentTimeMillis() > lastPointTimestamp + 1000L) {
-            GameStatistics.getInstance().increase(StatisticsAction.SECOND);
-            lastPointTimestamp = System.currentTimeMillis();
-         }
-
          // Check lose
          if (lost()) {
             gameState = GameState.END;
@@ -302,20 +280,10 @@ public class GameView extends View {
             canvas.drawBitmap(obstacleBitmap, null, lowerPart, null);
             // Move to left
             obstacle.move(gameState);
-            // Wiggle in y direction
-            if (obstacle.isWiggles()) {
-               final int coefficient =
-                   CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
-                       : -1);
-               obstacle.getUpperPart().top += coefficient;
-               obstacle.getUpperPart().bottom += coefficient;
-               obstacle.getLowerPart().top -= coefficient;
-               obstacle.getLowerPart().bottom -= coefficient;
-            }
-            if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
-                .getObstacleWiggleDelay()) {
-               lastObstacleTurn = System.currentTimeMillis();
-               obstacleTurned = !obstacleTurned;
+            // Check if obstacle has passed player
+            if (!obstacle.isDone() && obstacle.isPlayerThrough(this.cursor)) {
+               obstacle.setDone(true);
+               GameStatistics.getInstance().increase(StatisticsAction.OBSTACLE);
             }
             if (upperPart.right < 0) {
                obstacle.setAlive(false);
@@ -349,6 +317,10 @@ public class GameView extends View {
              .getCursorStartChangeDelay()) {
             logo.setYDirection(!logo.isYDirection());
             logo.setLastTurn(System.currentTimeMillis());
+         }
+         // Move upwards as long as logo is below floor
+         if (logo.y + logo.getRadius() > this.getHeight() - activity.getFloor().getHeight()) {
+            logo.setYDirection(true);
          }
          logo.y += logo.isYDirection() ? -2 : 2;
          // Draw logo on canvas
@@ -414,7 +386,11 @@ public class GameView extends View {
     */
    public boolean lost() {
       // If cursor has left the screen
-      boolean lost = cursor.x < 0 || cursor.x > getWidth() || cursor.y < 0;
+      final int cusorRadius = CatcherConfig.getInstance().getCursorRadius();
+      boolean lost = cursor.x - cusorRadius < 0
+          || cursor.x + cusorRadius > getWidth()
+          || cursor.y - cusorRadius < 0
+          || cursor.y + cusorRadius > getHeight();
 
       // Check floor collision
       lost |= activity.getFloor().isCursorCollided(cursor, this);

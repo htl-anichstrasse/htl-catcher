@@ -1,14 +1,12 @@
 
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,900&display=swap");
 
-/*
-    Layout
-*/
-
-html {
+html, body {
   height: 100%;
+  width: 100%;
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
+  font-weight: 400;
 }
 
 .container {
@@ -21,29 +19,19 @@ html {
   margin: 0 auto;
 }
 
-body h1 {
-  margin-top: 10px;
+h1.site-title {
+  margin-top: 25px;
   text-align: center;
-  font-size: 17pt;
+  font-size: 50pt;
   font-weight: 900;
-}
-
-.header_bar {
-  background: black;
-  height: 150px;
-}
-
-.header_bar h1 {
-  font-weight: bold;
-  font-size: 60px;
-  color: white;
-  margin-top: 30px;
   text-transform: uppercase;
 }
 
-/*
-    Table layout
-*/
+.header_bar {
+  color: white;
+  background: rgb(7, 7, 7);
+  height: 150px;
+}
 
 .first_place {
   background-color: orange;
@@ -76,17 +64,13 @@ table {
   border-spacing: 0 8px;
 }
 
-/*
-    Extra
-*/
-
 .hexagon {
   position: relative;
   z-index: 1;
-  width: 200px;
-  height: 120px;
+  width: 120px;
+  height: 70px;
   background-color: orange;
-  margin: 60px 0;
+  margin: 40px 0;
 }
 
 .hexagon:before,
@@ -95,19 +79,19 @@ table {
   position: absolute;
   z-index: 1;
   width: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
 }
 
 .hexagon:before {
   bottom: 100%;
-  border-bottom: 60px solid orange;
+  border-bottom: 35px solid orange;
 }
 
 .hexagon:after {
   top: 100%;
   width: 0;
-  border-top: 60px solid orange;
+  border-top: 35px solid orange;
 }
 
 .zdoglogo {
@@ -115,4 +99,18 @@ table {
   background: orange;
   cursor: move;
   z-index: 3;
+}
+
+@media only screen and (max-width: 950px) {
+  h1.site-title {
+    font-size: 30pt;
+    width: 500px;
+    margin: 25px auto;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  h1.site-title {
+    width: 100%;
+  }
 }

@@ -41,17 +41,17 @@ public class CatcherConfig {
    /**
     * The absolute URL to the Add API node of the webserver
     */
-   private String addAPIURL = "https://htl-catcher-leaderboard.herokuapp.com//api/add";
+   private String addAPIURL = "https://htl-catcher-leaderboard.herokuapp.com/api/add";
 
    /**
     * The configured username of the webserver for basic auth
     */
-   private String APIUser = "root";
+   private String APIUser = "htl-catcher";
 
    /**
     * The configured password of the webserver for basic auth
     */
-   private String APIPassword = "yeet";
+   private String APIPassword = "verysecurepassword";
 
    /*
       LOGO CONFIGURATION
@@ -125,7 +125,7 @@ public class CatcherConfig {
    /**
     * Minimum gap between two obstacles in pixels
     */
-   private int obstacleMinGap = 275;
+   private int obstacleMinGap = 290;
 
    /**
     * Delay in milliseconds between two obstacles spawning

@@ -5,6 +5,7 @@ import java.util.Random;
 import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
+import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
 
 /**
@@ -15,6 +16,11 @@ import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
  */
 @Getter
 public final class Obstacle {
+
+   /**
+    * Obstacle random
+    */
+   private static Random random = new Random();
 
    /**
     * The upper part of the obstacle
@@ -32,12 +38,28 @@ public final class Obstacle {
    private boolean wiggles = false;
 
    /**
+    * UNIX timestamp of the last wiggle direction change
+    */
+   private long lastObstacleTurn = 0L;
+
+   /**
+    * Boolean for wiggle direction
+    */
+   private boolean obstacleTurned = false;
+
+   /**
     * Determines whether this obstacle is "alive"; it's not alive if it has reached the end of the
     * screen. Obstacles in the "not alive" state need to be "revived"/reset before they can be
     * reused
     */
    @Setter
    private boolean alive = false;
+
+   /**
+    * Determines whether the player has already received a point by dodging this obstacle
+    */
+   @Setter
+   private boolean done = false;
 
    /**
     * Creates a new dead obstacle on the GameView canvas
@@ -63,10 +85,31 @@ public final class Obstacle {
       upperPart.right -= obstacleXDelta;
       lowerPart.left -= obstacleXDelta;
       lowerPart.right -= obstacleXDelta;
+
+      // wiggle for wiggling obstacles
+      if (!wiggles) {
+         return;
+      }
+
+      // lets go wiggling
+      final int coefficient =
+          CatcherConfig.getInstance().getObstacleWiggleDeltaY() * (obstacleTurned ? 1
+              : -1);
+      upperPart.top += coefficient;
+      upperPart.bottom += coefficient;
+      lowerPart.top -= coefficient;
+      lowerPart.bottom -= coefficient;
+
+      // change wiggle direction if time is over
+      if (System.currentTimeMillis() > lastObstacleTurn + CatcherConfig.getInstance()
+          .getObstacleWiggleDelay()) {
+         lastObstacleTurn = System.currentTimeMillis();
+         obstacleTurned = !obstacleTurned;
+      }
    }
 
    /**
-    * Resets ("revives") this obstacle with given properties
+    * Resets ("revives") this obstacle with given properties (no new instance, saves RAM)
     *
     * @param screenWidth the width of the viewport
     * @param topHeight the height of the upper obstacle part
@@ -74,14 +117,14 @@ public final class Obstacle {
     */
    public void resetObstacle(final int screenWidth, final int screenHeight, int topHeight,
        int gap) {
+      // status
       alive = true;
+      done = false;
 
       // wiggles (move top obstacle a bit to avoid)
-      wiggles = new Random().nextBoolean();
-      if (wiggles) {
-         gap += 50;
-         topHeight += 50;
-      }
+      wiggles = random.nextBoolean();
+      obstacleTurned = false;
+      lastObstacleTurn = 0L;
 
       // reset upper part
       upperPart.left = screenWidth;
@@ -138,6 +181,16 @@ public final class Obstacle {
 
       // if ya didnt know then now u know
       return collided;
+   }
+
+   /**
+    * Checks if the player has successfully dodged this obstacle
+    *
+    * @param cursor the player cursor
+    * @return true if the player has dodged this obstacle, false otherwise
+    */
+   public boolean isPlayerThrough(final Cursor cursor) {
+      return cursor.x > this.upperPart.centerX();
    }
 
 }
