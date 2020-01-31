@@ -52,7 +52,7 @@
                         {% elif loop.index == 3 %}
                     <tr class="third_place">
                         {% else %}
-                    <tr>
+                    <tr class="outOfTopThree_place">
                         {% endif %}
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ entry['name']|truncate(50, True) }}</td>
