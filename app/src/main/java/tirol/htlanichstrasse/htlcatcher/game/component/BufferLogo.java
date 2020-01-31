@@ -1,6 +1,5 @@
 package tirol.htlanichstrasse.htlcatcher.game.component;
 
-import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +18,7 @@ public class BufferLogo extends Logo {
    /**
     * Determines how long the buff is active.
     */
-   private long buffDuration;
+   private long buffDuration = 0L;
 
    /**
     * Creates a new buffer-logo on the GameView canvas
@@ -29,8 +28,6 @@ public class BufferLogo extends Logo {
     */
    public BufferLogo(int x, int y, int radius) {
       super(x, y, radius);
-      this.buffDuration = ThreadLocalRandom.current().nextLong(3000, 8000);
-
    }
 
 }
