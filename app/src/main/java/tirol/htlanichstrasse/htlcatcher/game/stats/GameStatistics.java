@@ -65,7 +65,7 @@ public class GameStatistics {
     * @since 05.11.2019
     */
    public enum StatisticsAction {
-      SECOND(1), LOGO(10);
+      SECOND(1), LOGO(10), BONUSLOGO(10);
 
       /**
        * Determines the worth of this action
