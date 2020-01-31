@@ -1,10 +1,12 @@
 # HTL Catcher Leaderboard Server
 
-This is the [Flask](http://flask.palletsprojects.com/en/1.1.x/) leaderboard server for use at HTL Anichstraße's open day 2020. There will be a tablet for use by visitors on the open day where they can submit their HTL Catcher high scores including a name and their avatar. The leaderboard server will receive submitted high scores through a REST node, save it locally and live-reload the page serving the high score list.
+This is the [Flask](http://flask.palletsprojects.com/en/1.1.x/) leaderboard server for use at HTL Anichstraße's open day 2020. There will be a tablet for use by visitors on the open day where they can submit their HTL Catcher high scores including their name and a message. The leaderboard server will receive submitted high scores through a REST node, save it locally and live-reload the page using AJAX serving the high score list.
 
-Using a projector and a computer at the open day, visitors will be able to see their high score pop up on the projector's image as soon as they click the submit button (if they made it in the top 10 ...)
+Using a projector and a computer at the open day, visitors will be able to see their high score pop up on the projector's image as soon as they tap the submit button (if they made it in the top 10 ...)
 
 Please note that the Play Store version of the app will never be able to send leaderboard data accross the internet to a remote server. This feature is exclusively for the demonstration version on the open day. The Play Store version gets a local leaderboard instead.
+
+You can see a live demo of the website on [catcher.htl.codes](https://catcher.htl.codes/).
 
 ## Installation
 
