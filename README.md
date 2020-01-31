@@ -74,6 +74,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 If you have any questions about this project, please feel free to contact us.
 
-Nicolaus Rossi - nirossi@tsn.at  
-Joshua Winkler - jos.winkler@tsn.at
+Nicolaus Rossi - nirossi@tsn.at<br>
+Joshua Winkler - jos.winkler@tsn.at<br>
 HTL Anichstraße - htlinn@tsn.at
