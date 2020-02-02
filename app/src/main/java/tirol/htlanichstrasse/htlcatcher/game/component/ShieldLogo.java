@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BufferLogo extends Logo {
+public class ShieldLogo extends Logo {
 
    /**
     * Determines how long the buff is active.
@@ -26,7 +26,7 @@ public class BufferLogo extends Logo {
     * @param x the x coordinate of the logo
     * @param y the y coordinate of the logo
     */
-   public BufferLogo(int x, int y, int radius) {
+   public ShieldLogo(final int x, final int y, final int radius) {
       super(x, y, radius);
    }
 
