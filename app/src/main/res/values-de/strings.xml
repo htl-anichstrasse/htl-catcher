@@ -2,7 +2,7 @@
 <resources>
   <string name="main_takephoto_button">Foto aufnehmen</string>
   <string name="backToMainMenu">Hauptmenü</string>
-  <string name="gameDescription">HTLCatcher ist ein Flappy-Bird-ähnliches Spiel bei dem du so lange wie möglich durch auf dich zukommende Hindernisse navigieren musst. Je länger dir dies gelingt,   desto mehr Punkte erhältst du. Zusätzlich dazu kannst du versuchen, vorbeifliegende HTL Logos zu fangen, um noch mehr Punkte zu erhalten.</string>
+  <string name="gameDescription">" HTLCatcher ist ein Flappy-Bird-ähnliches Spiel bei dem du so lange wie möglich durch auf dich zukommende Hindernisse navigieren musst. Für jedes Hindernis, durch das du erfolgreich durch navigierst erhältst du einen Punkt. Zusätzlich dazu kannst du versuchen, vorbeifliegende HTL Logos zu fangen, um noch mehr Punkte oder Bonus-Effekte zu erhalten."</string>
   <string name="gameover_gametime">Spielzeit: %1$d Sekunde(n)</string>
   <string name="gameover_newgame">Neues Spiel starten</string>
   <string name="gameover_score">Punkte: %1$d</string>
