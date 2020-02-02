@@ -29,4 +29,5 @@
   <string name="submitscore_error_noconnection">No connection to the internet</string>
   <string name="submitscore_error_conn">Error: HTTP Code %1$d</string>
   <string name="submitscore_submitted">Your score was submitted successfully!</string>
+  <string name="components_header">Game Components</string>
 </resources>
