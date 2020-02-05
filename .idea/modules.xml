@@ -7,8 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/SWP-htl-catcher.iml" filepath="$PROJECT_DIR$/SWP-htl-catcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/SWP-htl-catcher-app.iml" filepath="$PROJECT_DIR$/app/SWP-htl-catcher-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/htl-catcher.iml" filepath="$PROJECT_DIR$/htl-catcher.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/htl-catcher-app.iml" filepath="$PROJECT_DIR$/app/htl-catcher-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/htl-catcher.iml" filepath="$PROJECT_DIR$/htl-catcher.iml" group="htl-catcher" />
+      <module fileurl="file://$PROJECT_DIR$/app/htl-catcher-app.iml" filepath="$PROJECT_DIR$/app/htl-catcher-app.iml" group="htl-catcher/app" />
     </modules>
   </component>
 </project>

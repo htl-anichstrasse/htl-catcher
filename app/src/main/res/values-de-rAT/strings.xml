@@ -29,4 +29,9 @@
   <string name="submitscore_error_noconnection">Keine Internetverbindung gefunden</string>
   <string name="submitscore_error_conn">Fehler: HTTP Code %1$d</string>
   <string name="submitscore_submitted">Deine Punkte wurden erfolgreich übertragen!</string>
+  <string name="components_header">Spielkomponenten</string>
+  <string name="logoDescription">Das Standardlogo, das deinen Score durch Aufsammeln des Logos um 10 Punkte erhöht.</string>
+  <string name="bonusLogoDescription">Ein goldenes Bonuslogo, das deinen Score um 25 statt um 10 Punkte erhöht.</string>
+  <string name="shieldLogoDescription">Verleiht einen Schild, der einmalig eine Kollision mit einem Hindernis ignoriert.</string>
+  <string name="multiplierLogoDescription">Erhöht temporär die durch Hindernisse und Logos erhaltenen Punkte.</string>
 </resources>
