@@ -30,4 +30,14 @@
   <string name="submitscore_error_conn">Error: HTTP Code %1$d</string>
   <string name="submitscore_submitted">Your score was submitted successfully!</string>
   <string name="components_header">Game Components</string>
+  <string name="logoDescription">The default logo, which grants 10 points upon collecting but does not grant any special buffs.</string>
+  <string name="bonusLogoDescription">A golden bonus logo, grants 25 points when collected. (No buffs either)</string>
+  <string name="shieldLogoDescription">This logo grants just like the default one 10 points. Additionally, you will be granted a shield for one hit.</string>
+  <string name="multiplierLogoDescription">Grants a multiplier effect which multiplies all points gained for a specific duration.</string>
+
+  <!-- Content Descriptions -->
+  <string name="bonus_logo_view" translatable="false">Bonus Logo View</string>
+  <string name="logo_view" translatable="false">Logo View</string>
+  <string name="shield_logo_view" translatable="false">Shield Logo View</string>
+  <string name="multiplier_logo_view" translatable="false">Multiplier Logo View</string>
 </resources>
