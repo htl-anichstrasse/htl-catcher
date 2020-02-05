@@ -1,9 +1,10 @@
 from pathlib import Path
 
-from webserver.util import LeaderboardManager
-
 from .config import *
 from .definitions import *
+from .models import *
 
-leaderboard_manager = LeaderboardManager(
-    Path(os.path.join(ROOT_DIR, './static/leaderboard.json')))
+from webserver.util import LeaderboardManager
+
+# leaderboard
+leaderboard_manager = LeaderboardManager(db)

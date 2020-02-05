@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from webserver.views.api import leaderboard_manager
+from webserver import leaderboard_manager
 
 home = Blueprint('home', __name__)
 

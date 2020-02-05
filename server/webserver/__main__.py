@@ -5,6 +5,8 @@ from flask import Flask
 from webserver.definitions import ROOT_DIR
 from webserver.views import api_bp, home
 
+from webserver.models import db
+
 # fix import
 sys.path.insert(0, ROOT_DIR)
 
@@ -26,6 +28,9 @@ if __name__ == '__main__':
 
     # set config
     app.config.from_pyfile('config.py', silent=True)
+
+    # initialize postgres
+    db.init_app(app)
 
     # run application
     app.run()
