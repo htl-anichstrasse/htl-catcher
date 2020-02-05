@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -34,7 +35,7 @@ import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
  * @author Albert Greinöcker
  * @since 31.10.2019
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
    /**
     * Static logging tag used for loggings from this class
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
              .show();
       }
    }
+
 
    /**
     * Crops an input bitmap to a circle format

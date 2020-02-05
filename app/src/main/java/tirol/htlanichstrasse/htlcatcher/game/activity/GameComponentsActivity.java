@@ -8,31 +8,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import tirol.htlanichstrasse.htlcatcher.R;
 
-
 /**
  * @author Nicolaus Rossi
  * @since 02.02.2020
  */
 
-public class GameComponentsActivity extends AppCompatActivity implements OnClickListener {
+public class GameComponentsActivity extends AppCompatActivity {
 
    @Override
    protected void onCreate(@Nullable Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
    }
 
-   @Override
-   public void onClick(final View view) {
-      switch(view.getId()) {
-         case R.id.playButton:
-            final Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
-            startActivity(intent);
-            break;
+   public void onPlayButtonClicked(final View view) {
+      final Intent intent = new Intent(this, GameActivity.class);
+      intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
+      startActivity(intent);
+   }
 
-         case R.id.back:
-            startActivity(new Intent(this, InstructionActivity.class));
-            break;
-      }
+   public void onBackButtonClicked(final View view) {
+      startActivity(new Intent(this, InstructionActivity.class));
    }
 }
