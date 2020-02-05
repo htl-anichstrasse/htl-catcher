@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:anroid="http://schemas.android.com/tools"
   android:background="@drawable/background_main">
-
 
   <TextView
     android:id="@+id/title"
@@ -21,8 +20,142 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-  <ImageView
+  <LinearLayout
+    android:id="@+id/logoLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/title"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginTop="50dp"
+    anroid:ignore="UseCompoundDrawables">
+
+    <ImageView
+      android:id="@+id/logoView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginStart="10dp"
+      android:contentDescription="@string/logo_view"
+      android:src="@drawable/ic_launcher" />
+  
+    <TextView
+      android:id="@+id/logoTextView"
+      android:layout_width="wrap_content"
+      android:gravity="center_vertical"
+      android:layout_height="match_parent"
+      android:layout_marginStart="10dp"
+      android:text="@string/logoDescription"
+      app:layout_constraintHorizontal_bias="0.619"
+      app:layout_constraintLeft_toRightOf="@id/logoView"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent" 
+      android:textColor="#ffffff" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/bonusLogoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/logoLayout"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginTop="50dp"
+    anroid:ignore="UseCompoundDrawables">
+
+    <ImageView
+      android:id="@+id/bonusLogoView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginStart="10dp"
+      android:src="@drawable/bonus_logo"
+      android:contentDescription="@string/bonus_logo_view" />
+
+    <TextView
+      android:id="@+id/bonusLogoTextView"
+      android:gravity="center_vertical"
+      android:text="@string/bonusLogoDescription"
+      android:layout_height="match_parent"
+      android:layout_width="wrap_content"
+      android:layout_marginStart="10dp"
+      android:textColor="#ffffff"
+      app:layout_constraintLeft_toRightOf="@id/bonusLogoView"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/shieldLogoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/bonusLogoLayout"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginTop="50dp"
+    anroid:ignore="UseCompoundDrawables">
+
+    <ImageView
+      android:id="@+id/shieldLogoView"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginStart="10dp"
+      android:contentDescription="@string/shield_logo_view" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginStart="10dp"
+      android:text="@string/shieldLogoDescription"
+      android:layout_gravity="center_vertical"
+      app:layout_constraintLeft__toRightOf="@+id/shieldLogoView"
+      app:layout_constraintRight_toRightOf="parent"
+      android:textColor="#ffffff" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/multiplierLogoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/shieldLogoLayout"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginTop="50dp"
+    anroid:ignore="UseCompoundDrawables">
+
+    <ImageView
+      android:id="@+id/multiplierLogoView"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginStart="10dp"
+      android:contentDescription="@string/multiplier_logo_view" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:text="@string/multiplierLogoDescription"
+      android:textColor="#ffffff"
+      android:layout_marginLeft="10dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/multiplierLogoView"
+
+
+      />
+  </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

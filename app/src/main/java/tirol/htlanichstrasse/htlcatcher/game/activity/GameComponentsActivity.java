@@ -21,6 +21,9 @@ public class GameComponentsActivity extends AppCompatActivity implements OnClick
 
    @Override
    public void onClick(final View view) {
+      switch(view.getId()) {
+         default:
 
+      }
    }
 }
