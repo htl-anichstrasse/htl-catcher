@@ -54,28 +54,41 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/gameDescription" />
 
-  <ImageButton
-    android:id="@+id/gameComponents"
-    android:layout_width="@dimen/button_width"
-    android:layout_height="@dimen/button_height"
-    android:layout_marginTop="50dp"
-    android:background="@drawable/button_main_design"
-    android:contentDescription="@string/main_play_button"
-    app:layout_constraintLeft_toLeftOf="parent"
+  <LinearLayout
+    android:id="@+id/buttonLayout"
+    android:gravity="center_horizontal"
     app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toBottomOf="@id/gameControlsDescription"
-    app:srcCompat="@android:drawable/ic_media_play" />
+    android:layout_marginTop="80dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
 
-  <ImageButton
-    android:id="@+id/jumpBack"
-    android:layout_width="@dimen/button_width"
-    android:layout_height="@dimen/button_height"
-    android:layout_marginTop="40dp"
-    android:background="@drawable/button_main_design"
-    android:contentDescription="@string/main_play_button"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/gameComponents"
-    app:srcCompat="@drawable/turned_play_button" />
+    <ImageButton
+      android:id="@+id/jumpBack"
+      android:layout_width="@dimen/button_width"
+      android:layout_height="@dimen/button_height"
+      android:background="@drawable/button_main_design"
+      android:contentDescription="@string/main_play_button"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="parent"
+      app:srcCompat="@drawable/turned_play_button" />
+
+    <ImageButton
+      android:id="@+id/gameComponents"
+      android:layout_width="@dimen/button_width"
+      android:layout_height="@dimen/button_height"
+      android:background="@drawable/button_main_design"
+      android:contentDescription="@string/main_play_button"
+      android:layout_marginStart="50dp"
+      app:layout_constraintLeft_toRightOf="@id/jumpBack"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="parent"
+      app:srcCompat="@android:drawable/ic_media_play" />
+
+
+
+  </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
