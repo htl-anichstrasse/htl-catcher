@@ -69,7 +69,7 @@ class UserManager:
         return user_valid
 
     def check(self, authorization_header: str) -> None:
-        """ Checks the authorization header using the user manager. Aborts the current
+        """Checks the authorization header using the user manager. Aborts the current
         request if the authorization header is invalid.
 
         Please note that the authorization must be encoded in Base64 as per RFC 2617"""

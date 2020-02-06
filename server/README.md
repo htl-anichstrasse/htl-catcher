@@ -21,8 +21,20 @@ cd htl-catcher/server
 ```
 pip install -r requirements.txt
 ```
+Also, if you get an error that says that `mysql.h` or `config-win.h` is missing, please install `wheel`, download the newest version of `mysqlclient` [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python) and install the WHL file.
+```
+pip install wheel
+```
+```
+pip install mysqlclient‑1.4.6‑cp38‑cp38‑win32.whl
+```
 
-3. Create a user account for the API. Add a `users.json` file to /static/users.json and add at least one user account using the following format:
+3. Make sure to set the environment variable for your database URL in the format `<dbmstype>://<username>:<password>@host/@database`
+```console
+user@pc:~$ $env:DATABASE_URL="mysql://root@password@127.0.0.1/catcher"
+```
+
+4. Create a user account for the API. Add a `users.json` file to /static/users.json and add at least one user account using the following format:
 ```json
 [
     {
@@ -37,7 +49,7 @@ You can create the salted hash for the `password_hash` field using the `generate
 py generate_hash.py <password>
 ```
 
-4. Run the server module
+5. Run the server module
 ```
 python -m webserver
 ```
