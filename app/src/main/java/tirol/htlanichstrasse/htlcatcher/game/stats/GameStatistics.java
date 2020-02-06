@@ -71,7 +71,7 @@ public class GameStatistics {
     * @since 05.11.2019
     */
    public enum StatisticsAction {
-      SECOND(1), OBSTACLE(1), LOGO(10), BONUSLOGO(25), SHIELDLOGO(10)   ;
+      SECOND(1), OBSTACLE(1), LOGO(10), BONUSLOGO(25), SHIELDLOGO(10), MULTIPLIERLOGO(10);
 
 
       /**
