@@ -166,7 +166,7 @@
     app:layout_constraintRight_toRightOf="parent" >
 
     <ImageButton
-      android:id="@+id/back"
+      android:id="@+id/jumpBack"
       android:layout_width="@dimen/button_width"
       android:layout_height="@dimen/button_height"
       android:background="@drawable/button_main_design"
