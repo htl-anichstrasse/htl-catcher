@@ -21,15 +21,15 @@ public class InstructionActivity extends AppCompatActivity implements OnClickLis
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_instruction);
       final View activeView = findViewById(R.id.instruction);
-      activeView.findViewById(R.id.playButton).setOnClickListener(this);
+      activeView.findViewById(R.id.gameComponents).setOnClickListener(this);
+      activeView.findViewById(R.id.jumpBack).setOnClickListener(this);
    }
 
    @Override
    public void onClick(final View view) {
       switch (view.getId()) {
          case R.id.gameComponents:
-            final Intent intent = new Intent(this, GameComponentsActivity.class);
-            intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
+            startActivity(new Intent(this, GameComponentsActivity.class));
             break;
 
          case R.id.jumpBack:
