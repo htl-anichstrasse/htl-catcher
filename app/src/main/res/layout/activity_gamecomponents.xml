@@ -117,7 +117,7 @@
       android:layout_marginStart="10dp"
       android:text="@string/shieldLogoDescription"
       android:layout_gravity="center_vertical"
-      app:layout_constraintLeft__toRightOf="@+id/shieldLogoView"
+      app:layout_constraintLeft_toRightOf="@+id/shieldLogoView"
       app:layout_constraintRight_toRightOf="parent"
       android:textColor="#ffffff" />
   </LinearLayout>
@@ -171,7 +171,6 @@
       android:layout_height="@dimen/button_height"
       android:background="@drawable/button_main_design"
       android:contentDescription="@string/main_play_button"
-      android:onClick="onBackButtonClicked"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/playButton"
@@ -183,10 +182,9 @@
       android:layout_height="@dimen/button_height"
       android:background="@drawable/button_main_design"
       android:contentDescription="@string/main_play_button"
-      app:layout_constraintLeft_toRightOf="@id/back"
+      app:layout_constraintLeft_toRightOf="@id/jumpBack"
       app:layout_constraintRight_toRightOf="parent"
       android:layout_marginStart="50dp"
-      android:onClick="onPlayButtonClicked"
       app:layout_constraintTop_toBottomOf="@id/gameControlsDescription"
       app:srcCompat="@android:drawable/ic_media_play" />
   </LinearLayout>
