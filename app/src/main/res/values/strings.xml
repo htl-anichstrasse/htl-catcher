@@ -32,7 +32,7 @@
   <string name="components_header">Game Components</string>
   <string name="logoDescription">The default logo, which grants 10 points upon collecting but does not grant any special buffs.</string>
   <string name="bonusLogoDescription">A golden bonus logo, grants 25 points when collected. (No buffs either)</string>
-  <string name="shieldLogoDescription">This logo grants just like the default one 10 points. Additionally, you will be granted a shield for one hit.</string>
+  <string name="shieldLogoDescription">Upon collecting, this logo grants 10 points and a shield that ignores one hit.</string>
   <string name="multiplierLogoDescription">Grants a multiplier effect which multiplies all points gained for a specific duration.</string>
 
   <!-- Content Descriptions -->
