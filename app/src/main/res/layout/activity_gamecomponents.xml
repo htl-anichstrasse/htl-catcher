@@ -74,7 +74,7 @@
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       android:layout_marginStart="10dp"
-      android:src="@drawable/bonus_logo"
+      android:src="@drawable/bonuslogo"
       android:contentDescription="@string/bonus_logo_view" />
 
     <TextView
@@ -104,7 +104,7 @@
       android:id="@+id/shieldLogoView"
       android:layout_width="50dp"
       android:layout_height="50dp"
-      android:src="@drawable/ic_launcher"
+      android:src="@drawable/shieldLogo"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
