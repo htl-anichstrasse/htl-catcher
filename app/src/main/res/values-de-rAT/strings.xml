@@ -33,5 +33,5 @@
   <string name="logoDescription">Das Standardlogo, das deinen Score durch Aufsammeln des Logos um 10 Punkte erhöht.</string>
   <string name="bonusLogoDescription">Ein goldenes Bonuslogo, das deinen Score um 25 statt um 10 Punkte erhöht.</string>
   <string name="shieldLogoDescription">Verleiht einen Schild, der einmalig eine Kollision mit einem Hindernis ignoriert.</string>
-  <string name="multiplierLogoDescription">Erhöht temporär die durch Hindernisse und Logos erhaltenen Punkte.</string>
+  <string name="multiplierLogoDescription">Verdoppelt temporär die durch Hindernisse und Logos erhaltenen Punkte.</string>
 </resources>

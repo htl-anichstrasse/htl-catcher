@@ -33,5 +33,5 @@
   <string name="logoDescription">The default logo, which grants 10 points upon collecting but does not grant any special buffs.</string>
   <string name="bonusLogoDescription">A golden bonus logo, grants 25 points when collected. (No buffs either)</string>
   <string name="shieldLogoDescription">Upon collecting, this logo grants 10 points and a shield that ignores one hit.</string>
-  <string name="multiplierLogoDescription">Grants a multiplier effect which multiplies all points gained for a specific duration.</string>
+  <string name="multiplierLogoDescription">Grants a multiplier effect which doubles all points gained for a specific duration.</string>
 </resources>
