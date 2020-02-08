@@ -5,7 +5,7 @@ import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 
 /**
- * A subtype of the normal logo which inverses gravity for a short duration.
+ * A subtype of the normal logo which inverts the gravity for a short duration.
  *
  * @author Nicolaus Rossi
  * @since 08.02.2020
@@ -21,7 +21,7 @@ public class InvertLogo extends Logo {
    private long duration = 0L;
 
    /**
-    * Creates a new buffer-logo on the GameView canvas
+    * Creates a new invert-logo on the GameView canvas
     *
     * @param x the x coordinate of the logo
     * @param y the y coordinate of the logo

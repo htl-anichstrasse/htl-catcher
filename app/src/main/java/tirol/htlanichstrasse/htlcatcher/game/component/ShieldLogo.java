@@ -26,7 +26,7 @@ public class ShieldLogo extends Logo {
    private boolean isActive = false;
 
    /**
-    * Creates a new buffer-logo on the GameView canvas
+    * Creates a new shield-logo on the GameView canvas
     *
     * @param x the x coordinate of the logo
     * @param y the y coordinate of the logo
