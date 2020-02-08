@@ -34,4 +34,5 @@
   <string name="bonusLogoDescription">A golden bonus logo, grants 25 points when collected. (No buffs either)</string>
   <string name="shieldLogoDescription">Upon collecting, this logo grants 10 points and a shield that ignores one hit.</string>
   <string name="multiplierLogoDescription">Grants a multiplier effect which doubles all points gained for a specific duration.</string>
+  <string name="invertLogoDescription">Inverts the gravity for a short duration.</string>
 </resources>

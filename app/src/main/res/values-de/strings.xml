@@ -34,4 +34,5 @@
   <string name="bonusLogoDescription">Ein goldenes Bonuslogo, das deinen Score um 25 statt um 10 Punkte erhöht.</string>
   <string name="shieldLogoDescription">Verleiht einen Schild, der einmalig eine Kollision mit einem Hindernis ignoriert.</string>
   <string name="multiplierLogoDescription">Verdoppelt temporär die durch Hindernisse und Logos erhaltenen Punkte.</string>
+  <string name="invertLogoDescription">Invertiert die Schwerkraft für eine kurze Zeit.</string>
 </resources>

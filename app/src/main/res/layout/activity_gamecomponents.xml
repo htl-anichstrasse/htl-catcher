@@ -29,7 +29,7 @@
     app:layout_constraintTop_toBottomOf="@id/title"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="25dp"
     anroid:ignore="UseCompoundDrawables">
 
     <ImageView
@@ -67,7 +67,7 @@
     app:layout_constraintTop_toBottomOf="@+id/logoLayout"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="25dp"
     anroid:ignore="UseCompoundDrawables">
 
     <ImageView
@@ -102,14 +102,14 @@
     app:layout_constraintTop_toBottomOf="@+id/bonusLogoLayout"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="25dp"
     anroid:ignore="UseCompoundDrawables">
 
     <ImageView
       android:id="@+id/shieldLogoView"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      android:src="@drawable/shieldlogo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/shieldLogo"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -138,14 +138,14 @@
     app:layout_constraintTop_toBottomOf="@+id/shieldLogoLayout"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="25dp"
     anroid:ignore="UseCompoundDrawables">
 
     <ImageView
       android:id="@+id/multiplierLogoView"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      android:src="@drawable/multiplierlogo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/multiplierLogo"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -169,10 +169,48 @@
   </LinearLayout>
 
   <LinearLayout
-    android:id="@+id/buttonView"
+    android:id="@+id/invertLogoLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintTop_toBottomOf="@id/multiplierLogoLayout"
+    android:layout_marginTop="25dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    anroid:ignore="UseCompoundDrawables">
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/invertLogoView"
+      android:src="@drawable/invertlogo"
+      android:layout_marginStart="10dp"
+      android:gravity="center_vertical"
+      android:contentDescription="@string/invert_logo_view"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="match_parent"
+      android:layout_marginStart="10dp"
+      android:text="@string/invertLogoDescription"
+      android:textColor="#ffffff"
+      android:gravity="center_vertical"
+      android:textSize="16sp"
+      android:textStyle="bold|italic"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/invertLogoView"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/buttonView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/invertLogoLayout"
     android:layout_marginTop="60dp"
     app:layout_constraintLeft_toLeftOf="parent"
     android:gravity="center_horizontal"
