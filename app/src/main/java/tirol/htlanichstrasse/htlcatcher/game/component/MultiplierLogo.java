@@ -20,6 +20,11 @@ public class MultiplierLogo extends Logo {
    private long multiplierDuration = 0L;
 
    /**
+    * Determines whether the buff is currently active or not.
+    */
+   private boolean isActive = false;
+
+   /**
     * Creates a new multiplier-logo on the GameView canvas
     *
     * @param x the x coordinate of the logo

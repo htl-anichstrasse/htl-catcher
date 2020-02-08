@@ -21,6 +21,11 @@ public class ShieldLogo extends Logo {
    private long buffDuration = 0L;
 
    /**
+    * Determines whether the buff is currently active or not.
+    */
+   private boolean isActive = false;
+
+   /**
     * Creates a new buffer-logo on the GameView canvas
     *
     * @param x the x coordinate of the logo
