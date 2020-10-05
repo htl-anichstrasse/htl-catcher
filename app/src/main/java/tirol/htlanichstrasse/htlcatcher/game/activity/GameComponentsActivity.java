@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+import java.io.File;
 import tirol.htlanichstrasse.htlcatcher.R;
 
 /**
@@ -28,9 +30,15 @@ public class GameComponentsActivity extends AppCompatActivity implements OnClick
    public void onClick(final View view) {
       switch (view.getId()) {
          case R.id.startGame:
-            final Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
-            startActivity(intent);
+            if (new File(getFilesDir() + "/PHOTO", "me.png").exists()) {
+               final Intent intent = new Intent(this, GameActivity.class);
+               intent.putExtra("player_bm", getFilesDir() + "/PHOTO/me.png");
+               startActivity(intent);
+            } else {
+               Toast.makeText(this, getString(R.string.main_takephoto_toast_nophoto),
+                   Toast.LENGTH_LONG)
+                   .show();
+            }
             break;
 
          case R.id.jumpBack:
