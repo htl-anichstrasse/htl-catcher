@@ -16,7 +16,7 @@ sys.path.insert(0, ROOT_DIR)
 app = Flask(__name__)
 
 # set time locale
-locale.setlocale(locale.LC_TIME, "de_DE")
+locale.setlocale(locale.LC_ALL, "German")
 
 # handle errors
 @app.errorhandler(404)
