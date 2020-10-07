@@ -3,6 +3,7 @@ import sys
 import click
 from flask import Flask
 from flask.cli import with_appcontext
+import locale
 
 from webserver.definitions import ROOT_DIR
 from webserver.models import db
@@ -13,6 +14,9 @@ sys.path.insert(0, ROOT_DIR)
 
 # initialize flask app
 app = Flask(__name__)
+
+# set time locale
+locale.setlocale(locale.LC_TIME, "de_DE")
 
 # handle errors
 @app.errorhandler(404)
