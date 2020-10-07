@@ -38,7 +38,6 @@
                 <thead class="thead-dark" id="leaderboard_head">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Zeitpunkt</th>
                         <th scope="col">Spieler</th>
                         <th scope="col">Punkte</th>
                     </tr>
@@ -55,7 +54,6 @@
                     <tr class="outOfTopThree_place">
                         {% endif %}
                         <th scope="row">{{ loop.index }}</th>
-                        <td>{{ entry['time'].strftime("%d. %b %Y, %H:%M") }}</td>
                         <td>{{ entry['name']|truncate(50, True) }}</td>
                         <td>{{ entry['score'] }}</td>
                     </tr>

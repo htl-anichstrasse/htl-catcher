@@ -27,8 +27,7 @@ class Add(Resource):
 
         # add parsed information to leaderboard manager
         args = parser.parse_args()
-        self.leaderboard_manager.add(
-            args['name'], args['score'], date.today())
+        self.leaderboard_manager.add(args['name'], args['score'])
 
         # reply with success message
         return {'message': 'Successfully added new leaderboard entry.'}
