@@ -19,6 +19,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.Header;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.JSONObject;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
@@ -58,6 +59,7 @@ public class SubmitScoreFragment extends DialogFragment {
       // add click events
       dialog.setOnShowListener(dialogInterface -> {
          final Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+         final AtomicBoolean sent = new AtomicBoolean(false);
 
          positiveButton.setOnClickListener(view -> {
             // Send score to remote server
@@ -69,7 +71,10 @@ public class SubmitScoreFragment extends DialogFragment {
                    Toast.LENGTH_SHORT).show();
             } else {
                if (isNetworkAvailable()) {
-                  sendScore(nameText, GameStatistics.getInstance().getPoints().get());
+                  if (!sent.get()) {
+                     sendScore(nameText, GameStatistics.getInstance().getPoints().get());
+                     sent.set(true);
+                  }
                } else {
                   // no network connection
                   Toast.makeText(this.getContext(),
