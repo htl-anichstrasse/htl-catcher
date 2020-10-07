@@ -38,9 +38,9 @@
                 <thead class="thead-dark" id="leaderboard_head">
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Zeitpunkt</th>
                         <th scope="col">Spieler</th>
                         <th scope="col">Punkte</th>
-                        <th scope="col">Nachricht</th>
                     </tr>
                 </thead>
                 <tbody class="table table-striped leaderboard_row" id="leaderboard_body">
@@ -56,8 +56,8 @@
                         {% endif %}
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ entry['name']|truncate(50, True) }}</td>
+                        <td>{{ entry['time'].strftime("%B %d, %Y") }}</td>
                         <td>{{ entry['score'] }}</td>
-                        <td>{{ entry['message']|truncate(110, False) }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

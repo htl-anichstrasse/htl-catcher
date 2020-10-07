@@ -1,6 +1,7 @@
 import json
 from operator import itemgetter
 from pathlib import Path
+from datetime import date
 
 from webserver.models import Leaderboard
 
@@ -16,9 +17,9 @@ class LeaderboardManager:
         """Returns leaderboard data sorted by score, highest score = first index"""
         return [entry.serialize for entry in Leaderboard.query.order_by(Leaderboard.score.desc())]
 
-    def add(self, name: str, score: int, message="") -> None:
+    def add(self, name: str, score: int, time: date) -> None:
         """Adds a leaderboard entry to the leaderboard data and writes it to the disk"""
-        entry = Leaderboard(name=name, score=score, message=message)
+        entry = Leaderboard(name=name, score=score, time=time)
         self.db.session.add(entry)
         self.db.session.commit()
 

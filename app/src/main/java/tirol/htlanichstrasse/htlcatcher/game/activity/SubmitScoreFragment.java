@@ -63,15 +63,13 @@ public class SubmitScoreFragment extends DialogFragment {
             // Send score to remote server
             final String nameText = ((EditText) Objects.requireNonNull(this.getDialog())
                 .findViewById(R.id.name)).getText().toString().trim();
-            final String messageText = ((EditText) Objects.requireNonNull(this.getDialog())
-                .findViewById(R.id.message)).getText().toString().trim();
 
             if (nameText.length() == 0) {
                Toast.makeText(this.getContext(), getString(R.string.submitscore_error_noname),
                    Toast.LENGTH_SHORT).show();
             } else {
                if (isNetworkAvailable()) {
-                  sendScore(nameText, GameStatistics.getInstance().getPoints().get(), messageText);
+                  sendScore(nameText, GameStatistics.getInstance().getPoints().get());
                } else {
                   // no network connection
                   Toast.makeText(this.getContext(),
@@ -91,9 +89,8 @@ public class SubmitScoreFragment extends DialogFragment {
     *
     * @param name the entered name of the player
     * @param score the reached score of the player
-    * @param message the (optional) message of the player, may be empty
     */
-   private void sendScore(final String name, final int score, final String message) {
+   private void sendScore(final String name, final int score) {
       final CatcherConfig config = CatcherConfig.getInstance();
       final AsyncHttpClient client = new AsyncHttpClient();
       client.setBasicAuth(config.getAPIUser(), config.getAPIPassword());
@@ -102,7 +99,6 @@ public class SubmitScoreFragment extends DialogFragment {
       final RequestParams requestParams = new RequestParams();
       requestParams.put("name", name);
       requestParams.put("score", score);
-      requestParams.put("message", message);
 
       client.post(config.getAddAPIURL(), requestParams, new JsonHttpResponseHandler() {
          @Override

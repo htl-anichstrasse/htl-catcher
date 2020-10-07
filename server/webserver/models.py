@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String
 
 # database
 db = SQLAlchemy()
@@ -11,8 +11,8 @@ class Leaderboard(db.Model):
     id = Column(Integer, primary_key=True)
     score = Column(Integer)
     name = Column(String)
-    message = Column(String)
+    time = Column(DateTime)
 
     @property
     def serialize(self):
-        return {'score': self.score, 'name': self.name, 'message': self.message}
+        return {'score': self.score, 'name': self.name, 'time': self.time}
