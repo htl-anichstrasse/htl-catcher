@@ -45,7 +45,7 @@ public class CatcherConfig {
    /**
     * The configured password of the webserver for basic auth
     */
-   private String APIPassword = "yXf9M4LSPN49DebAXhnwYezCY";
+   private String APIPassword = "noapipassword4u";
 
    /*
       LOGO CONFIGURATION
