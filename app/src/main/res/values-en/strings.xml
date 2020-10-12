@@ -2,7 +2,7 @@
 <resources>
   <string name="main_takephoto_button">Take photo</string>
   <string name="backToMainMenu">Main Menu</string>
-  <string name="gameDescription">HTlCatcher is a Flappy-Bird-inspired game where you have to navigate your avatar through approaching obstacles as long as possible. The longer you manage to navigate through them, the more points you get. Additionally, you can try to catch passing HTL logos to acquire even more points.</string>
+  <string name="gameDescription">HTlCatcher is a side-scroller game where you have to navigate your avatar through approaching obstacles as long as possible. The longer you manage to navigate through them, the more points you get. Additionally, you can try to catch passing HTL logos to acquire even more points.</string>
   <string name="gameover_gametime">Time: %1$d second(s)</string>
   <string name="gameover_newgame">Start new game</string>
   <string name="gameover_score">Points: %1$d</string>
