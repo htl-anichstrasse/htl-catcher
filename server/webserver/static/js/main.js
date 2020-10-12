@@ -60,7 +60,6 @@ function updateTable(data) {
       html += `><th scope="row">${i + 1}
       <td>${dataRow["name"]}</td>
       <td>${dataRow["score"]}</td>
-      <td>${dataRow["message"]}</td>
       </tr>`;
     }
     html += `</tbody>`;
