@@ -15,6 +15,7 @@
     android:layout_marginBottom="4dp"
     android:hint="@string/submitscore_hint_name"
     android:inputType="text"
+    android:maxLength="15"
     tools:ignore="Autofill" />
   <TextView
     android:id="@+id/textView"
