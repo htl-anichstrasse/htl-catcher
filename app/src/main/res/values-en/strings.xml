@@ -35,4 +35,5 @@
   <string name="shieldLogoDescription">Upon collecting, this logo grants 10 points and a shield that ignores one hit.</string>
   <string name="multiplierLogoDescription">Grants a multiplier effect which doubles all points gained for a specific duration.</string>
   <string name="invertLogoDescription">Inverts the gravity for a short duration.</string>
+  <string name="acceptPrivacy">By tapping \"Submit\" you accept that the entered name and your reached score will be shared on the website catcher.htl.codes.</string>
 </resources>

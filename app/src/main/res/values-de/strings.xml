@@ -35,4 +35,5 @@
   <string name="shieldLogoDescription">Verleiht einen Schild, der einmalig eine Kollision mit einem Hindernis ignoriert.</string>
   <string name="multiplierLogoDescription">Verdoppelt temporär die durch Hindernisse und Logos erhaltenen Punkte.</string>
   <string name="invertLogoDescription">Invertiert die Schwerkraft für eine kurze Zeit.</string>
+  <string name="acceptPrivacy">Durch den Klick auf \"Submit\" stimmst du zu, dass der eingegebene Name und deine erreichte Punktezahl auf der Webseite catcher.htl.codes veröffentlicht wird.</string>
 </resources>
