@@ -1,7 +1,8 @@
-package tirol.htlanichstrasse.htlcatcher.game.component;
+package tirol.htlanichstrasse.htlcatcher.game.component.logos;
 
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 
 /**
  * A subtype of the normal logo which grants a point-multiplier for a certain duration.

@@ -1,7 +1,8 @@
-package tirol.htlanichstrasse.htlcatcher.game.component;
+package tirol.htlanichstrasse.htlcatcher.game.component.logos;
 
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 
 /**
  * A subtype of the normal logo which grants a shield for a short duration / until the player
@@ -32,7 +33,6 @@ public class ShieldLogo extends Logo {
     * @param y the y coordinate of the logo
     */
    public ShieldLogo(final int x, final int y, final int radius) {
-      super(x, y, radius);
+       super(x, y, radius);
    }
-
 }

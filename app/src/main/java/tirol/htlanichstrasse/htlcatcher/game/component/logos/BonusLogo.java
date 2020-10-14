@@ -1,4 +1,6 @@
-package tirol.htlanichstrasse.htlcatcher.game.component;
+package tirol.htlanichstrasse.htlcatcher.game.component.logos;
+
+import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 
 public class BonusLogo extends Logo {
 
@@ -11,5 +13,4 @@ public class BonusLogo extends Logo {
    public BonusLogo(int x, int y, int radius) {
       super(x, y, radius);
    }
-
 }

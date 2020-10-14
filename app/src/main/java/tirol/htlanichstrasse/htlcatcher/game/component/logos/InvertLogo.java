@@ -1,4 +1,4 @@
-package tirol.htlanichstrasse.htlcatcher.game.component;
+package tirol.htlanichstrasse.htlcatcher.game.component.logos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +29,4 @@ public class InvertLogo extends Logo {
    public InvertLogo(final int x, final int y, final int radius) {
       super(x, y, radius);
    }
-
 }
