@@ -1,8 +1,14 @@
 package tirol.htlanichstrasse.htlcatcher.game.component.logos;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import lombok.Getter;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
+import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
 /**
  * A subtype of the normal logo which grants a shield for a short duration / until the player
@@ -34,5 +40,19 @@ public class ShieldLogo extends Logo {
     */
    public ShieldLogo(final int x, final int y, final int radius) {
        super(x, y, radius);
+   }
+
+   @Override
+   public void onCollided() {
+      this.setAlive(false);
+      GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.LOGO);
+   }
+
+   @Override
+   public Bitmap getLogoBitmap(Context context) {
+      final Bitmap decodedResource = BitmapFactory
+              .decodeResource(context.getResources(), R.mipmap.shield_logo);
+      return Bitmap.createScaledBitmap(decodedResource, this.getRadius() * 2,
+              this.getRadius() * 2, false);
    }
 }

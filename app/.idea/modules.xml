@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/app.iml" filepath="$PROJECT_DIR$/.idea/app.iml" group="htl-catcher/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/225583648/htl-catcher.iml" filepath="$PROJECT_DIR$/.idea/modules/225583648/htl-catcher.iml" group="htl-catcher" />
+    </modules>
+  </component>
+</project>

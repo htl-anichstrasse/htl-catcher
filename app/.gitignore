@@ -1,0 +1,21 @@
+*.iml
+*.properties
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/build
+.DS_Store
+app/build/
+app/release/
+/.idea/caches/
+/captures/
+.externalNativeBuild
+.project
+.settings
+.vscode
+
+# server
+server/env
+**/__pycache__/*
+server/**/*.json
