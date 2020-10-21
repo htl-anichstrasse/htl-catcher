@@ -77,9 +77,9 @@ public final class Obstacle {
    public void move(final GameState gameState) {
       int obstacleXDelta = CatcherConfig.getInstance().getObstacleXDelta();
       if (gameState == GameState.INGAME3) {
-         obstacleXDelta *= 4;
-      } else if (gameState == GameState.INGAME2) {
          obstacleXDelta *= 2;
+      } else if (gameState == GameState.INGAME2) {
+         obstacleXDelta *= 1.5;
       }
       upperPart.left -= obstacleXDelta;
       upperPart.right -= obstacleXDelta;

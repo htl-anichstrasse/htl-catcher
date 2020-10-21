@@ -258,9 +258,9 @@ public class GameView extends View {
         // Spawn new obstacle
         long obstacleSpawnDelay = CatcherConfig.getInstance().getObstacleSpawnDelay();
         if (gameState == GameState.INGAME3) {
-            obstacleSpawnDelay /= 8;
-        } else if (gameState == GameState.INGAME2) {
             obstacleSpawnDelay /= 4;
+        } else if (gameState == GameState.INGAME2) {
+            obstacleSpawnDelay /= 2;
         }
         if (System.currentTimeMillis() > lastObstacleSpawned + obstacleSpawnDelay) {
             for (Obstacle obstacle : obstacles) {
