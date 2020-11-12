@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
+import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
 /**
@@ -40,6 +41,7 @@ public class InvertLogo extends Logo {
    public void onCollided() {
       this.setAlive(false);
       GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.LOGO);
+      LogoModeManager.getInstance().enableMode(LogoModeManager.Mode.INVERT);
    }
 
    @Override

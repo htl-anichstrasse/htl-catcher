@@ -21,6 +21,7 @@ import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.GameState;
 import tirol.htlanichstrasse.htlcatcher.game.GameView;
 import tirol.htlanichstrasse.htlcatcher.game.component.Floor;
+import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageThree;
 import tirol.htlanichstrasse.htlcatcher.game.stage.GameStageTwo;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
@@ -165,7 +166,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
       }
 
       // Set the cursors speed so that it jumps up
-      gameView.getCursor().setYVelocity(-CatcherConfig.getInstance().getCursorJumpSpeed());
+      final int cursorGravity = CatcherConfig.getInstance().getCursorJumpSpeed() * (LogoModeManager.getInstance().getCurrentModes().contains(LogoModeManager.Mode.INVERT) ? 1 : -1);
+      gameView.getCursor().setYVelocity(cursorGravity);
       return true;
    }
 

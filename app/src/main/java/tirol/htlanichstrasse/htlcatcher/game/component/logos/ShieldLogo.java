@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
+import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
 /**
@@ -22,37 +23,38 @@ import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 @Setter
 public class ShieldLogo extends Logo {
 
-   /**
-    * Determines how long the buff is active.
-    */
-   private long buffDuration = 0L;
+    /**
+     * Determines how long the buff is active.
+     */
+    private long buffDuration = 0L;
 
-   /**
-    * Determines whether the buff is currently active or not.
-    */
-   private boolean isActive = false;
+    /**
+     * Determines whether the buff is currently active or not.
+     */
+    private boolean isActive = false;
 
-   /**
-    * Creates a new shield-logo on the GameView canvas
-    *
-    * @param x the x coordinate of the logo
-    * @param y the y coordinate of the logo
-    */
-   public ShieldLogo(final int x, final int y, final int radius) {
-       super(x, y, radius);
-   }
+    /**
+     * Creates a new shield-logo on the GameView canvas
+     *
+     * @param x the x coordinate of the logo
+     * @param y the y coordinate of the logo
+     */
+    public ShieldLogo(final int x, final int y, final int radius) {
+        super(x, y, radius);
+    }
 
-   @Override
-   public void onCollided() {
-      this.setAlive(false);
-      GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.LOGO);
-   }
+    @Override
+    public void onCollided() {
+        this.setAlive(false);
+        GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.LOGO);
+        LogoModeManager.getInstance().enableMode(LogoModeManager.Mode.SHIELD);
+    }
 
-   @Override
-   public Bitmap getLogoBitmap(Context context) {
-      final Bitmap decodedResource = BitmapFactory
-              .decodeResource(context.getResources(), R.mipmap.shield_logo);
-      return Bitmap.createScaledBitmap(decodedResource, this.getRadius() * 2,
-              this.getRadius() * 2, false);
-   }
+    @Override
+    public Bitmap getLogoBitmap(Context context) {
+        final Bitmap decodedResource = BitmapFactory
+                .decodeResource(context.getResources(), R.mipmap.shield_logo);
+        return Bitmap.createScaledBitmap(decodedResource, this.getRadius() * 2,
+                this.getRadius() * 2, false);
+    }
 }

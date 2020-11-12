@@ -36,6 +36,7 @@ import tirol.htlanichstrasse.htlcatcher.game.component.logos.InvertLogo;
 import tirol.htlanichstrasse.htlcatcher.game.component.logos.MultiplierLogo;
 import tirol.htlanichstrasse.htlcatcher.game.component.logos.NormalLogo;
 import tirol.htlanichstrasse.htlcatcher.game.component.logos.ShieldLogo;
+import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics.StatisticsAction;
 import tirol.htlanichstrasse.htlcatcher.util.CatcherConfig;
@@ -147,6 +148,24 @@ public class GameView extends View {
 
         // initialize game statistics
         GameStatistics.reset();
+        // reset logo modes
+        LogoModeManager.getInstance().reset();
+
+        // Setup text paint & stroke paint
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize((int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
+        textPaint.setTextAlign(Align.LEFT);
+        textPaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
+        textPaint.setFakeBoldText(true);
+        textStrokePaint.setStyle(Style.STROKE);
+        textStrokePaint.setStrokeWidth(8);
+        textStrokePaint.setColor(Color.BLACK);
+        textStrokePaint.setTextSize((int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
+        textStrokePaint.setTextAlign(Align.LEFT);
+        textStrokePaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
+        textStrokePaint.setFakeBoldText(true);
 
         // initialize obstacles
         for (int i = 0; i < obstacles.length; i++) {
@@ -215,6 +234,9 @@ public class GameView extends View {
 
             // Renders statistics (point display)
             renderStatistics(canvas);
+
+            // Render logo modes
+            renderLogoModes(canvas);
         }
 
         // Redraw
@@ -240,9 +262,11 @@ public class GameView extends View {
             cursor.y += cursor.isStartDirection() ? -1 : 1;
         } else {
             // Velocity / gravity calculation
+            final int cursorGravity = CatcherConfig.getInstance().getCursorGravity()
+                    * (LogoModeManager.getInstance().getCurrentModes().contains(LogoModeManager.Mode.INVERT) ? -1 : 1);
             cursor.y += cursor.getYVelocity();
             cursor
-                    .setYVelocity(cursor.getYVelocity() + CatcherConfig.getInstance().getCursorGravity());
+                    .setYVelocity(cursor.getYVelocity() + cursorGravity);
         }
         // Draw player bitmap on canvas
         canvas.drawBitmap(playerBitmap, cursor.x - cursor.getRadius(), cursor.y - cursor.getRadius(),
@@ -356,34 +380,49 @@ public class GameView extends View {
      * @param canvas the canvas the render the statistics on
      */
     private void renderStatistics(final Canvas canvas) {
-        // Setup text paint & stroke paint
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize((int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
-        textPaint.setTextAlign(Align.LEFT);
-        textPaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
-        textPaint.setFakeBoldText(true);
-        textStrokePaint.setStyle(Style.STROKE);
-        textStrokePaint.setStrokeWidth(8);
-        textStrokePaint.setColor(Color.BLACK);
-        textStrokePaint.setTextSize((int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
-        textStrokePaint.setTextAlign(Align.LEFT);
-        textStrokePaint.setTypeface(Typeface.create("Courier New", Typeface.BOLD));
-        textStrokePaint.setFakeBoldText(true);
-
         // Calculate position, width and height
         final FontMetrics metric = textPaint.getFontMetrics();
         final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
         final int y = (int) (textHeight - metric.descent);
         final String text = String.valueOf(GameStatistics.getInstance().getPoints().get());
+        textPaint.setTextSize((int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
+        textStrokePaint.setTextSize((int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources().getDisplayMetrics()));
 
         // Draw text onto canvas
-        canvas.drawText(text, getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 50,
+        canvas.drawText(text, getWidth() / 2.0f - textPaint.measureText(text) / 2.0f, y + 100,
                 textPaint);
         canvas.drawText(text, getWidth() / 2.0f - textStrokePaint.measureText(text) / 2.0f,
-                y + 50,
+                y + 100,
                 textStrokePaint);
+    }
+
+    // DEBUG
+    private void renderLogoModes(final Canvas canvas) {
+        // Calculate position, width and height
+        final FontMetrics metric = textPaint.getFontMetrics();
+        final int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
+        final int y = (int) (textHeight - metric.descent);
+        textPaint.setTextSize((int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 35, getResources().getDisplayMetrics()));
+        textStrokePaint.setTextSize((int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, 35, getResources().getDisplayMetrics()));
+
+        // Draw text onto canvas
+        canvas.drawText("Modes:", getWidth() - textPaint.measureText("Modes:") - 20.0f, y + 5.0f,
+                textPaint);
+        canvas.drawText("Modes:", getWidth() - textStrokePaint.measureText("Modes:") - 20.0f, y + 5.0f,
+                textStrokePaint);
+        int i = 1;
+        for (LogoModeManager.Mode mode : LogoModeManager.getInstance().getCurrentModes()) {
+            final String text = mode.toString() + " " + (mode.getDuration() / 1000 - (System.currentTimeMillis() - LogoModeManager.getInstance().getStartForMode(mode)) / 1000) + "s";
+            canvas.drawText(text, getWidth() - textPaint.measureText(text) - 20.0f, y + (105.0f * i),
+                    textPaint);
+            canvas.drawText(text, getWidth() - textStrokePaint.measureText(text) - 20.0f, y + (105.0f * i),
+                    textStrokePaint);
+            i++;
+        }
     }
 
     private void generateNewRandomLogo(final boolean reset) {
@@ -434,7 +473,15 @@ public class GameView extends View {
         // If cursor has hit obstacle
         for (Obstacle obstacle : obstacles) {
             if (obstacle.isAlive()) {
-                lost |= obstacle.isCursorCollided(cursor);
+                if (obstacle.isDangerous()) {
+                    if (obstacle.isCursorCollided(cursor) && LogoModeManager.getInstance().getCurrentModes().contains(LogoModeManager.Mode.SHIELD)) {
+                        // hit deflected! make obstacle useless ...
+                        obstacle.setDangerous(false);
+                        LogoModeManager.getInstance().disableMode(LogoModeManager.Mode.SHIELD);
+                        continue;
+                    }
+                    lost |= obstacle.isCursorCollided(cursor);
+                }
             }
         }
 

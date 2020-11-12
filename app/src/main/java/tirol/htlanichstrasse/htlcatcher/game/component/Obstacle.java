@@ -62,6 +62,12 @@ public final class Obstacle {
    private boolean done = false;
 
    /**
+    * Determines whether this obstacle can kill a player
+    */
+   @Setter
+   private boolean dangerous = true;
+
+   /**
     * Creates a new dead obstacle on the GameView canvas
     */
    public Obstacle() {

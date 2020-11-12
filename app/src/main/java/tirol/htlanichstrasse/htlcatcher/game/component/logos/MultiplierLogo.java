@@ -8,10 +8,11 @@ import lombok.Getter;
 import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
+import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
 /**
- * A subtype of the normal logo which grants a point-multiplier for a certain duration.
+ * A subtype of the normal logo which grants a double points for a certain duration.
  *
  * @author Nicolaus Rossi
  * @since 02.02.2020
@@ -45,6 +46,7 @@ public class MultiplierLogo extends Logo {
    public void onCollided() {
       this.setAlive(false);
       GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.LOGO);
+      LogoModeManager.getInstance().enableMode(LogoModeManager.Mode.MULTIPLIER);
    }
 
    @Override

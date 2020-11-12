@@ -12,8 +12,8 @@ public class NormalLogo extends Logo {
     /**
      * Creates a new logo on the GameView canvas
      *
-     * @param x      the x coordinate of the logo
-     * @param y      the y coordinate of the logo
+     * @param x the x coordinate of the logo
+     * @param y the y coordinate of the logo
      */
     public NormalLogo(int x, int y, int radius) {
         super(x, y, radius);

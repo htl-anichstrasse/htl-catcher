@@ -10,27 +10,27 @@ import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
 public class BonusLogo extends Logo {
 
-   /**
-    * Creates a new bonus-logo on the GameView canvas
-    *
-    * @param x the x coordinate of the logo
-    * @param y the y coordinate of the logo
-    */
-   public BonusLogo(int x, int y, int radius) {
-      super(x, y, radius);
-   }
+    /**
+     * Creates a new bonus-logo on the GameView canvas
+     *
+     * @param x the x coordinate of the logo
+     * @param y the y coordinate of the logo
+     */
+    public BonusLogo(int x, int y, int radius) {
+        super(x, y, radius);
+    }
 
-   @Override
-   public void onCollided() {
-      this.setAlive(false);
-      GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.LOGO);
-   }
+    @Override
+    public void onCollided() {
+        this.setAlive(false);
+        GameStatistics.getInstance().increase(GameStatistics.StatisticsAction.BONUSLOGO);
+    }
 
-   @Override
-   public Bitmap getLogoBitmap(Context context) {
-      final Bitmap decodedResource = BitmapFactory
-              .decodeResource(context.getResources(), R.mipmap.bonus_logo);
-      return Bitmap.createScaledBitmap(decodedResource, this.getRadius() * 2,
-              this.getRadius() * 2, false);
-   }
+    @Override
+    public Bitmap getLogoBitmap(Context context) {
+        final Bitmap decodedResource = BitmapFactory
+                .decodeResource(context.getResources(), R.mipmap.bonus_logo);
+        return Bitmap.createScaledBitmap(decodedResource, this.getRadius() * 2,
+                this.getRadius() * 2, false);
+    }
 }

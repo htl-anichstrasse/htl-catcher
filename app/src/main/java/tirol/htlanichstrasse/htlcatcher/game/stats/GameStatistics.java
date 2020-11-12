@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
 
 /**
  * Class holding different kinds of statistics for a game of HTL Catcher
@@ -58,10 +59,14 @@ public class GameStatistics {
     * @param action the fulfilled action awarding the player points
     */
    public void increase(final StatisticsAction action) {
-      if (action == StatisticsAction.LOGO) {
+      int addedPoints = action.getPoints();
+      if (action == StatisticsAction.LOGO || action == StatisticsAction.BONUSLOGO) {
          logos.incrementAndGet();
+         if (LogoModeManager.getInstance().getCurrentModes().contains(LogoModeManager.Mode.MULTIPLIER)) {
+            addedPoints *= 2;
+         }
       }
-      points.addAndGet(action.getPoints());
+      points.addAndGet(addedPoints);
    }
 
    /**
@@ -71,7 +76,7 @@ public class GameStatistics {
     * @since 05.11.2019
     */
    public enum StatisticsAction {
-      SECOND(1), OBSTACLE(1), LOGO(10), BONUSLOGO(25), SHIELDLOGO(10), MULTIPLIERLOGO(10);
+      OBSTACLE(1), LOGO(10), BONUSLOGO(25);
 
 
       /**

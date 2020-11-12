@@ -32,7 +32,7 @@
   <string name="components_header">Game Components</string>
   <string name="logoDescription">The default logo, which grants 10 points upon collecting but does not grant any special buffs.</string>
   <string name="bonusLogoDescription">A golden bonus logo, grants 25 points when collected. (No buffs either)</string>
-  <string name="shieldLogoDescription">Upon collecting, this logo grants 10 points and a shield that ignores one hit.</string>
+  <string name="shieldLogoDescription">Upon collecting, this logo grants 10 points and a shield that ignores one hit with an obstacle.</string>
   <string name="multiplierLogoDescription">Grants a multiplier effect which doubles all points gained for a specific duration.</string>
   <string name="invertLogoDescription">Inverts the gravity for a short duration.</string>
   <string name="acceptPrivacy">By tapping \"Submit\" you accept that the entered name and your reached score will be shared on the website catcher.htl.codes.</string>
