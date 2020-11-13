@@ -8,8 +8,13 @@ import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
+/**
+ * Grants bonus points
+ *
+ * @author Nicolaus Rossi
+ * @since 08.02.2020
+ */
 public class BonusLogo extends Logo {
-
     /**
      * Creates a new bonus-logo on the GameView canvas
      *

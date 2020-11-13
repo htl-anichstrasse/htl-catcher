@@ -8,6 +8,12 @@ import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
 
+/**
+ * Just a normal logo
+ *
+ * @author Nicolaus Rossi
+ * @since 08.02.2020
+ */
 public class NormalLogo extends Logo {
     /**
      * Creates a new logo on the GameView canvas

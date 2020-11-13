@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import lombok.Getter;
-import lombok.Setter;
 import tirol.htlanichstrasse.htlcatcher.R;
 import tirol.htlanichstrasse.htlcatcher.game.component.Logo;
 import tirol.htlanichstrasse.htlcatcher.game.logos.LogoModeManager;
@@ -18,21 +16,7 @@ import tirol.htlanichstrasse.htlcatcher.game.stats.GameStatistics;
  * @author Nicolaus Rossi
  * @since 22.01.2020
  */
-
-@Getter
-@Setter
 public class ShieldLogo extends Logo {
-
-    /**
-     * Determines how long the buff is active.
-     */
-    private long buffDuration = 0L;
-
-    /**
-     * Determines whether the buff is currently active or not.
-     */
-    private boolean isActive = false;
-
     /**
      * Creates a new shield-logo on the GameView canvas
      *
