@@ -5,7 +5,7 @@ autopep8==1.4.4
 cffi==1.13.2
 Click==7.0
 colorama==0.4.3
-cryptography==3.2
+cryptography==3.3.2
 Flask==1.1.1
 Flask-HTTPAuth==3.3.0
 Flask-RESTful==0.3.7
